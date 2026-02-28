@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Play Sessions | Kencha House</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&amp;family=Inter:wght@300;400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography,container-queries"></script>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#8C7A6B",
+                        "background-light": "#F9F7F2",
+                        "background-dark": "#1A1918",
+                        accent: "#E5DACE",
+                        "sand": "#F5F2ED",
+                    },
+                    fontFamily: {
+                        display: ["'Cormorant Garamond'", "serif"],
+                        sans: ["'Inter'", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "4px",
+                        'lg': "12px",
+                    },
+                },
+            },
+        };
+    </script>
+<style type="text/tailwindcss">
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        h1, h2, h3, h4, .serif-quote {
+            font-family: 'Cormorant Garamond', serif;
+        }
+    </style>
+<style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-white dark:bg-background-dark text-stone-800 dark:text-stone-200 transition-colors duration-300">
+<nav class="sticky top-0 z-50 bg-white dark:bg-background-dark border-b border-stone-100 dark:border-stone-800">
+<div class="max-w-screen-xl mx-auto px-6 py-6 flex justify-between items-center">
+<a class="text-xl font-display tracking-widest uppercase" href="#">Kencha House</a>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined cursor-pointer text-2xl">menu</span>
+</div>
+</div>
+<div class="flex justify-center gap-8 pb-4 overflow-x-auto no-scrollbar px-6">
+<a class="text-[10px] uppercase tracking-[0.2em] text-stone-900 dark:text-stone-100 font-medium border-b border-stone-900 dark:border-stone-100 pb-1" href="#">Play</a>
+<a class="text-[10px] uppercase tracking-[0.2em] text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-colors" href="#">Studio</a>
+<a class="text-[10px] uppercase tracking-[0.2em] text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-colors" href="#">Parties</a>
+<a class="text-[10px] uppercase tracking-[0.2em] text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-colors" href="#">About</a>
+</div>
+</nav>
+<section class="bg-sand dark:bg-stone-900/50 py-20 px-6">
+<div class="max-w-screen-xl mx-auto">
+<p class="uppercase tracking-[0.3em] text-[10px] mb-4 text-stone-500">Experience Wonder</p>
+<h1 class="text-5xl mb-8 leading-tight">Play at <br/>Kencha House</h1>
+<p class="text-sm text-stone-600 dark:text-stone-400 mb-10 max-w-xs font-light leading-relaxed">A sanctuary designed for imaginative exploration and parent-child connection.</p>
+<a class="block w-full bg-white dark:bg-stone-800 text-stone-900 dark:text-stone-100 text-center py-4 uppercase text-[10px] tracking-[0.2em] font-medium border border-stone-100 dark:border-stone-700 shadow-sm" href="#booking">Book a Session</a>
+</div>
+</section>
+<section class="py-20 px-6" id="booking">
+<div class="max-w-screen-xl mx-auto">
+<div class="mb-12">
+<h2 class="text-4xl mb-4">Drop-In Play</h2>
+<div class="h-[1px] w-12 bg-stone-300 dark:bg-stone-600 mb-6"></div>
+<p class="text-stone-500 dark:text-stone-400 text-sm leading-relaxed mb-10 max-w-xl">Open play sessions for children aged 0-6. Our space is limited to ensure a calm and safe environment for all little dreamers.</p>
+<div class="bg-white dark:bg-stone-900 p-8 space-y-8 shadow-sm border border-stone-50 dark:border-stone-800">
+<div class="flex justify-between items-center border-b border-stone-100 dark:border-stone-800 pb-6">
+<div>
+<h3 class="text-2xl mb-1">Single Session</h3>
+<p class="text-[10px] text-stone-400 uppercase tracking-widest">90 Minutes of Play</p>
+</div>
+<span class="text-2xl font-display">$22</span>
+</div>
+<div class="flex justify-between items-center border-b border-stone-100 dark:border-stone-800 pb-6">
+<div>
+<h3 class="text-2xl mb-1">Sibling Add-on</h3>
+<p class="text-[10px] text-stone-400 uppercase tracking-widest">Per additional child</p>
+</div>
+<span class="text-2xl font-display">$18</span>
+</div>
+<div class="flex items-center gap-2 pt-2">
+<span class="material-symbols-outlined text-stone-400 text-base">schedule</span>
+<span class="text-[10px] uppercase tracking-[0.15em] text-stone-500">Tue - Sat: 9:00am - 4:00pm</span>
+</div>
+<button class="w-full bg-primary text-white py-4 uppercase text-[10px] tracking-[0.2em] font-medium">Select Time Slot</button>
+</div>
+</div>
+</div>
+</section>
+<section class="bg-accent/20 dark:bg-stone-900/50 py-20 px-6">
+<div class="max-w-screen-xl mx-auto">
+<h2 class="text-4xl mb-6">Private Play Dates</h2>
+<p class="text-stone-600 dark:text-stone-400 text-sm leading-relaxed mb-10 max-w-xl">Host a curated play date for your small group. Perfect for pods, new parent meetups, or a special morning with close friends.</p>
+<div class="space-y-10">
+<div class="relative aspect-[3/2] overflow-hidden max-w-[85%] mx-auto">
+<img alt="Private play gathering" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-6GdHRQc3H_rMvh6uhq1A4k9iSF8wjnPWstBEEkGrB-UZn-7jyG7DjhXlrNMW5s4SQfj8lAss8p4NTJlTnkfvVEjoavXcapv0YoL4zi9bCISty1D6OCTA6ftpOzRmL1GHHIFAaimUzov4uNMasc0F7fc1qc-x4iNRagXPsl_OhZJDSqQEgHvsUgYoaLSTkcnq74rbhYubkLdUK6Hj1S32iDkj4pGgkEuBL2QGb7LSavRB23rYTOR4wiIb--EQ9xXFWxbC3U5E02w"/>
+</div>
+<div class="space-y-6">
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined text-stone-600 dark:text-stone-400 text-xl">groups</span>
+<div>
+<h4 class="font-medium text-sm mb-1 text-stone-800 dark:text-stone-200">Up to 6 Children</h4>
+<p class="text-xs text-stone-500">Includes 2 adults per child</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined text-stone-600 dark:text-stone-400 text-xl">coffee</span>
+<div>
+<h4 class="font-medium text-sm mb-1 text-stone-800 dark:text-stone-200">Complimentary Refreshments</h4>
+<p class="text-xs text-stone-500">Selection of tea and artisan coffee</p>
+</div>
+</div>
+<div class="pt-4">
+<a class="inline-block border-b border-stone-300 dark:border-stone-700 text-stone-500 pb-1 text-[10px] tracking-[0.2em] uppercase" href="#">Inquire for Private Date</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="py-20 px-6">
+<div class="max-w-screen-xl mx-auto">
+<h2 class="text-4xl text-center mb-4">What to Expect</h2>
+<div class="flex justify-center mb-16">
+<div class="h-[1px] w-12 bg-stone-300 dark:bg-stone-600"></div>
+</div>
+<div class="space-y-16">
+<div class="flex flex-row items-start text-left gap-6">
+<div class="shrink-0 w-14 h-14 bg-stone-50 dark:bg-stone-800 flex items-center justify-center rounded-full shadow-sm">
+<span class="material-symbols-outlined text-stone-400">clean_hands</span>
+</div>
+<div>
+<h3 class="text-2xl mb-2">Hospitality Grade Cleaning</h3>
+<p class="text-stone-500 dark:text-stone-400 text-sm leading-relaxed max-w-md">Our space is deep-cleaned between every session using non-toxic, child-safe sanitizers to ensure a pristine environment.</p>
+</div>
+</div>
+<div class="flex flex-row items-start text-left gap-6">
+<div class="shrink-0 w-14 h-14 bg-stone-50 dark:bg-stone-800 flex items-center justify-center rounded-full shadow-sm">
+<span class="material-symbols-outlined text-stone-400">checkroom</span>
+</div>
+<div>
+<h3 class="text-2xl mb-2">Socks-Only Environment</h3>
+<p class="text-stone-500 dark:text-stone-400 text-sm leading-relaxed max-w-md">To maintain cleanliness and safety, we are a shoe-free facility. Grip socks are required for little ones and available for purchase.</p>
+</div>
+</div>
+<div class="flex flex-row items-start text-left gap-6">
+<div class="shrink-0 w-14 h-14 bg-stone-50 dark:bg-stone-800 flex items-center justify-center rounded-full shadow-sm">
+<span class="material-symbols-outlined text-stone-400">nest_eco_leaf</span>
+</div>
+<div>
+<h3 class="text-2xl mb-2">Sustainable Toys</h3>
+<p class="text-stone-500 dark:text-stone-400 text-sm leading-relaxed max-w-md">Our play equipment is primarily crafted from sustainable wood and natural materials, chosen for durability and tactile discovery.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<footer class="bg-white dark:bg-background-dark pt-20 pb-10 px-6 border-t border-stone-100 dark:border-stone-800">
+<div class="max-w-screen-xl mx-auto">
+<div class="text-center mb-16">
+<h3 class="text-xl font-display uppercase tracking-[0.25em] mb-4">Kencha House</h3>
+<p class="text-stone-400 dark:text-stone-500 text-[11px] leading-relaxed max-w-[240px] mx-auto uppercase tracking-wide">
+                    A boutique play cafe for little ones and their grown-ups.
+                </p>
+</div>
+<div class="grid grid-cols-2 gap-12 text-center mb-16">
+<div>
+<h4 class="text-[10px] uppercase tracking-[0.2em] text-stone-400 mb-6">Explore</h4>
+<ul class="space-y-4 text-xs text-stone-600 dark:text-stone-300">
+<li><a class="hover:text-primary transition-colors" href="#">Our Play Space</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Private Events</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Studio Rental</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-[10px] uppercase tracking-[0.2em] text-stone-400 mb-6">Support</h4>
+<ul class="space-y-4 text-xs text-stone-600 dark:text-stone-300">
+<li><a class="hover:text-primary transition-colors" href="#">Waivers</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Contact Us</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">FAQ</a></li>
+</ul>
+</div>
+</div>
+<div class="text-center pt-8 border-t border-stone-50 dark:border-stone-900">
+<p class="text-[10px] text-stone-400 tracking-widest uppercase mb-8">© 2024 Kencha House.</p>
+<div class="flex justify-center gap-8">
+<span class="material-symbols-outlined text-xl text-stone-400 cursor-pointer hover:text-primary transition-colors">camera_alt</span>
+<span class="material-symbols-outlined text-xl text-stone-400 cursor-pointer hover:text-primary transition-colors">mail</span>
+</div>
+</div>
+</div>
+</footer>
+<div class="fixed bottom-0 left-0 right-0 p-4 bg-white/95 dark:bg-stone-900/95 backdrop-blur-md border-t border-stone-100 dark:border-stone-800 z-40">
+<button class="w-full bg-primary text-white py-4 uppercase text-[10px] tracking-[0.25em] font-medium shadow-sm">Book Now</button>
+</div>
+<div class="h-24"></div>
+
+</body></html>
