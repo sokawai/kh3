@@ -1,51 +1,45 @@
 <!DOCTYPE html>
-<html lang="en"><head>
+<html class="scroll-smooth" lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Kencha House Homepage V2</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&amp;family=Inter:wght@300;400;500&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
+<title>Kencha House | A Place for Play &amp; Connection</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&amp;family=Inter:wght@300;400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<script>
         tailwind.config = {
             darkMode: "class",
             theme: {
                 extend: {
                     colors: {
-                        "cream-light": "#FDFBF7",
-                        "cream-dark": "#F7F2E9",
-                        "beige-warm": "#E8E2D6",
-                        "earth-muted": "#8C8376",
-                        "stone": "#5C5852",
+                        primary: "#8C7A6B", // Sophisticated taupe/brown
+                        "background-light": "#F9F7F2", // Warm creamy beige
+                        "background-dark": "#1A1918", // Deep charcoal/earth
+                        accent: "#E5DACE",
                     },
                     fontFamily: {
-                        "serif": ["Cormorant Garamond", "serif"],
-                        "sans": ["Inter", "sans-serif"]
-                    }
+                        display: ["'Cormorant Garamond'", "serif"],
+                        sans: ["'Inter'", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "4px",
+                        'lg': "12px",
+                    },
                 },
             },
-        }
+        };
     </script>
-<style type="text/tailwindcss">
-        @layer base {
-            body {
-                @apply bg-cream-light text-stone font-sans antialiased;
-            }
-            h1, h2, h3, h4 {
-                @apply font-serif font-light;
-            }
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
         }
-        .hero-gradient {
-            background: linear-gradient(to bottom, rgba(253, 251, 247, 0.4) 0%, rgba(253, 251, 247, 0) 50%, rgba(253, 251, 247, 0.8) 100%);
+        body {
+            font-family: 'Inter', sans-serif;
         }
-        .soft-blur {
-            backdrop-filter: blur(8px);
-        }.no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
+        h1, h2, h3, .serif-quote {
+            font-family: 'Cormorant Garamond', serif;
         }
     </style>
 <style>
@@ -54,116 +48,158 @@
     }
   </style>
   </head>
-<body class="bg-cream-light">
-<header class="fixed top-0 left-0 right-0 z-50 bg-cream-light/80 backdrop-blur-md border-b border-beige-warm/30">
-<div class="px-6 py-4 flex items-center justify-between">
-<div class="flex items-center gap-1">
-<span class="material-symbols-outlined text-earth-muted font-light text-2xl">eco</span>
-<span class="font-serif text-xl tracking-wider text-stone">KENCHA</span>
+<body class="bg-background-light dark:bg-background-dark text-stone-800 dark:text-stone-200 transition-colors duration-300">
+<nav class="sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-stone-200 dark:border-stone-800">
+<div class="max-w-screen-xl mx-auto px-6 py-4 flex justify-between items-center">
+<a class="text-2xl font-display tracking-widest uppercase" href="#">Kencha House</a>
+<div class="flex items-center gap-6">
+<span class="material-symbols-outlined cursor-pointer">shopping_bag</span>
+<button class="bg-primary text-white px-5 py-2 text-sm uppercase tracking-wider hover:opacity-90 transition-opacity">
+                    Visit Us
+                </button>
 </div>
-<button class="bg-stone text-cream-light px-5 py-2 rounded-full text-[13px] font-medium tracking-wide hover:bg-earth-muted transition-colors">
-                BOOK NOW
-            </button>
 </div>
-<nav class="flex items-center justify-center gap-6 pb-3 overflow-x-auto no-scrollbar px-6">
-<a class="text-[11px] uppercase tracking-[0.2em] text-stone border-b border-stone/40 pb-1" href="#">Play</a>
-<a class="text-[11px] uppercase tracking-[0.2em] text-earth-muted" href="#">Parties</a>
-<a class="text-[11px] uppercase tracking-[0.2em] text-earth-muted" href="#">Studio</a>
-<a class="text-[11px] uppercase tracking-[0.2em] text-earth-muted" href="#">About</a>
 </nav>
-</header>
-<main class="pt-[104px]">
-<section class="relative h-[85vh] flex items-center justify-center overflow-hidden">
-<div class="absolute inset-0 z-0">
-<img alt="Hero background" class="w-full h-full object-cover scale-110 blur-[2px] opacity-80" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3HU3EXolNPInXnyr6VXvqJWu15s5kOIk58wmDvrW7q5hlqgBHNDnhmQBggnhqqMw-j_fxP_DGke4_jD8qS7rT2Y2AAbfrl9QSS2PXgrYNRJ_dXy4psD9s0YKapW9XhuQXk4rEhlZR86lFILrXOstQs9dPfSuvzNt89iM0BZJu-PHXdjKHwvuKVzguyqRbyM0Q_O8mUGPpo500ZANAtuppZS8GAKWYA6XkiI8nf-xGeEMnp7Pqdp8Nkx4zcCQb4IjytKL87yPCI_4"/>
-<div class="absolute inset-0 hero-gradient"></div>
+<section class="relative overflow-hidden">
+<div class="aspect-[4/5] md:aspect-[21/9] w-full relative">
+<img alt="Elegant minimalist play cafe interior" class="w-full h-full object-cover brightness-95" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPPRrxhx38Xi58DfJvG3EMeQAFlj9j2LZHTlR5B0Rr6RUu_UapOcxmDyJEQgNXBiBTl2NXtaOZuu2RD5IzaXSxdMq3j9TdjOh4OCrbQ1VsWadn8bl3qPTcTnJEt7pVI0JpVWyVZq7jCqBnNtsTSp5M11ZX8fvymA4H70eXFCGsIbbgI2MSPM1cTXYqlOGpMWfX8mpAIaQ7CZteGAMFOrnmUFXRdzFPIqHba1EJsuOOTRoTlZBSusDbd2PVvRTNaSOz-oJ1jRCgO_k"/>
+<div class="absolute inset-0 bg-black/10 flex items-center justify-center text-center px-6">
+<div class="max-w-2xl text-white">
+<p class="uppercase tracking-[0.3em] text-xs mb-4 opacity-90">Now Welcoming Little Dreamers</p>
+<h1 class="text-5xl md:text-7xl mb-6">A Place for Play &amp; Connection</h1>
+<div class="flex flex-col sm:flex-row gap-4 justify-center">
+<a class="bg-white text-stone-900 px-8 py-3 uppercase text-xs tracking-widest hover:bg-stone-100 transition-colors" href="#booking">Book a Session</a>
+<a class="border border-white text-white px-8 py-3 uppercase text-xs tracking-widest hover:bg-white/10 transition-colors" href="#about">Our Philosophy</a>
 </div>
-<div class="relative z-10 text-center px-8 flex flex-col items-center">
-<div class="mb-8 opacity-90">
-<span class="material-symbols-outlined text-earth-muted text-6xl font-extralight">nest_eco_leaf</span>
 </div>
-<h1 class="text-4xl md:text-5xl lg:text-6xl text-stone mb-4 tracking-tight leading-tight">
-                    Where childhood <br/>finds its breath.
-                </h1>
-<p class="text-earth-muted font-sans text-sm tracking-widest uppercase mb-8">A Sanctuary for Play</p>
-<div class="w-[1px] h-16 bg-beige-warm mx-auto"></div>
+</div>
 </div>
 </section>
-<section class="py-24 px-8 text-center bg-cream-light">
-<div class="max-w-xs mx-auto">
-<h2 class="text-3xl text-stone mb-6">Designed for peace, curated for joy.</h2>
-<p class="text-stone/70 leading-relaxed font-light text-[15px]">
-                    Kencha House is a minimalist haven for little explorers and their parents. Our space emphasizes natural materials, soft textures, and intentional play.
+<section class="py-24 px-6 max-w-screen-xl mx-auto">
+<div class="text-center mb-20">
+<h2 class="text-4xl md:text-5xl mb-4">Thoughtfully Curated Space</h2>
+<div class="h-px w-20 bg-primary mx-auto"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+<div class="text-center group">
+<div class="mb-6 inline-flex items-center justify-center w-16 h-16 bg-accent dark:bg-stone-800 rounded-full transition-transform group-hover:-translate-y-1">
+<span class="material-symbols-outlined text-3xl text-primary">child_care</span>
+</div>
+<h3 class="text-2xl mb-3">Drop-In Play</h3>
+<p class="text-stone-500 dark:text-stone-400 text-sm leading-relaxed">A whimsical play area designed for children under 6 to explore independently in a safe, beautiful environment.</p>
+</div>
+<div class="text-center group">
+<div class="mb-6 inline-flex items-center justify-center w-16 h-16 bg-accent dark:bg-stone-800 rounded-full transition-transform group-hover:-translate-y-1">
+<span class="material-symbols-outlined text-3xl text-primary">celebration</span>
+</div>
+<h3 class="text-2xl mb-3">Birthday Parties</h3>
+<p class="text-stone-500 dark:text-stone-400 text-sm leading-relaxed">A turn-key experience where every detail is managed by us, leaving you to simply enjoy the celebration.</p>
+</div>
+<div class="text-center group">
+<div class="mb-6 inline-flex items-center justify-center w-16 h-16 bg-accent dark:bg-stone-800 rounded-full transition-transform group-hover:-translate-y-1">
+<span class="material-symbols-outlined text-3xl text-primary">photo_camera</span>
+</div>
+<h3 class="text-2xl mb-3">Studio Space</h3>
+<p class="text-stone-500 dark:text-stone-400 text-sm leading-relaxed">Our minimalist, naturally-lit space is available for photography sessions and creative brand content.</p>
+</div>
+<div class="text-center group">
+<div class="mb-6 inline-flex items-center justify-center w-16 h-16 bg-accent dark:bg-stone-800 rounded-full transition-transform group-hover:-translate-y-1">
+<span class="material-symbols-outlined text-3xl text-primary">groups</span>
+</div>
+<h3 class="text-2xl mb-3">Private Dates</h3>
+<p class="text-stone-500 dark:text-stone-400 text-sm leading-relaxed">Host a curated play date for your group. Perfect for new parent meetups or small family gatherings.</p>
+</div>
+</div>
+</section>
+<section class="bg-accent/30 dark:bg-stone-900/50 py-24">
+<div class="max-w-screen-lg mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+<div class="order-2 md:order-1">
+<img alt="Close up of wooden baby toys" class="w-full aspect-square object-cover shadow-xl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-6GdHRQc3H_rMvh6uhq1A4k9iSF8wjnPWstBEEkGrB-UZn-7jyG7DjhXlrNMW5s4SQfj8lAss8p4NTJlTnkfvVEjoavXcapv0YoL4zi9bCISty1D6OCTA6ftpOzRmL1GHHIFAaimUzov4uNMasc0F7fc1qc-x4iNRagXPsl_OhZJDSqQEgHvsUgYoaLSTkcnq74rbhYubkLdUK6Hj1S32iDkj4pGgkEuBL2QGb7LSavRB23rYTOR4wiIb--EQ9xXFWxbC3U5E02w"/>
+</div>
+<div class="order-1 md:order-2 space-y-6">
+<h2 class="text-4xl md:text-5xl">Our Story</h2>
+<p class="serif-quote text-xl italic text-stone-600 dark:text-stone-400">
+                    "Kencha House was born from a desire to create a sanctuary where children could explore wonder and parents could find a moment of peace."
                 </p>
-</div>
-</section>
-<section class="px-6 space-y-24 pb-32">
-<div class="flex flex-col gap-6">
-<div class="aspect-[4/5] w-full overflow-hidden bg-cream-dark">
-<img alt="Drop-in play" class="w-full h-full object-cover opacity-90" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqxiURme6c6810PpNMKz7DmHEe92WYeyj_pFDqlYh_9uGNiBFlmZWjtHuIsnwEwv4CNGbuWlLnwBab36G1eIKaqFM3eg-uRTGQ3Oj5z1oVeJY688h_wzkUEhWMb2Jltrjv1-LIiaPFTWUxY3zV4mOX44TxFvub_Ughfb2a16nNsvsTL_gLVisGt0g53FFa04igydeKAvF7uQ73idkuutrusi57rfxLam8h5RcmIMTWbmiH0DwaEqT3uuh41KU5XG6Biakd1E4GGXY"/>
-</div>
-<div class="space-y-4 px-2">
-<div class="flex justify-between items-baseline">
-<h3 class="text-2xl text-stone">Drop-in Play</h3>
-<span class="text-sm font-light text-earth-muted italic">From $15</span>
-</div>
-<p class="text-stone/60 font-light text-[14px] leading-relaxed">
-                        An unstructured environment inspired by Montessori principles, allowing children up to age three to explore at their own gentle pace.
-                    </p>
-<a class="inline-block text-[11px] uppercase tracking-[0.2em] text-stone border-b border-stone/20 pb-1" href="#">Discover Play</a>
-</div>
-</div>
-<div class="flex flex-col gap-6">
-<div class="aspect-[4/5] w-full overflow-hidden bg-cream-dark">
-<img alt="Private Play Dates" class="w-full h-full object-cover opacity-90" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCAj-cdLy0eiTssmfGmdwgHS695qJNCQZTA9fufEH6W4VDhEk90beIO0wRsnvSE6suDn33mwk5n839ocN71bfvUoGlOQf0fB_IKIl7pd8RRCfXNgp9IA1DXO6lIP4nG0eTro6I5bLAnH9J2XLebDloNHRkuMhB5ipdIRj83fsGmHF4qejquVwFfvGQ-gLgVeBrxZP_wneszypKt5fmW6TONWMZhd_vsbRN_9nL004_vQ3QwGy81auyFwmgAWdNAq6D4A3u2QYnCiYk"/>
-</div>
-<div class="space-y-4 px-2 text-right">
-<div class="flex justify-between items-baseline flex-row-reverse">
-<h3 class="text-2xl text-stone">Private Events</h3>
-<span class="text-sm font-light text-earth-muted italic">Curated</span>
-</div>
-<p class="text-stone/60 font-light text-[14px] leading-relaxed">
-                        Celebrate life's earliest milestones in a space that feels like home. Intimate gatherings tailored to your family's aesthetic.
-                    </p>
-<a class="inline-block text-[11px] uppercase tracking-[0.2em] text-stone border-b border-stone/20 pb-1" href="#">Enquire Now</a>
-</div>
-</div>
-<div class="flex flex-col gap-6">
-<div class="aspect-[4/5] w-full overflow-hidden bg-cream-dark">
-<img alt="Photo Studio" class="w-full h-full object-cover opacity-90" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPHguhhED1st6I9FpGS9EhHuqBiArqhmTLgFG9GohhyfQEGm4AE-4wHWeakBY39h3Xkp-n5Sp-J7qYKLXwyqBPa02C96K8K7PUl4eJgYWPSti0eLs3DLxgmgvUlRekUnx-989QgVqjepYi5OE_ydLThn49b0djtgR40LbzoMZ3O_czLq5e1fWsCZpR-7MP-WnYN6w4GnlgygPyTmFD3tAvx9t30ajE1Kj9a-11ARbbyEvtBTxsfAShzKEibkBmJnkr6DLMo8bX5cs"/>
-</div>
-<div class="space-y-4 px-2">
-<div class="flex justify-between items-baseline">
-<h3 class="text-2xl text-stone">The Studio</h3>
-<span class="text-sm font-light text-earth-muted italic">From $45</span>
-</div>
-<p class="text-stone/60 font-light text-[14px] leading-relaxed">
-                        A sun-drenched sanctuary for creators. Our minimalist backdrop is the perfect canvas for baby portraits and brand storytelling.
-                    </p>
-<a class="inline-block text-[11px] uppercase tracking-[0.2em] text-stone border-b border-stone/20 pb-1" href="#">Reserve Studio</a>
+<p class="text-stone-600 dark:text-stone-400 leading-relaxed">
+                    Inspired by the quiet magic of nature and minimal design, we've created a cafe that feels like a world of its own. We believe that parenting is a little easier when you can just enjoy being in the moment.
+                </p>
+<a class="inline-block border-b border-primary text-primary pb-1 text-sm tracking-widest uppercase hover:text-stone-900 transition-colors" href="#">Read More</a>
 </div>
 </div>
 </section>
-<section class="bg-beige-warm/30 py-24 px-8 text-center">
-<div class="max-w-xs mx-auto space-y-8">
-<h2 class="text-3xl text-stone">The Journal</h2>
-<p class="text-stone/60 font-light text-sm italic">Join our community for early access to curated pop-ups and seasonal gatherings.</p>
-<form class="space-y-4">
-<input class="w-full bg-transparent border-0 border-b border-stone/20 py-3 px-0 text-stone placeholder:text-stone/30 focus:ring-0 focus:border-stone transition-colors text-sm font-light" placeholder="Your email address" type="email"/>
-<button class="w-full py-4 text-[11px] uppercase tracking-[0.3em] text-stone hover:text-earth-muted transition-colors">Subscribe</button>
+<section class="py-24 px-6 max-w-3xl mx-auto">
+<div class="text-center mb-16">
+<h2 class="text-4xl mb-4">Common Inquiries</h2>
+<p class="text-stone-500 uppercase tracking-widest text-xs">Everything you need to know before visiting</p>
+</div>
+<div class="space-y-8">
+<div class="border-b border-stone-200 dark:border-stone-800 pb-6">
+<h4 class="text-xl mb-3 font-display">What are your open-play hours?</h4>
+<p class="text-stone-600 dark:text-stone-400 text-sm">We are open Tuesday-Friday 9am-4pm, and Saturdays 8:30am-10:30am. Weekend afternoons are reserved for private celebrations.</p>
+</div>
+<div class="border-b border-stone-200 dark:border-stone-800 pb-6">
+<h4 class="text-xl mb-3 font-display">Do I need to book in advance?</h4>
+<p class="text-stone-600 dark:text-stone-400 text-sm">While walk-ins are welcome if space permits, we highly recommend booking your time slot online to guarantee entry.</p>
+</div>
+<div class="text-center pt-8">
+<a class="bg-primary text-white px-10 py-3 uppercase text-xs tracking-widest hover:opacity-90" href="#">Full FAQ Guide</a>
+</div>
+</div>
+</section>
+<section class="bg-stone-100 dark:bg-stone-800 py-20 px-6">
+<div class="max-w-xl mx-auto text-center">
+<h2 class="text-3xl mb-4">Stay Connected</h2>
+<p class="text-stone-500 dark:text-stone-400 mb-8 text-sm">Join our mailing list for sneak peeks, special event invites, and seasonal updates.</p>
+<form class="flex flex-col sm:flex-row gap-3">
+<input class="flex-grow bg-white dark:bg-stone-900 border-stone-200 dark:border-stone-700 px-4 py-3 text-sm focus:ring-primary focus:border-primary" placeholder="Email Address" type="email"/>
+<button class="bg-primary text-white px-8 py-3 uppercase text-xs tracking-widest hover:opacity-90 transition-opacity whitespace-nowrap" type="submit">Subscribe</button>
 </form>
 </div>
 </section>
-</main>
-<footer class="bg-cream-light py-16 px-8 border-t border-beige-warm/30 text-center">
-<div class="space-y-6">
-<h2 class="font-serif text-2xl tracking-widest text-stone">KENCHA</h2>
-<div class="flex justify-center gap-8 text-[11px] uppercase tracking-widest text-earth-muted">
-<a href="#">Instagram</a>
-<a href="#">Contact</a>
-<a href="#">Terms</a>
+<footer class="bg-white dark:bg-background-dark border-t border-stone-200 dark:border-stone-800 pt-16 pb-8 px-6">
+<div class="max-w-screen-xl mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+<div class="col-span-1 md:col-span-1">
+<h3 class="text-xl font-display uppercase tracking-widest mb-6">Kencha House</h3>
+<p class="text-stone-500 dark:text-stone-400 text-sm leading-relaxed">
+                        A boutique play cafe for little ones and their grown-ups.
+                    </p>
 </div>
-<p class="text-[10px] text-stone/40 font-light uppercase tracking-widest pt-8">© 2024 Kencha House. All rights reserved.</p>
+<div>
+<h4 class="text-xs uppercase tracking-widest text-stone-400 mb-6">Explore</h4>
+<ul class="space-y-4 text-sm text-stone-600 dark:text-stone-300">
+<li><a class="hover:text-primary transition-colors" href="#">Our Play Space</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Private Events</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Studio Rental</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Shop Curated</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-xs uppercase tracking-widest text-stone-400 mb-6">Support</h4>
+<ul class="space-y-4 text-sm text-stone-600 dark:text-stone-300">
+<li><a class="hover:text-primary transition-colors" href="#">Contact Us</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Waivers</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Location &amp; Parking</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Terms of Service</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-xs uppercase tracking-widest text-stone-400 mb-6">Visit</h4>
+<p class="text-sm text-stone-600 dark:text-stone-300 leading-relaxed">
+                        1540 Dupont Street<br/>
+                        Toronto, ON M6P 3S6<br/>
+<span class="inline-block mt-4">@kenchahouseplay</span>
+</p>
+</div>
+</div>
+<div class="border-t border-stone-100 dark:border-stone-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="text-xs text-stone-400">© 2024 Kencha House. All rights reserved.</p>
+<div class="flex gap-6">
+<a class="text-stone-400 hover:text-primary" href="#"><span class="material-symbols-outlined text-xl">camera_alt</span></a>
+<a class="text-stone-400 hover:text-primary" href="#"><span class="material-symbols-outlined text-xl">mail</span></a>
+</div>
+</div>
 </div>
 </footer>
 
