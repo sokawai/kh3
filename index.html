@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Kencha House Homepage V2</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&amp;family=Inter:wght@300;400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "cream-light": "#FDFBF7",
+                        "cream-dark": "#F7F2E9",
+                        "beige-warm": "#E8E2D6",
+                        "earth-muted": "#8C8376",
+                        "stone": "#5C5852",
+                    },
+                    fontFamily: {
+                        "serif": ["Cormorant Garamond", "serif"],
+                        "sans": ["Inter", "sans-serif"]
+                    }
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        @layer base {
+            body {
+                @apply bg-cream-light text-stone font-sans antialiased;
+            }
+            h1, h2, h3, h4 {
+                @apply font-serif font-light;
+            }
+        }
+        .hero-gradient {
+            background: linear-gradient(to bottom, rgba(253, 251, 247, 0.4) 0%, rgba(253, 251, 247, 0) 50%, rgba(253, 251, 247, 0.8) 100%);
+        }
+        .soft-blur {
+            backdrop-filter: blur(8px);
+        }.no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-cream-light">
+<header class="fixed top-0 left-0 right-0 z-50 bg-cream-light/80 backdrop-blur-md border-b border-beige-warm/30">
+<div class="px-6 py-4 flex items-center justify-between">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-earth-muted font-light text-2xl">eco</span>
+<span class="font-serif text-xl tracking-wider text-stone">KENCHA</span>
+</div>
+<button class="bg-stone text-cream-light px-5 py-2 rounded-full text-[13px] font-medium tracking-wide hover:bg-earth-muted transition-colors">
+                BOOK NOW
+            </button>
+</div>
+<nav class="flex items-center justify-center gap-6 pb-3 overflow-x-auto no-scrollbar px-6">
+<a class="text-[11px] uppercase tracking-[0.2em] text-stone border-b border-stone/40 pb-1" href="#">Play</a>
+<a class="text-[11px] uppercase tracking-[0.2em] text-earth-muted" href="#">Parties</a>
+<a class="text-[11px] uppercase tracking-[0.2em] text-earth-muted" href="#">Studio</a>
+<a class="text-[11px] uppercase tracking-[0.2em] text-earth-muted" href="#">About</a>
+</nav>
+</header>
+<main class="pt-[104px]">
+<section class="relative h-[85vh] flex items-center justify-center overflow-hidden">
+<div class="absolute inset-0 z-0">
+<img alt="Hero background" class="w-full h-full object-cover scale-110 blur-[2px] opacity-80" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3HU3EXolNPInXnyr6VXvqJWu15s5kOIk58wmDvrW7q5hlqgBHNDnhmQBggnhqqMw-j_fxP_DGke4_jD8qS7rT2Y2AAbfrl9QSS2PXgrYNRJ_dXy4psD9s0YKapW9XhuQXk4rEhlZR86lFILrXOstQs9dPfSuvzNt89iM0BZJu-PHXdjKHwvuKVzguyqRbyM0Q_O8mUGPpo500ZANAtuppZS8GAKWYA6XkiI8nf-xGeEMnp7Pqdp8Nkx4zcCQb4IjytKL87yPCI_4"/>
+<div class="absolute inset-0 hero-gradient"></div>
+</div>
+<div class="relative z-10 text-center px-8 flex flex-col items-center">
+<div class="mb-8 opacity-90">
+<span class="material-symbols-outlined text-earth-muted text-6xl font-extralight">nest_eco_leaf</span>
+</div>
+<h1 class="text-4xl md:text-5xl lg:text-6xl text-stone mb-4 tracking-tight leading-tight">
+                    Where childhood <br/>finds its breath.
+                </h1>
+<p class="text-earth-muted font-sans text-sm tracking-widest uppercase mb-8">A Sanctuary for Play</p>
+<div class="w-[1px] h-16 bg-beige-warm mx-auto"></div>
+</div>
+</section>
+<section class="py-24 px-8 text-center bg-cream-light">
+<div class="max-w-xs mx-auto">
+<h2 class="text-3xl text-stone mb-6">Designed for peace, curated for joy.</h2>
+<p class="text-stone/70 leading-relaxed font-light text-[15px]">
+                    Kencha House is a minimalist haven for little explorers and their parents. Our space emphasizes natural materials, soft textures, and intentional play.
+                </p>
+</div>
+</section>
+<section class="px-6 space-y-24 pb-32">
+<div class="flex flex-col gap-6">
+<div class="aspect-[4/5] w-full overflow-hidden bg-cream-dark">
+<img alt="Drop-in play" class="w-full h-full object-cover opacity-90" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqxiURme6c6810PpNMKz7DmHEe92WYeyj_pFDqlYh_9uGNiBFlmZWjtHuIsnwEwv4CNGbuWlLnwBab36G1eIKaqFM3eg-uRTGQ3Oj5z1oVeJY688h_wzkUEhWMb2Jltrjv1-LIiaPFTWUxY3zV4mOX44TxFvub_Ughfb2a16nNsvsTL_gLVisGt0g53FFa04igydeKAvF7uQ73idkuutrusi57rfxLam8h5RcmIMTWbmiH0DwaEqT3uuh41KU5XG6Biakd1E4GGXY"/>
+</div>
+<div class="space-y-4 px-2">
+<div class="flex justify-between items-baseline">
+<h3 class="text-2xl text-stone">Drop-in Play</h3>
+<span class="text-sm font-light text-earth-muted italic">From $15</span>
+</div>
+<p class="text-stone/60 font-light text-[14px] leading-relaxed">
+                        An unstructured environment inspired by Montessori principles, allowing children up to age three to explore at their own gentle pace.
+                    </p>
+<a class="inline-block text-[11px] uppercase tracking-[0.2em] text-stone border-b border-stone/20 pb-1" href="#">Discover Play</a>
+</div>
+</div>
+<div class="flex flex-col gap-6">
+<div class="aspect-[4/5] w-full overflow-hidden bg-cream-dark">
+<img alt="Private Play Dates" class="w-full h-full object-cover opacity-90" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCAj-cdLy0eiTssmfGmdwgHS695qJNCQZTA9fufEH6W4VDhEk90beIO0wRsnvSE6suDn33mwk5n839ocN71bfvUoGlOQf0fB_IKIl7pd8RRCfXNgp9IA1DXO6lIP4nG0eTro6I5bLAnH9J2XLebDloNHRkuMhB5ipdIRj83fsGmHF4qejquVwFfvGQ-gLgVeBrxZP_wneszypKt5fmW6TONWMZhd_vsbRN_9nL004_vQ3QwGy81auyFwmgAWdNAq6D4A3u2QYnCiYk"/>
+</div>
+<div class="space-y-4 px-2 text-right">
+<div class="flex justify-between items-baseline flex-row-reverse">
+<h3 class="text-2xl text-stone">Private Events</h3>
+<span class="text-sm font-light text-earth-muted italic">Curated</span>
+</div>
+<p class="text-stone/60 font-light text-[14px] leading-relaxed">
+                        Celebrate life's earliest milestones in a space that feels like home. Intimate gatherings tailored to your family's aesthetic.
+                    </p>
+<a class="inline-block text-[11px] uppercase tracking-[0.2em] text-stone border-b border-stone/20 pb-1" href="#">Enquire Now</a>
+</div>
+</div>
+<div class="flex flex-col gap-6">
+<div class="aspect-[4/5] w-full overflow-hidden bg-cream-dark">
+<img alt="Photo Studio" class="w-full h-full object-cover opacity-90" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPHguhhED1st6I9FpGS9EhHuqBiArqhmTLgFG9GohhyfQEGm4AE-4wHWeakBY39h3Xkp-n5Sp-J7qYKLXwyqBPa02C96K8K7PUl4eJgYWPSti0eLs3DLxgmgvUlRekUnx-989QgVqjepYi5OE_ydLThn49b0djtgR40LbzoMZ3O_czLq5e1fWsCZpR-7MP-WnYN6w4GnlgygPyTmFD3tAvx9t30ajE1Kj9a-11ARbbyEvtBTxsfAShzKEibkBmJnkr6DLMo8bX5cs"/>
+</div>
+<div class="space-y-4 px-2">
+<div class="flex justify-between items-baseline">
+<h3 class="text-2xl text-stone">The Studio</h3>
+<span class="text-sm font-light text-earth-muted italic">From $45</span>
+</div>
+<p class="text-stone/60 font-light text-[14px] leading-relaxed">
+                        A sun-drenched sanctuary for creators. Our minimalist backdrop is the perfect canvas for baby portraits and brand storytelling.
+                    </p>
+<a class="inline-block text-[11px] uppercase tracking-[0.2em] text-stone border-b border-stone/20 pb-1" href="#">Reserve Studio</a>
+</div>
+</div>
+</section>
+<section class="bg-beige-warm/30 py-24 px-8 text-center">
+<div class="max-w-xs mx-auto space-y-8">
+<h2 class="text-3xl text-stone">The Journal</h2>
+<p class="text-stone/60 font-light text-sm italic">Join our community for early access to curated pop-ups and seasonal gatherings.</p>
+<form class="space-y-4">
+<input class="w-full bg-transparent border-0 border-b border-stone/20 py-3 px-0 text-stone placeholder:text-stone/30 focus:ring-0 focus:border-stone transition-colors text-sm font-light" placeholder="Your email address" type="email"/>
+<button class="w-full py-4 text-[11px] uppercase tracking-[0.3em] text-stone hover:text-earth-muted transition-colors">Subscribe</button>
+</form>
+</div>
+</section>
+</main>
+<footer class="bg-cream-light py-16 px-8 border-t border-beige-warm/30 text-center">
+<div class="space-y-6">
+<h2 class="font-serif text-2xl tracking-widest text-stone">KENCHA</h2>
+<div class="flex justify-center gap-8 text-[11px] uppercase tracking-widest text-earth-muted">
+<a href="#">Instagram</a>
+<a href="#">Contact</a>
+<a href="#">Terms</a>
+</div>
+<p class="text-[10px] text-stone/40 font-light uppercase tracking-widest pt-8">© 2024 Kencha House. All rights reserved.</p>
+</div>
+</footer>
+
+</body></html>
