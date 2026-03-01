@@ -173,6 +173,14 @@
     }
   }
 
+  const pendingCaptchaRenders = [];
+
+  window.brevoOnRecaptchaLoad = function () {
+    pendingCaptchaRenders.forEach(function (item) {
+      renderCaptchaForForm(item.form, item.formConfig);
+    });
+    pendingCaptchaRenders.length = 0;
+  };
   function renderAllCaptchas() {
     if (document.readyState === "loading") {
       document.addEventListener("DOMContentLoaded", renderAllCaptchas, { once: true });
@@ -199,6 +207,15 @@
     const forms = document.querySelectorAll("[data-brevo-form]");
 
     forms.forEach(function (form) {
+      const formKey = form.getAttribute("data-brevo-form");
+      const formConfig = allFormConfigs[formKey] || {};
+
+      if (window.grecaptcha) {
+        renderCaptchaForForm(form, formConfig);
+      } else {
+        pendingCaptchaRenders.push({ form: form, formConfig: formConfig });
+      }
+
       form.addEventListener("submit", function (event) {
         event.preventDefault();
         const submitFormKey = form.getAttribute("data-brevo-form");
