@@ -193,7 +193,7 @@ function toggleMobileMenu() {
 <h2 class="text-4xl mb-4">Request a Booking</h2>
 <p class="text-stone-500 text-sm">Fill out the form below and our studio manager will be in touch within 24 hours.</p>
 </div>
-<form class="space-y-6" data-brevo-form="studioInquiry">
+<form class="space-y-6" data-brevo-form="studioInquiry" action="https://3a63b53b.sibforms.com/serve/MUIFAHk5FiOTahhsv8ze2CDiOlE8pI1Wd9J29O1eWxvqc2vkKwM7Wse0nysLbPaJUG1sp3zN6V9CbvVH3FHlOIcOnAVjZPm1Byyvu_lbdR_nTQqySKxp9gVSdIcNmYj5A4p9RVZ9ajs0kzjMVrBu-rbYOO7kaazuR4ugymBnmibgvwNoARhMTFjvErVN22kN7S-bulOH-gJ7uuiWTA==" method="post">
 <div class="grid grid-cols-2 gap-4">
 <input class="w-full bg-white dark:bg-stone-900 border-stone-200 dark:border-stone-700 px-4 py-3 text-sm focus:ring-primary focus:border-primary placeholder:text-stone-400" name="name" placeholder="Name" required type="text"/>
 <input class="w-full bg-white dark:bg-stone-900 border-stone-200 dark:border-stone-700 px-4 py-3 text-sm focus:ring-primary focus:border-primary placeholder:text-stone-400" name="email" placeholder="Email" required type="email"/>
@@ -205,6 +205,8 @@ function toggleMobileMenu() {
 <option>Full Day (8 Hours)</option>
 </select>
 <textarea class="w-full bg-white dark:bg-stone-900 border-stone-200 dark:border-stone-700 px-4 py-3 text-sm focus:ring-primary focus:border-primary placeholder:text-stone-400" name="message" placeholder="Project Description &amp; Preferred Dates" required rows="4"></textarea>
+<input type="hidden" name="email_address_check" value=""/>
+<input type="hidden" name="locale" value="en"/>
 <button class="w-full bg-primary text-white px-8 py-4 uppercase text-[10px] tracking-[0.2em] hover:opacity-90 transition-opacity" type="submit">Submit Request</button>
 <p class="text-xs text-stone-500 dark:text-stone-400" data-brevo-status aria-live="polite"></p>
 </form>

@@ -200,7 +200,7 @@ function toggleMobileMenu() {
 <h2 class="text-4xl md:text-5xl mb-4">Book Your Date</h2>
 <p class="text-stone-500 text-sm">Please fill out the form below and our events coordinator will reach out within 48 hours.</p>
 </div>
-<form class="space-y-6" data-brevo-form="partyInquiry">
+<form class="space-y-6" data-brevo-form="partyInquiry" action="https://3a63b53b.sibforms.com/serve/MUIFAHk5FiOTahhsv8ze2CDiOlE8pI1Wd9J29O1eWxvqc2vkKwM7Wse0nysLbPaJUG1sp3zN6V9CbvVH3FHlOIcOnAVjZPm1Byyvu_lbdR_nTQqySKxp9gVSdIcNmYj5A4p9RVZ9ajs0kzjMVrBu-rbYOO7kaazuR4ugymBnmibgvwNoARhMTFjvErVN22kN7S-bulOH-gJ7uuiWTA==" method="post">
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 <div class="space-y-2">
 <label class="text-[10px] uppercase tracking-widest text-stone-400">Full Name</label>
@@ -229,6 +229,8 @@ function toggleMobileMenu() {
 <label class="text-[10px] uppercase tracking-widest text-stone-400">Tell us about your vision</label>
 <textarea class="w-full bg-background-light dark:bg-stone-800 border-none px-4 py-3 text-sm focus:ring-1 focus:ring-primary" name="message" placeholder="Desired theme, age of child, special requests..." required rows="4"></textarea>
 </div>
+<input type="hidden" name="email_address_check" value=""/>
+<input type="hidden" name="locale" value="en"/>
 <button class="w-full bg-primary text-white py-5 uppercase text-[10px] tracking-[0.3em] hover:opacity-90 transition-opacity" type="submit">Submit Inquiry</button>
 <p class="text-xs text-stone-500 dark:text-stone-400" data-brevo-status aria-live="polite"></p>
 </form>
