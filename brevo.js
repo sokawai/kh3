@@ -129,15 +129,21 @@
     showStatus(form, "Submitting...", false);
 
     try {
+      // Brevo's sibforms endpoint does not set CORS headers, so use no-cors to
+      // ensure the request is sent without a CORS preflight rejection.  The
+      // response will be opaque (status 0, type "opaque") and cannot be
+      // inspected; treat any response that arrives without a network error as
+      // a successful submission.
       const response = await fetch(config.formActionUrl, {
         method: "POST",
+        mode: "no-cors",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded"
         },
         body: payload.toString()
       });
 
-      if (!response.ok) {
+      if (response.type !== "opaque" && !response.ok) {
         let responseBody = "";
 
         try {
@@ -175,6 +181,25 @@
     });
     pendingCaptchaRenders.length = 0;
   };
+  function renderAllCaptchas() {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", renderAllCaptchas, { once: true });
+      return;
+    }
+
+    const config = window.BREVO_CONFIG || {};
+    const allFormConfigs = toObject(config.forms);
+
+    document.querySelectorAll("[data-brevo-form]").forEach(function (form) {
+      const formKey = form.getAttribute("data-brevo-form");
+      renderCaptchaForForm(form, allFormConfigs[formKey] || {});
+    });
+  }
+
+  // Called by the reCAPTCHA API once it has finished loading (via the
+  // onload= query parameter on the script URL).  Defined on window so the
+  // reCAPTCHA loader can invoke it by name.
+  window.onBrevoRecaptchaReady = renderAllCaptchas;
 
   document.addEventListener("DOMContentLoaded", function () {
     const config = window.BREVO_CONFIG || {};
