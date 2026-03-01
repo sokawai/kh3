@@ -71,25 +71,52 @@
         <nav class="sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-stone-200 dark:border-stone-800">
   <div class="max-w-screen-xl mx-auto px-4 py-4 flex justify-between items-center">
     
-    <a href="index.html">
-      <img src="https://raw.githubusercontent.com/sokawai/kh3/main/logo3.png" alt="Kencha House Logo" class="h-20">
+    <!-- Logo -->
+    <a href="index.html" class="flex-shrink-0">
+      <img src="https://raw.githubusercontent.com/sokawai/kh3/main/logo3.png" alt="Kencha House Logo" class="h-12 md:h-20 w-auto">
     </a>
 
-    <div class="flex items-center gap-4 md:gap-8 mx-auto px-4">
-      <a class="text-[11px] md:text-[12px] uppercase tracking-[0.15em] md:tracking-[0.2em] text-stone-600 hover:text-primary transition-colors" href="play.html">Play</a>
-      <a class="text-[11px] md:text-[12px] uppercase tracking-[0.15em] md:tracking-[0.2em] text-stone-600 hover:text-primary transition-colors" href="studio.html">Studio</a>
-      <a class="text-[11px] md:text-[12px] uppercase tracking-[0.15em] md:tracking-[0.2em] text-stone-600 hover:text-primary transition-colors" href="parties.html">Parties</a>
-      <a class="text-[11px] md:text-[12px] uppercase tracking-[0.15em] md:tracking-[0.2em] text-stone-600 hover:text-primary transition-colors" href="about.html">About</a>
+    <!-- Hamburger button - mobile only -->
+    <button id="mobile-menu-btn" class="md:hidden p-2 text-stone-600 hover:text-primary transition-colors" onclick="toggleMobileMenu()">
+      <span class="material-symbols-outlined text-2xl">menu</span>
+    </button>
+
+    <!-- Desktop Navigation -->
+    <div class="hidden md:flex items-center gap-4 md:gap-8 mx-auto px-4">
+      <a class="text-[12px] uppercase tracking-[0.2em] text-stone-600 hover:text-primary transition-colors" href="play.html">Play</a>
+      <a class="text-[12px] uppercase tracking-[0.2em] text-stone-600 hover:text-primary transition-colors" href="studio.html">Studio</a>
+      <a class="text-[12px] uppercase tracking-[0.2em] text-stone-600 hover:text-primary transition-colors" href="parties.html">Parties</a>
+      <a class="text-[12px] uppercase tracking-[0.2em] text-stone-600 hover:text-primary transition-colors" href="about.html">About</a>
     </div>
 
-<div class="flex items-center gap-4 md:gap-6">
-      <button class="bg-primary text-white px-3 md:px-5 py-2 text-[10px] md:text-xs uppercase tracking-[0.2em] hover:opacity-90 transition-opacity" onclick="window.location.href='https://kenchababyplaycafe.youcanbook.me/'">
+    <!-- Desktop Visit Us Button -->
+    <div class="hidden md:flex items-center gap-4 md:gap-6">
+      <button class="bg-primary text-white px-5 py-2 text-xs uppercase tracking-[0.2em] hover:opacity-90 transition-opacity" onclick="window.location.href='https://kenchababyplaycafe.youcanbook.me/'">
         Visit Us
       </button>
     </div>
+  </div>
 
+  <!-- Mobile Navigation Menu -->
+  <div id="mobile-menu" class="hidden md:hidden bg-background-light dark:bg-background-dark border-t border-stone-200 dark:border-stone-800">
+    <div class="px-4 py-4 space-y-4">
+      <a class="block text-[11px] uppercase tracking-[0.15em] text-stone-600 hover:text-primary transition-colors" href="play.html">Play</a>
+      <a class="block text-[11px] uppercase tracking-[0.15em] text-stone-600 hover:text-primary transition-colors" href="studio.html">Studio</a>
+      <a class="block text-[11px] uppercase tracking-[0.15em] text-stone-600 hover:text-primary transition-colors" href="parties.html">Parties</a>
+      <a class="block text-[11px] uppercase tracking-[0.15em] text-stone-600 hover:text-primary transition-colors" href="about.html">About</a>
+      <button class="w-full bg-primary text-white px-3 py-2 text-[10px] uppercase tracking-[0.2em] hover:opacity-90 transition-opacity" onclick="window.location.href='https://kenchababyplaycafe.youcanbook.me/'">
+        Visit Us
+      </button>
+    </div>
   </div>
 </nav>
+
+<script>
+function toggleMobileMenu() {
+  const menu = document.getElementById('mobile-menu');
+  menu.classList.toggle('hidden');
+}
+</script>
         
 <header class="pt-12 pb-8 px-6 text-center">
 <p class="uppercase tracking-[0.3em] text-[9px] mb-4 text-stone-500">The Creative Canvas</p>
