@@ -192,19 +192,20 @@ function toggleMobileMenu() {
 <h2 class="text-4xl mb-4">Request a Booking</h2>
 <p class="text-stone-500 text-sm">Fill out the form below and our studio manager will be in touch within 24 hours.</p>
 </div>
-<form class="space-y-6" action="mailto:kenchahouse@gmail.com" method="post" enctype="text/plain">
+<form class="space-y-6" data-brevo-form="studioInquiry">
 <div class="grid grid-cols-2 gap-4">
-<input class="w-full bg-white dark:bg-stone-900 border-stone-200 dark:border-stone-700 px-4 py-3 text-sm focus:ring-primary focus:border-primary placeholder:text-stone-400" placeholder="Name" type="text"/>
-<input class="w-full bg-white dark:bg-stone-900 border-stone-200 dark:border-stone-700 px-4 py-3 text-sm focus:ring-primary focus:border-primary placeholder:text-stone-400" placeholder="Email" type="email"/>
+<input class="w-full bg-white dark:bg-stone-900 border-stone-200 dark:border-stone-700 px-4 py-3 text-sm focus:ring-primary focus:border-primary placeholder:text-stone-400" name="name" placeholder="Name" required type="text"/>
+<input class="w-full bg-white dark:bg-stone-900 border-stone-200 dark:border-stone-700 px-4 py-3 text-sm focus:ring-primary focus:border-primary placeholder:text-stone-400" name="email" placeholder="Email" required type="email"/>
 </div>
-<select class="w-full bg-white dark:bg-stone-900 border-stone-200 dark:border-stone-700 px-4 py-3 text-sm focus:ring-primary focus:border-primary text-stone-400">
-<option>Select Rental Type</option>
+<select class="w-full bg-white dark:bg-stone-900 border-stone-200 dark:border-stone-700 px-4 py-3 text-sm focus:ring-primary focus:border-primary text-stone-400" name="rentalType" required>
+<option value="" selected disabled>Select Rental Type</option>
 <option>Hourly (2-3 Hours)</option>
 <option>Half Day (4 Hours)</option>
 <option>Full Day (8 Hours)</option>
 </select>
-<textarea class="w-full bg-white dark:bg-stone-900 border-stone-200 dark:border-stone-700 px-4 py-3 text-sm focus:ring-primary focus:border-primary placeholder:text-stone-400" placeholder="Project Description &amp; Preferred Dates" rows="4"></textarea>
+<textarea class="w-full bg-white dark:bg-stone-900 border-stone-200 dark:border-stone-700 px-4 py-3 text-sm focus:ring-primary focus:border-primary placeholder:text-stone-400" name="message" placeholder="Project Description &amp; Preferred Dates" required rows="4"></textarea>
 <button class="w-full bg-primary text-white px-8 py-4 uppercase text-[10px] tracking-[0.2em] hover:opacity-90 transition-opacity" type="submit">Submit Request</button>
+<p class="text-xs text-stone-500 dark:text-stone-400" data-brevo-status aria-live="polite"></p>
 </form>
 </section>
 <footer class="bg-white dark:bg-background-dark pt-16 pb-8 px-6">
@@ -254,5 +255,8 @@ function toggleMobileMenu() {
 </div>
 </div>
 </footer>
+
+<script src="brevo-config.js"></script>
+<script src="brevo.js"></script>
 
 </body></html>

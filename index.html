@@ -194,9 +194,10 @@ function toggleMobileMenu() {
 <div class="max-w-xl mx-auto text-center">
 <h2 class="text-4xl mb-6">Stay Connected</h2>
 <p class="text-stone-500 dark:text-stone-400 mb-10 text-sm leading-relaxed">Join our mailing list for sneak peeks, special event invites, and seasonal updates.</p>
-<form class="space-y-4" action="mailto:kenchahouse@gmail.com" method="post" enctype="text/plain">
-<input class="w-full bg-white dark:bg-stone-900 border-stone-200 dark:border-stone-700 px-6 py-4 text-sm focus:ring-primary focus:border-primary placeholder:text-stone-400" placeholder="Email Address" type="email"/>
+<form class="space-y-4" data-brevo-form="newsletter">
+<input class="w-full bg-white dark:bg-stone-900 border-stone-200 dark:border-stone-700 px-6 py-4 text-sm focus:ring-primary focus:border-primary placeholder:text-stone-400" name="email" placeholder="Email Address" required type="email"/>
 <button class="w-full bg-primary text-white px-8 py-4 uppercase text-[10px] tracking-[0.2em] hover:opacity-90 transition-opacity" type="submit">Subscribe</button>
+<p class="text-xs text-stone-500 dark:text-stone-400" data-brevo-status aria-live="polite"></p>
 </form>
 </div>
 </section>
@@ -247,5 +248,8 @@ function toggleMobileMenu() {
 </div>
 </div>
 </footer>
+
+<script src="brevo-config.js"></script>
+<script src="brevo.js"></script>
 
 </body></html>

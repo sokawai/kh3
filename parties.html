@@ -199,25 +199,25 @@ function toggleMobileMenu() {
 <h2 class="text-4xl md:text-5xl mb-4">Book Your Date</h2>
 <p class="text-stone-500 text-sm">Please fill out the form below and our events coordinator will reach out within 48 hours.</p>
 </div>
-<form class="space-y-6" action="mailto:kenchahouse@gmail.com" method="post" enctype="text/plain">
+<form class="space-y-6" data-brevo-form="partyInquiry">
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 <div class="space-y-2">
 <label class="text-[10px] uppercase tracking-widest text-stone-400">Full Name</label>
-<input class="w-full bg-background-light dark:bg-stone-800 border-none px-4 py-3 text-sm focus:ring-1 focus:ring-primary" placeholder="Jane Doe" type="text"/>
+<input class="w-full bg-background-light dark:bg-stone-800 border-none px-4 py-3 text-sm focus:ring-1 focus:ring-primary" name="name" placeholder="Jane Doe" required type="text"/>
 </div>
 <div class="space-y-2">
 <label class="text-[10px] uppercase tracking-widest text-stone-400">Email Address</label>
-<input class="w-full bg-background-light dark:bg-stone-800 border-none px-4 py-3 text-sm focus:ring-1 focus:ring-primary" placeholder="jane@example.com" type="email"/>
+<input class="w-full bg-background-light dark:bg-stone-800 border-none px-4 py-3 text-sm focus:ring-1 focus:ring-primary" name="email" placeholder="jane@example.com" required type="email"/>
 </div>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 <div class="space-y-2">
 <label class="text-[10px] uppercase tracking-widest text-stone-400">Preferred Date</label>
-<input class="w-full bg-background-light dark:bg-stone-800 border-none px-4 py-3 text-sm focus:ring-1 focus:ring-primary" type="date"/>
+<input class="w-full bg-background-light dark:bg-stone-800 border-none px-4 py-3 text-sm focus:ring-1 focus:ring-primary" name="preferredDate" required type="date"/>
 </div>
 <div class="space-y-2">
 <label class="text-[10px] uppercase tracking-widest text-stone-400">Estimated Guests</label>
-<select class="w-full bg-background-light dark:bg-stone-800 border-none px-4 py-3 text-sm focus:ring-1 focus:ring-primary">
+<select class="w-full bg-background-light dark:bg-stone-800 border-none px-4 py-3 text-sm focus:ring-1 focus:ring-primary" name="guestCount" required>
 <option>10-20 Guests</option>
 <option>20-35 Guests</option>
 <option>35+ Guests</option>
@@ -226,9 +226,10 @@ function toggleMobileMenu() {
 </div>
 <div class="space-y-2">
 <label class="text-[10px] uppercase tracking-widest text-stone-400">Tell us about your vision</label>
-<textarea class="w-full bg-background-light dark:bg-stone-800 border-none px-4 py-3 text-sm focus:ring-1 focus:ring-primary" placeholder="Desired theme, age of child, special requests..." rows="4"></textarea>
+<textarea class="w-full bg-background-light dark:bg-stone-800 border-none px-4 py-3 text-sm focus:ring-1 focus:ring-primary" name="message" placeholder="Desired theme, age of child, special requests..." required rows="4"></textarea>
 </div>
 <button class="w-full bg-primary text-white py-5 uppercase text-[10px] tracking-[0.3em] hover:opacity-90 transition-opacity" type="submit">Submit Inquiry</button>
+<p class="text-xs text-stone-500 dark:text-stone-400" data-brevo-status aria-live="polite"></p>
 </form>
 </div>
 </section>
@@ -279,5 +280,8 @@ function toggleMobileMenu() {
 </div>
 </div>
 </footer>
+
+<script src="brevo-config.js"></script>
+<script src="brevo.js"></script>
 
 </body></html>
