@@ -199,6 +199,7 @@ function toggleMobileMenu() {
 <input class="w-full bg-white dark:bg-stone-900 border-stone-200 dark:border-stone-700 px-6 py-4 text-sm focus:ring-primary focus:border-primary placeholder:text-stone-400" name="email" placeholder="Email Address" required type="email"/>
 <input type="hidden" name="email_address_check" value=""/>
 <input type="hidden" name="locale" value="en"/>
+<div class="flex justify-center"><div data-brevo-captcha></div></div>
 <button class="w-full bg-primary text-white px-8 py-4 uppercase text-[10px] tracking-[0.2em] hover:opacity-90 transition-opacity" type="submit">Subscribe</button>
 <p class="text-xs text-stone-500 dark:text-stone-400" data-brevo-status aria-live="polite"></p>
 </form>
@@ -252,6 +253,7 @@ function toggleMobileMenu() {
 </div>
 </footer>
 
+<script src="https://www.google.com/recaptcha/api.js?hl=en" async defer></script>
 <script src="brevo-config.js"></script>
 <script src="brevo.js"></script>
 

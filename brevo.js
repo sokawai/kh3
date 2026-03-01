@@ -1,4 +1,6 @@
 (function () {
+  const captchaWidgetMap = new WeakMap();
+
   function toObject(value) {
     return value && typeof value === "object" ? value : {};
   }
@@ -38,6 +40,40 @@
     submitBtn.classList.toggle("cursor-not-allowed", isSubmitting);
   }
 
+  function isCaptchaEnabled(formConfig) {
+    return Boolean(formConfig && formConfig.recaptchaSiteKey);
+  }
+
+  function getCaptchaToken(form) {
+    if (!window.grecaptcha) {
+      return "";
+    }
+
+    const widgetId = captchaWidgetMap.get(form);
+    if (widgetId === undefined || widgetId === null) {
+      return "";
+    }
+
+    return compactText(window.grecaptcha.getResponse(widgetId));
+  }
+
+  function renderCaptchaForForm(form, formConfig) {
+    if (!isCaptchaEnabled(formConfig) || !window.grecaptcha) {
+      return;
+    }
+
+    const captchaContainer = form.querySelector("[data-brevo-captcha]");
+    if (!captchaContainer || captchaWidgetMap.has(form)) {
+      return;
+    }
+
+    const widgetId = window.grecaptcha.render(captchaContainer, {
+      sitekey: formConfig.recaptchaSiteKey
+    });
+
+    captchaWidgetMap.set(form, widgetId);
+  }
+
   function buildPayload(form, fieldMap) {
     const payload = new URLSearchParams();
     const safeFieldMap = toObject(fieldMap);
@@ -72,6 +108,16 @@
     }
 
     const payload = buildPayload(form, config.fields);
+
+    if (isCaptchaEnabled(config)) {
+      const captchaToken = getCaptchaToken(form);
+      if (!captchaToken) {
+        showStatus(form, "Please complete the captcha before submitting.", true);
+        return;
+      }
+
+      payload.append("g-recaptcha-response", captchaToken);
+    }
 
     if (config.extraFields && typeof config.extraFields === "object") {
       Object.keys(config.extraFields).forEach(function (key) {
@@ -127,11 +173,15 @@
     const forms = document.querySelectorAll("[data-brevo-form]");
 
     forms.forEach(function (form) {
+      const formKey = form.getAttribute("data-brevo-form");
+      const formConfig = allFormConfigs[formKey] || {};
+      renderCaptchaForForm(form, formConfig);
+
       form.addEventListener("submit", function (event) {
         event.preventDefault();
-        const formKey = form.getAttribute("data-brevo-form");
-        const formConfig = allFormConfigs[formKey] || {};
-        submitToBrevo(form, formConfig);
+        const submitFormKey = form.getAttribute("data-brevo-form");
+        const submitFormConfig = allFormConfigs[submitFormKey] || {};
+        submitToBrevo(form, submitFormConfig);
       });
     });
   });
