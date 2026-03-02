@@ -53,8 +53,8 @@ const KH_NAV = '\
     </button>\
     <div class="hidden md:flex items-center gap-4 md:gap-8 mx-auto px-4">\
       <a class="text-[12px] uppercase tracking-[0.2em] text-stone-600 hover:text-primary transition-colors" href="play.html">Play</a>\
-      <a class="text-[12px] uppercase tracking-[0.2em] text-stone-600 hover:text-primary transition-colors" href="studio.html">Studio</a>\
       <a class="text-[12px] uppercase tracking-[0.2em] text-stone-600 hover:text-primary transition-colors" href="parties.html">Parties</a>\
+      <a class="text-[12px] uppercase tracking-[0.2em] text-stone-600 hover:text-primary transition-colors" href="studio.html">Studio</a>\
       <a class="text-[12px] uppercase tracking-[0.2em] text-stone-600 hover:text-primary transition-colors" href="about.html">About</a>\
     </div>\
     <div class="hidden md:flex items-center gap-4 md:gap-6">\
@@ -66,8 +66,8 @@ const KH_NAV = '\
   <div id="mobile-menu" class="hidden md:hidden bg-background-light dark:bg-background-dark border-t border-stone-200 dark:border-stone-800">\
     <div class="px-4 py-4 space-y-4">\
       <a class="block text-[11px] uppercase tracking-[0.15em] text-stone-600 hover:text-primary transition-colors" href="play.html">Play</a>\
-      <a class="block text-[11px] uppercase tracking-[0.15em] text-stone-600 hover:text-primary transition-colors" href="studio.html">Studio</a>\
       <a class="block text-[11px] uppercase tracking-[0.15em] text-stone-600 hover:text-primary transition-colors" href="parties.html">Parties</a>\
+      <a class="block text-[11px] uppercase tracking-[0.15em] text-stone-600 hover:text-primary transition-colors" href="studio.html">Studio</a>\
       <a class="block text-[11px] uppercase tracking-[0.15em] text-stone-600 hover:text-primary transition-colors" href="about.html">About</a>\
       <button class="w-full bg-primary text-white px-3 py-2 text-[10px] uppercase tracking-[0.2em] hover:opacity-90 transition-opacity" onclick="window.location.href=\'https://kenchababyplaycafe.youcanbook.me/\'">\
         Visit Us\
