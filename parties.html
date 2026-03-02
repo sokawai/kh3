@@ -173,49 +173,96 @@ function toggleMobileMenu() {
 </div>
 </section>
 
+<style>
+  #party-phone-country {
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%238C7A6B'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    padding-right: 24px;
+  }
+</style>
 <section class="py-24 px-6 bg-white dark:bg-stone-900">
 <div class="max-w-2xl mx-auto">
 <div class="text-center mb-12">
 <h2 class="text-4xl md:text-5xl mb-4">Book Your Date</h2>
 <p class="text-stone-500 text-sm">Please fill out the form below and our events coordinator will reach out within 48 hours.</p>
 </div>
-<form class="space-y-6" data-brevo-form="partyInquiry" action="https://3a63b53b.sibforms.com/serve/MUIFAHk5FiOTahhsv8ze2CDiOlE8pI1Wd9J29O1eWxvqc2vkKwM7Wse0nysLbPaJUG1sp3zN6V9CbvVH3FHlOIcOnAVjZPm1Byyvu_lbdR_nTQqySKxp9gVSdIcNmYj5A4p9RVZ9ajs0kzjMVrBu-rbYOO7kaazuR4ugymBnmibgvwNoARhMTFjvErVN22kN7S-bulOH-gJ7uuiWTA==" method="post">
+<form class="space-y-6" data-brevo-form="partyInquiry">
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 <div class="space-y-2">
-<label class="text-[10px] uppercase tracking-widest text-stone-400">Full Name</label>
-<input class="w-full bg-background-light dark:bg-stone-800 border-none px-4 py-3 text-sm focus:ring-1 focus:ring-primary" name="name" placeholder="Jane Doe" required type="text"/>
+<label class="text-[10px] uppercase tracking-widest text-stone-400">First Name</label>
+<input class="w-full bg-background-light dark:bg-stone-800 border-none px-4 py-3 text-sm focus:ring-1 focus:ring-primary" name="firstName" placeholder="Jane" required type="text"/>
 </div>
+<div class="space-y-2">
+<label class="text-[10px] uppercase tracking-widest text-stone-400">Last Name</label>
+<input class="w-full bg-background-light dark:bg-stone-800 border-none px-4 py-3 text-sm focus:ring-1 focus:ring-primary" name="lastName" placeholder="Doe" required type="text"/>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 <div class="space-y-2">
 <label class="text-[10px] uppercase tracking-widest text-stone-400">Email Address</label>
 <input class="w-full bg-background-light dark:bg-stone-800 border-none px-4 py-3 text-sm focus:ring-1 focus:ring-primary" name="email" placeholder="jane@example.com" required type="email"/>
 </div>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 <div class="space-y-2">
-<label class="text-[10px] uppercase tracking-widest text-stone-400">Preferred Date</label>
-<input class="w-full bg-background-light dark:bg-stone-800 border-none px-4 py-3 text-sm focus:ring-1 focus:ring-primary" name="preferredDate" required type="date"/>
-</div>
-<div class="space-y-2">
-<label class="text-[10px] uppercase tracking-widest text-stone-400">Estimated Guests</label>
-<select class="w-full bg-background-light dark:bg-stone-800 border-none px-4 py-3 text-sm focus:ring-1 focus:ring-primary" name="guestCount" required>
-<option>10-20 Guests</option>
-<option>20-35 Guests</option>
-<option>35+ Guests</option>
+<label for="party-phone-input" class="text-[10px] uppercase tracking-widest text-stone-400">Phone</label>
+<div class="flex">
+<select id="party-phone-country" aria-label="Country code" class="bg-background-light dark:bg-stone-800 border-none pl-3 py-3 text-sm focus:ring-1 focus:ring-primary">
+<option value="+1">🇨🇦 +1</option>
+<option value="+1" data-region="us">🇺🇸 +1</option>
+<option value="+44">🇬🇧 +44</option>
+<option value="+33">🇫🇷 +33</option>
+<option value="+49">🇩🇪 +49</option>
+<option value="+61">🇦🇺 +61</option>
+<option value="+91">🇮🇳 +91</option>
+<option value="+86">🇨🇳 +86</option>
+<option value="+81">🇯🇵 +81</option>
+<option value="+55">🇧🇷 +55</option>
+<option value="+52">🇲🇽 +52</option>
 </select>
+<input id="party-phone-input" class="flex-1 bg-background-light dark:bg-stone-800 border-none px-4 py-3 text-sm focus:ring-1 focus:ring-primary" name="phone" placeholder="(xxx) xxx-xxxx" required type="tel"/>
+</div>
 </div>
 </div>
 <div class="space-y-2">
-<label class="text-[10px] uppercase tracking-widest text-stone-400">Tell us about your vision</label>
-<textarea class="w-full bg-background-light dark:bg-stone-800 border-none px-4 py-3 text-sm focus:ring-1 focus:ring-primary" name="message" placeholder="Desired theme, age of child, special requests..." required rows="4"></textarea>
+<label class="text-[10px] uppercase tracking-widest text-stone-400">Your Inquiry</label>
+<textarea class="w-full bg-background-light dark:bg-stone-800 border-none px-4 py-3 text-sm focus:ring-1 focus:ring-primary" name="message" placeholder="Tell us about your event — theme, child's age, guest count, special requests..." required rows="4"></textarea>
 </div>
-<input type="hidden" name="email_address_check" value=""/>
-<input type="hidden" name="locale" value="en"/>
-<div class="flex justify-center"></div>
 <button class="w-full bg-primary text-white py-5 uppercase text-[10px] tracking-[0.3em] hover:opacity-90 transition-opacity" type="submit">Submit Inquiry</button>
 <p class="text-xs text-stone-500 dark:text-stone-400" data-brevo-status aria-live="polite"></p>
 </form>
 </div>
 </section>
+<script>
+(function () {
+  function initPartyForm() {
+    var form = document.querySelector('[data-brevo-form="partyInquiry"]');
+    if (!form) { return; }
+    form.addEventListener('submit', function () {
+      var countrySelect = document.getElementById('party-phone-country');
+      var phoneInput = form.querySelector('[name="phone"]');
+      if (!countrySelect || !phoneInput) { return; }
+      var cc = countrySelect.value;
+      var digits = phoneInput.value.trim();
+      // Strip any leading country code the user may have typed (e.g. "+44 ...")
+      var localNumber = digits.replace(/^\+\d{1,3}\s*/, '');
+      if (localNumber) {
+        phoneInput.value = cc + localNumber;
+      }
+    }, true);
+    form.addEventListener('reset', function () {
+      var phoneInput = form.querySelector('[name="phone"]');
+      if (phoneInput) { phoneInput.value = ''; }
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPartyForm);
+  } else {
+    initPartyForm();
+  }
+})();
+</script>
 <footer class="bg-white dark:bg-background-dark pt-16 pb-8 px-6">
 <div class="max-w-screen-xl mx-auto space-y-12">
 <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
