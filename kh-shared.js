@@ -138,8 +138,16 @@ function toggleMobileMenu() {
 // --------------------------------------------------
 (function () {
   function injectSharedComponents() {
-    document.body.insertAdjacentHTML('afterbegin', KH_NAV);
-    document.body.insertAdjacentHTML('beforeend', KH_FOOTER);
+    const hasNav = Boolean(document.querySelector('nav.sticky.top-0.z-50'));
+    const hasFooter = Boolean(document.querySelector('footer'));
+
+    if (!hasNav) {
+      document.body.insertAdjacentHTML('afterbegin', KH_NAV);
+    }
+
+    if (!hasFooter) {
+      document.body.insertAdjacentHTML('beforeend', KH_FOOTER);
+    }
   }
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', injectSharedComponents);
