@@ -13,6 +13,20 @@
     return String(value).replace(/\s+/g, " ").trim();
   }
 
+  function normalizeSms(value) {
+    const raw = compactText(value);
+    if (!raw) {
+      return "";
+    }
+
+    const digitsOnly = raw.replace(/\D+/g, "");
+    if (!digitsOnly) {
+      return "";
+    }
+
+    return "+" + digitsOnly;
+  }
+
   function showStatus(form, message, isError) {
     const statusEl = form.querySelector("[data-brevo-status]");
     if (!statusEl) {
@@ -86,7 +100,12 @@
         return;
       }
 
-      const value = input.value ? input.value.trim() : "";
+      let value = input.value ? input.value.trim() : "";
+
+      if (String(brevoKey).toUpperCase() === "SMS") {
+        value = normalizeSms(value);
+      }
+
       payload.append(brevoKey, value);
     });
 
