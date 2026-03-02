@@ -7,99 +7,12 @@
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&amp;family=Inter:wght@300;400;500&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link rel="stylesheet" href="design-system.css"/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,typography,container-queries"></script>
-<script>
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        primary: "#8C7A6B",
-                        "background-light": "#F9F7F2",
-                        "background-dark": "#1A1918",
-                        accent: "#E5DACE",
-                    },
-                    fontFamily: {
-                        display: ["'Cormorant Garamond'", "serif"],
-                        sans: ["'Inter'", "sans-serif"],
-                    },
-                    borderRadius: {
-                        DEFAULT: "4px",
-                        'lg': "12px",
-                    },
-                },
-            },
-        };
-    </script>
-<style type="text/tailwindcss">
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
-        }
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        h1, h2, h3, h4, .serif-quote {
-            font-family: 'Cormorant Garamond', serif;
-        }
-    </style>
-<style>
-    body {
-      min-height: max(884px, 100dvh);
-    }
-  </style>
+<script src="kh-shared.js"></script>
   </head>
 <body class="bg-background-light dark:bg-background-dark text-stone-800 dark:text-stone-200 transition-colors duration-300">
-
-      <nav class="sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-stone-200 dark:border-stone-800">
-  <div class="max-w-screen-xl mx-auto px-4 py-4 flex justify-between items-center">
-    
-    <!-- Logo -->
-    <a href="index.html" class="flex-shrink-0">
-      <img src="https://raw.githubusercontent.com/sokawai/kh3/main/logo3.png" alt="Kencha House Logo" class="h-16 md:h-28 w-auto">
-    </a>
-
-    <!-- Hamburger button - mobile only -->
-    <button id="mobile-menu-btn" class="md:hidden p-2 text-stone-600 hover:text-primary transition-colors" onclick="toggleMobileMenu()">
-      <span class="material-symbols-outlined text-2xl">menu</span>
-    </button>
-
-    <!-- Desktop Navigation -->
-    <div class="hidden md:flex items-center gap-4 md:gap-8 mx-auto px-4">
-      <a class="text-[12px] uppercase tracking-[0.2em] text-stone-600 hover:text-primary transition-colors" href="play.html">Play</a>
-      <a class="text-[12px] uppercase tracking-[0.2em] text-stone-600 hover:text-primary transition-colors" href="studio.html">Studio</a>
-      <a class="text-[12px] uppercase tracking-[0.2em] text-stone-600 hover:text-primary transition-colors" href="parties.html">Parties</a>
-      <a class="text-[12px] uppercase tracking-[0.2em] text-stone-600 hover:text-primary transition-colors" href="about.html">About</a>
-    </div>
-
-    <!-- Desktop Visit Us Button -->
-    <div class="hidden md:flex items-center gap-4 md:gap-6">
-      <button class="bg-primary text-white px-5 py-2 text-xs uppercase tracking-[0.2em] hover:opacity-90 transition-opacity" onclick="window.location.href='https://kenchababyplaycafe.youcanbook.me/'">
-        Visit Us
-      </button>
-    </div>
-  </div>
-
-  <!-- Mobile Navigation Menu -->
-  <div id="mobile-menu" class="hidden md:hidden bg-background-light dark:bg-background-dark border-t border-stone-200 dark:border-stone-800">
-    <div class="px-4 py-4 space-y-4">
-      <a class="block text-[11px] uppercase tracking-[0.15em] text-stone-600 hover:text-primary transition-colors" href="play.html">Play</a>
-      <a class="block text-[11px] uppercase tracking-[0.15em] text-stone-600 hover:text-primary transition-colors" href="studio.html">Studio</a>
-      <a class="block text-[11px] uppercase tracking-[0.15em] text-stone-600 hover:text-primary transition-colors" href="parties.html">Parties</a>
-      <a class="block text-[11px] uppercase tracking-[0.15em] text-stone-600 hover:text-primary transition-colors" href="about.html">About</a>
-      <button class="w-full bg-primary text-white px-3 py-2 text-[10px] uppercase tracking-[0.2em] hover:opacity-90 transition-opacity" onclick="window.location.href='https://kenchababyplaycafe.youcanbook.me/'">
-        Visit Us
-      </button>
-    </div>
-  </div>
-</nav>
-
-<script>
-function toggleMobileMenu() {
-  const menu = document.getElementById('mobile-menu');
-  menu.classList.toggle('hidden');
-}
-</script>
 
         
 <section class="pt-20 pb-12 px-6 text-center">
@@ -132,53 +45,5 @@ function toggleMobileMenu() {
         </p>
 </div>
 </section>
-
-<footer class="bg-white dark:bg-background-dark pt-16 pb-8 px-6">
-<div class="max-w-screen-xl mx-auto space-y-12">
-<div class="grid grid-cols-1 md:grid-cols-4 gap-12">
-<div>
-<h3 class="text-2xl font-display uppercase tracking-widest mb-4">Kencha House</h3>
-<p class="text-stone-500 dark:text-stone-400 text-sm leading-relaxed max-w-xs">
-                        A boutique play cafe for babies and toddlers.
-                    </p>
-</div>
-<div>
-<h4 class="text-[10px] uppercase tracking-[0.2em] text-stone-400 mb-6">Explore</h4>
-<ul class="space-y-4 text-sm text-stone-600 dark:text-stone-300">
-<li><a class="hover:text-primary transition-colors" href="play.html">Our Play Space</a></li>
-<li><a class="hover:text-primary transition-colors" href="parties.html">Private Events</a></li>
-<li><a class="hover:text-primary transition-colors" href="studio.html">Studio Rental</a></li>
-<li><a class="hover:text-primary transition-colors" href="#">Shop Curated</a></li>
-</ul>
-</div>
-<div>
-<h4 class="text-[10px] uppercase tracking-[0.2em] text-stone-400 mb-6">Support</h4>
-<ul class="space-y-4 text-sm text-stone-600 dark:text-stone-300">
-<li><a class="hover:text-primary transition-colors" href="mailto:kenchahouse@gmail.com">Contact Us</a></li>
-<li><a class="hover:text-primary transition-colors" href="faq.html">FAQ</a></li>
-<li><a class="hover:text-primary transition-colors" href="https://form.jotform.com/260586396097270">Waivers</a></li>
-
-
-</ul>
-</div>
-<div>
-<h4 class="text-[10px] uppercase tracking-[0.2em] text-stone-400 mb-6">Visit</h4>
-<p class="text-sm text-stone-600 dark:text-stone-300 leading-relaxed">
-                        222 Finch Ave W Suite 105, 
-                        North York, ON M2R 1M6<br/>
-<a href="https://www.instagram.com/kenchahouse/" class="inline-block mt-4 text-stone-600 dark:text-stone-300 hover:text-primary transition-colors" target="_blank">@kenchahouse</a><br/>
-<a href="mailto:kenchahouse@gmail.com" class="inline-block mt-2 text-sm text-stone-600 dark:text-stone-300">kenchahouse@gmail.com</a>
-</p>
-</div>
-</div>
-<div class="border-t border-stone-100 dark:border-stone-800 pt-12 text-center space-y-6">
-<p class="text-[10px] text-stone-400 tracking-wider">© 2025 Kencha House. All rights reserved.</p>
-<div class="flex justify-center gap-8">
-<a class="text-stone-400 hover:text-primary" href="https://www.instagram.com/kenchahouse/" target="_blank"><span class="material-symbols-outlined text-2xl">camera_alt</span></a>
-<a class="text-stone-400 hover:text-primary" href="mailto:kenchahouse@gmail.com"><span class="material-symbols-outlined text-2xl">mail</span></a>
-</div>
-</div>
-</div>
-</footer>
 
 </body></html>
