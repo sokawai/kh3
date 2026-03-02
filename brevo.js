@@ -24,7 +24,7 @@
       return "";
     }
 
-    return "+" + digitsOnly;
+    return digitsOnly;
   }
 
   function showStatus(form, message, isError) {

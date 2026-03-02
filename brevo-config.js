@@ -40,8 +40,9 @@ window.BREVO_CONFIG = {
         firstName: "FIRSTNAME",
         lastName: "LASTNAME",
         email: "EMAIL",
+        phoneCountryCode: "SMS__COUNTRY_CODE",
         phone: "SMS",
-        message: "MESSAGE"
+        message: "JOB_TITLE"
       },
       extraFields: {
         email_address_check: "",
