@@ -96,7 +96,7 @@
   async function submitToBrevo(form, formConfig) {
     const config = toObject(formConfig);
     if (!config.formActionUrl) {
-      showStatus(form, "Add your Brevo form URL in brevo-config.js.", true);
+      showStatus(form, config.errorMessage || "Add your Brevo form URL in brevo-config.js.", true);
       return;
     }
 
