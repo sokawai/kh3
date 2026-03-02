@@ -32,13 +32,16 @@ window.BREVO_CONFIG = {
       errorMessage: "Inquiry failed. Please try again.",
       debugErrors: true,
       fields: {
-        name: "FULLNAME",
+        firstName: "FIRSTNAME",
+        lastName: "LASTNAME",
         email: "EMAIL",
-        preferredDate: "PREFERRED_DATE",
-        guestCount: "GUEST_COUNT",
+        phone: "SMS",
         message: "MESSAGE"
       },
-      extraFields: {}
+      extraFields: {
+        email_address_check: "",
+        locale: "en"
+      }
     }
   }
 };
