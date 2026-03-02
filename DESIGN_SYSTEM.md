@@ -142,7 +142,19 @@ Standard Tailwind spacing scale is used throughout (no overrides). Key conventio
 />
 ```
 
-### Section Divider
+### Component: Feature Label (small h4)
+
+For small inline labels used alongside body text (e.g. feature item titles at `text-sm`), override the default `h4` serif rule with `font-sans`:
+
+```html
+<h4 class="font-sans font-medium text-sm mb-1">Feature Title</h4>
+```
+
+> **Why**: The design system sets all `h4` elements to `Cormorant Garamond` by default for display headings. At `text-sm` (14 px), the serif display font is too subtle and looks inconsistent with surrounding body text. `font-sans` explicitly restores `Inter` for label-style sub-headings.
+
+---
+
+
 
 ```html
 <div class="h-px w-24 bg-stone-300 mx-auto"></div>
