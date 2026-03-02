@@ -93,6 +93,24 @@
     return payload;
   }
 
+  function submitWithNativePost(actionUrl, payload) {
+    const postForm = document.createElement("form");
+    postForm.method = "POST";
+    postForm.action = actionUrl;
+    postForm.style.display = "none";
+
+    payload.forEach(function (value, key) {
+      const input = document.createElement("input");
+      input.type = "hidden";
+      input.name = key;
+      input.value = value;
+      postForm.appendChild(input);
+    });
+
+    document.body.appendChild(postForm);
+    postForm.submit();
+  }
+
   async function submitToBrevo(form, formConfig) {
     const config = toObject(formConfig);
     if (!config.formActionUrl) {
@@ -123,6 +141,11 @@
       Object.keys(config.extraFields).forEach(function (key) {
         payload.append(key, config.extraFields[key]);
       });
+    }
+
+    if (config.forceNativeSubmit) {
+      submitWithNativePost(config.formActionUrl, payload);
+      return;
     }
 
     setSubmittingState(form, true);
