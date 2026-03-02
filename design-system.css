@@ -1,0 +1,44 @@
+/* ========================================
+   Kencha House — Design System
+   Shared base styles and CSS custom properties
+   (Design tokens mirror the Tailwind config in kh-shared.js)
+   ======================================== */
+
+/* --------------------------------------------------
+   Design Tokens
+   -------------------------------------------------- */
+:root {
+  /* Colors */
+  --color-primary:           #8C7A6B; /* Sophisticated taupe/brown */
+  --color-background-light:  #F9F7F2; /* Warm creamy beige */
+  --color-background-dark:   #1A1918; /* Deep charcoal/earth */
+  --color-accent:            #E5DACE;
+  --color-sand:              #F5F2ED;
+
+  /* Typography */
+  --font-display: 'Cormorant Garamond', serif;
+  --font-sans:    'Inter', sans-serif;
+
+  /* Border Radius */
+  --radius:    4px;
+  --radius-lg: 12px;
+}
+
+/* --------------------------------------------------
+   Base Styles
+   -------------------------------------------------- */
+body {
+  font-family: var(--font-sans);
+  min-height: max(884px, 100dvh);
+}
+
+h1, h2, h3, h4, .serif-quote {
+  font-family: var(--font-display);
+}
+
+/* --------------------------------------------------
+   Icon Styles
+   -------------------------------------------------- */
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+}
