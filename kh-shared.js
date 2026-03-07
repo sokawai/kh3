@@ -59,7 +59,7 @@ const KH_NAV = '\
       <a class="text-[12px] uppercase tracking-[0.2em] text-stone-600 hover:text-primary transition-colors" href="about.html">About</a>\
     </div>\
     <div class="hidden md:flex items-center gap-4 md:gap-6">\
-      <button class="bg-primary text-white px-5 py-2 text-xs uppercase tracking-[0.2em] hover:opacity-90 transition-opacity" onclick="window.location.href=\'https://kenchababyplaycafe.youcanbook.me/\'">\
+      <button class="bg-primary text-white px-5 py-2 text-xs uppercase tracking-[0.2em] hover:opacity-90 transition-opacity" onclick="window.location.href=\'https://kenchahouse.youcanbook.me/\'">\
         Visit Us\
       </button>\
     </div>\
@@ -70,7 +70,7 @@ const KH_NAV = '\
       <a class="block text-[11px] uppercase tracking-[0.15em] text-stone-600 hover:text-primary transition-colors" href="parties.html">Parties</a>\
       <a class="block text-[11px] uppercase tracking-[0.15em] text-stone-600 hover:text-primary transition-colors" href="studio.html">Studio</a>\
       <a class="block text-[11px] uppercase tracking-[0.15em] text-stone-600 hover:text-primary transition-colors" href="about.html">About</a>\
-      <button class="w-full bg-primary text-white px-3 py-2 text-[10px] uppercase tracking-[0.2em] hover:opacity-90 transition-opacity" onclick="window.location.href=\'https://kenchababyplaycafe.youcanbook.me/\'">\
+      <button class="w-full bg-primary text-white px-3 py-2 text-[10px] uppercase tracking-[0.2em] hover:opacity-90 transition-opacity" onclick="window.location.href=\'https://kenchahouse.youcanbook.me/\'">\
         Visit Us\
       </button>\
     </div>\
