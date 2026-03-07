@@ -31,7 +31,7 @@ window.BREVO_CONFIG = {
       extraFields: {}
     },
     partyInquiry: {
-      formActionUrl: "https://3a63b53b.sibforms.com/serve/MUIFAHk5FiOTahhsv8ze2CDiOlE8pI1Wd9J29O1eWxvqc2vkKwM7Wse0nysLbPaJUG1sp3zN6V9CbvVH3FHlOIcOnAVjZPm1Byyvu_lbdR_nTQqySKxp9gVSdIcNmYj5A4p9RVZ9ajs0kzjMVrBu-rbYOO7kaazuR4ugymBnmibgvwNoARhMTFjvErVN22kN7S-bulOH-gJ7uuiWTA==",
+      formActionUrl: "https://3a63b53b.sibforms.com/serve/MUIFAOjnhwT3klQiR3eJwiJmcQ55Cgt5kej57xMWwRQoAiUPlOQxTzYzmeUSdj9OVmWhI7qQkYc8nMKgoTYfbGIIAxMZ1HcU0BgCU_qnGrFRerRtZwKvulaRjvQW4F_SGaDbKjQ1A0GqnTPhUEk3YthbpXA6EjRronZG9faAqKGQiUjv_zDNBko3JmfcAYgUVXGb9g7EDMpt0c_nWA==",
       forceNativeSubmit: true,
       successMessage: "Thanks. Your party inquiry was sent.",
       errorMessage: "Our party inquiry form is temporarily unavailable. Please email us at kenchahouse@gmail.com.",
@@ -40,13 +40,13 @@ window.BREVO_CONFIG = {
         firstName: "FIRSTNAME",
         lastName: "LASTNAME",
         email: "EMAIL",
-        phoneCountryCode: "SMS__COUNTRY_CODE",
         phone: "SMS",
         message: "JOB_TITLE"
       },
       extraFields: {
         email_address_check: "",
-        locale: "en"
+        locale: "en",
+        html_type: "simple"
       }
     }
   }
