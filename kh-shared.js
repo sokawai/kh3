@@ -94,6 +94,7 @@ const KH_FOOTER = '\
           <li><a class="hover:text-primary transition-colors" href="play.html">Our Play Space</a></li>\
           <li><a class="hover:text-primary transition-colors" href="parties.html">Private Events</a></li>\
           <li><a class="hover:text-primary transition-colors" href="studio.html">Studio Rental</a></li>\
+          <li><a class="hover:text-primary transition-colors" href="#">Shop Curated</a></li>\
         </ul>\
       </div>\
       <div>\
