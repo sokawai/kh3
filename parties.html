@@ -119,12 +119,12 @@ function toggleMobileMenu() {
 <section class="py-24 px-6 bg-white dark:bg-stone-900/30">
 <div class="max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
 <div class="text-center">
-<span class="material-symbols-outlined text-4xl text-primary mb-4">temp_preferences_custom</span>
+<span class="material-symbols-outlined text-4xl text-primary mb-4">wb_sunny</span>
 <h4 class="text-2xl mb-3">Bright, natural light</h4>
 <p class="text-stone-500 text-sm leading-relaxed">Bright, natural light — a warm, airy space designed for beautiful memories.</p>
 </div>
 <div class="text-center">
-<span class="material-symbols-outlined text-4xl text-primary mb-4">restaurant</span>
+<span class="material-symbols-outlined text-4xl text-primary mb-4">child_care</span>
 <h4 class="text-2xl mb-3">Montessori-inspired soft play</h4>
 <p class="text-stone-500 text-sm leading-relaxed">Montessori-inspired soft play — thoughtfully curated for growing bodies and curious little minds.</p>
 </div>
@@ -145,27 +145,27 @@ function toggleMobileMenu() {
 <form class="space-y-6" data-brevo-form="partyInquiry">
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 <div class="space-y-2">
-<label class="text-[10px] uppercase tracking-widest text-stone-400">First Name</label>
-<input class="w-full bg-background-light dark:bg-stone-800 border-none px-4 py-3 text-sm focus:ring-1 focus:ring-primary" name="firstName" placeholder="Jane" required type="text"/>
+<label class="text-[10px] uppercase tracking-widest text-stone-400" for="firstName">First Name</label>
+<input class="w-full bg-background-light dark:bg-stone-800 border-none px-4 py-3 text-sm focus:ring-1 focus:ring-primary" id="firstName" name="firstName" placeholder="Jane" required type="text"/>
 </div>
 <div class="space-y-2">
-<label class="text-[10px] uppercase tracking-widest text-stone-400">Last Name</label>
-<input class="w-full bg-background-light dark:bg-stone-800 border-none px-4 py-3 text-sm focus:ring-1 focus:ring-primary" name="lastName" placeholder="Doe" required type="text"/>
+<label class="text-[10px] uppercase tracking-widest text-stone-400" for="lastName">Last Name</label>
+<input class="w-full bg-background-light dark:bg-stone-800 border-none px-4 py-3 text-sm focus:ring-1 focus:ring-primary" id="lastName" name="lastName" placeholder="Doe" required type="text"/>
 </div>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 <div class="space-y-2">
-<label class="text-[10px] uppercase tracking-widest text-stone-400">Email Address</label>
-<input class="w-full bg-background-light dark:bg-stone-800 border-none px-4 py-3 text-sm focus:ring-1 focus:ring-primary" name="email" placeholder="jane@example.com" required type="email"/>
+<label class="text-[10px] uppercase tracking-widest text-stone-400" for="partyEmail">Email Address</label>
+<input class="w-full bg-background-light dark:bg-stone-800 border-none px-4 py-3 text-sm focus:ring-1 focus:ring-primary" id="partyEmail" name="email" placeholder="jane@example.com" required type="email"/>
 </div>
 <div class="space-y-2">
-<label class="text-[10px] uppercase tracking-widest text-stone-400">Phone</label>
-<input class="w-full bg-background-light dark:bg-stone-800 border-none px-4 py-3 text-sm focus:ring-1 focus:ring-primary" name="phone" placeholder="(xxx) xxx-xxxx" required type="tel"/>
+<label class="text-[10px] uppercase tracking-widest text-stone-400" for="partyPhone">Phone</label>
+<input class="w-full bg-background-light dark:bg-stone-800 border-none px-4 py-3 text-sm focus:ring-1 focus:ring-primary" id="partyPhone" name="phone" placeholder="(xxx) xxx-xxxx" required type="tel"/>
 </div>
 </div>
 <div class="space-y-2">
-<label class="text-[10px] uppercase tracking-widest text-stone-400">Your Inquiry</label>
-<textarea class="w-full bg-background-light dark:bg-stone-800 border-none px-4 py-3 text-sm focus:ring-1 focus:ring-primary" name="message" placeholder="Tell us about your event — theme, child's age, guest count, special requests..." required rows="4"></textarea>
+<label class="text-[10px] uppercase tracking-widest text-stone-400" for="partyMessage">Your Inquiry</label>
+<textarea class="w-full bg-background-light dark:bg-stone-800 border-none px-4 py-3 text-sm focus:ring-1 focus:ring-primary" id="partyMessage" name="message" placeholder="Tell us about your event — theme, child's age, guest count, special requests..." required rows="4"></textarea>
 </div>
 <input type="hidden" name="email_address_check" value=""/>
 <input type="hidden" name="locale" value="en"/>
