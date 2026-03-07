@@ -8,6 +8,7 @@
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&amp;family=Inter:wght@300;400;500&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="design-system.css"/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,typography,container-queries"></script>
 <script>
         tailwind.config = {
@@ -45,6 +46,9 @@
         }
     </style>
 <style>
+    html, body {
+      overflow-x: clip;
+    }
         body {
             min-height: max(884px, 100dvh);
         }
@@ -57,9 +61,9 @@
         }
     </style>
   </head>
-<body class="bg-white dark:bg-background-dark text-stone-800 dark:text-stone-200 transition-colors duration-300">
+<body class="bg-background-light dark:bg-background-dark text-stone-800 dark:text-stone-200 transition-colors duration-300">
 
-        <nav class="sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-stone-200 dark:border-stone-800">
+        <nav class="sticky top-0 z-50 bg-background-light dark:bg-background-dark border-b border-stone-200 dark:border-stone-800 shadow-sm">
   <div class="max-w-screen-xl mx-auto px-4 py-4 flex justify-between items-center">
     
     <!-- Logo -->

@@ -24,12 +24,19 @@
   --radius-lg: 12px;
 }
 
+html {
+  background-color: var(--color-background-light);
+  overflow-x: clip;
+}
+
 /* --------------------------------------------------
    Base Styles
    -------------------------------------------------- */
 body {
   font-family: var(--font-sans);
   min-height: max(884px, 100dvh);
+  background-color: var(--color-background-light);
+  overflow-x: clip;
 }
 
 h1, h2, h3, h4, .serif-quote {
@@ -41,4 +48,19 @@ h1, h2, h3, h4, .serif-quote {
    -------------------------------------------------- */
 .material-symbols-outlined {
   font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+}
+
+/* Fallbacks for common Tailwind token utilities used across pages. */
+.bg-primary {
+  background-color: var(--color-primary);
+}
+
+.text-primary {
+  color: var(--color-primary);
+}
+
+/* Guarantee the sticky nav is always fully opaque — never bleeds. */
+nav.sticky {
+  background-color: var(--color-background-light);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
 }

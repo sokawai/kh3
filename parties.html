@@ -14,7 +14,7 @@
   </head>
 <body class="bg-background-light dark:bg-background-dark text-stone-800 dark:text-stone-200 transition-colors duration-300">
 
-        <nav class="sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-stone-200 dark:border-stone-800">
+        <nav class="sticky top-0 z-50 bg-background-light dark:bg-background-dark border-b border-stone-200 dark:border-stone-800 shadow-sm">
   <div class="max-w-screen-xl mx-auto px-4 py-4 flex justify-between items-center">
     
     <!-- Logo -->
@@ -74,13 +74,15 @@ function toggleMobileMenu() {
     </div>
   </div>
 </section>
-<section class="py-20 px-6 max-w-3xl mx-auto text-center">
+<section class="py-20 px-6 bg-white dark:bg-stone-900/30">
+<div class="max-w-3xl mx-auto text-center">
 <h2 class="text-4xl md:text-5xl mb-6">A Stress-Free Celebration</h2>
 <p class="text-stone-600 dark:text-stone-400 leading-relaxed text-sm md:text-base">
             We believe parents should be part of the memories, not just the planners. Our turn-key party experiences provide an elegant backdrop, thoughtful details, and seamless coordination so you can focus on the magic of the moment.
         </p>
+</div>
 </section>
-<section class="py-20 px-6 bg-white dark:bg-stone-900/30" id="packages">
+<section class="py-20 px-6" id="packages">
 <div class="max-w-screen-xl mx-auto">
 <div class="text-center mb-16">
 <p class="text-stone-400 uppercase tracking-[0.2em] text-[10px] mb-2">Curated Experiences</p>
@@ -97,7 +99,6 @@ function toggleMobileMenu() {
 <li>Basic Aesthetic Tableware</li>
 <li>Post-Party Cleaning</li>
 </ul>
-<button class="w-full border border-stone-300 dark:border-stone-700 py-4 uppercase text-[10px] tracking-[0.2em] hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors">Select Essential</button>
 </div>
 <div class="border border-primary/20 p-8 md:p-12 flex flex-col items-center text-center bg-white dark:bg-stone-800 shadow-sm relative">
 <div class="absolute -top-3 bg-primary text-white text-[8px] tracking-[0.2em] uppercase px-4 py-1">Most Loved</div>
@@ -111,13 +112,12 @@ function toggleMobileMenu() {
 <li>Custom Digital Invitations</li>
 <li>Dedicated Party Host &amp; Assistant</li>
 </ul>
-<button class="w-full bg-primary text-white py-4 uppercase text-[10px] tracking-[0.2em] hover:opacity-90 transition-opacity">Select Grand</button>
 </div>
 </div>
 </div>
 </section>
-<section class="py-24 px-6 max-w-screen-xl mx-auto">
-<div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+<section class="py-24 px-6 bg-white dark:bg-stone-900/30">
+<div class="max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
 <div class="text-center">
 <span class="material-symbols-outlined text-4xl text-primary mb-4">temp_preferences_custom</span>
 <h4 class="text-2xl mb-3">Bright, natural light</h4>
@@ -136,17 +136,7 @@ function toggleMobileMenu() {
 </div>
 </section>
 
-<style>
-  #party-phone-country {
-    appearance: none;
-    -webkit-appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%238C7A6B'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 8px center;
-    padding-right: 24px;
-  }
-</style>
-<section class="py-24 px-6 bg-white dark:bg-stone-900">
+<section class="py-24 px-6">
 <div class="max-w-2xl mx-auto">
 <div class="text-center mb-12">
 <h2 class="text-4xl md:text-5xl mb-4">Book Your Date</h2>
@@ -169,30 +159,15 @@ function toggleMobileMenu() {
 <input class="w-full bg-background-light dark:bg-stone-800 border-none px-4 py-3 text-sm focus:ring-1 focus:ring-primary" name="email" placeholder="jane@example.com" required type="email"/>
 </div>
 <div class="space-y-2">
-<label for="party-phone-input" class="text-[10px] uppercase tracking-widest text-stone-400">Phone</label>
-<div class="flex">
-<select id="party-phone-country" name="phoneCountryCode" aria-label="Country code" class="bg-background-light dark:bg-stone-800 border-none pl-3 py-3 text-sm focus:ring-1 focus:ring-primary">
-<option value="+1">🇨🇦 +1</option>
-<option value="+1" data-region="us">🇺🇸 +1</option>
-<option value="+44">🇬🇧 +44</option>
-<option value="+33">🇫🇷 +33</option>
-<option value="+49">🇩🇪 +49</option>
-<option value="+61">🇦🇺 +61</option>
-<option value="+91">🇮🇳 +91</option>
-<option value="+86">🇨🇳 +86</option>
-<option value="+81">🇯🇵 +81</option>
-<option value="+55">🇧🇷 +55</option>
-<option value="+52">🇲🇽 +52</option>
-</select>
-<input id="party-phone-input" class="flex-1 bg-background-light dark:bg-stone-800 border-none px-4 py-3 text-sm focus:ring-1 focus:ring-primary" name="phone" placeholder="(xxx) xxx-xxxx" required type="tel"/>
-</div>
+<label class="text-[10px] uppercase tracking-widest text-stone-400">Phone</label>
+<input class="w-full bg-background-light dark:bg-stone-800 border-none px-4 py-3 text-sm focus:ring-1 focus:ring-primary" name="phone" placeholder="(xxx) xxx-xxxx" required type="tel"/>
 </div>
 </div>
 <div class="space-y-2">
 <label class="text-[10px] uppercase tracking-widest text-stone-400">Your Inquiry</label>
 <textarea class="w-full bg-background-light dark:bg-stone-800 border-none px-4 py-3 text-sm focus:ring-1 focus:ring-primary" name="message" placeholder="Tell us about your event — theme, child's age, guest count, special requests..." required rows="4"></textarea>
 </div>
-<button class="w-full bg-primary text-white py-5 uppercase text-[10px] tracking-[0.3em] hover:opacity-90 transition-opacity" type="submit">Submit Inquiry</button>
+<button class="w-full bg-[var(--color-primary)] text-white py-4 rounded uppercase text-xs tracking-[0.2em] hover:opacity-90 transition-opacity" type="submit">Submit Inquiry</button>
 <p class="text-xs text-stone-500 dark:text-stone-400" data-brevo-status aria-live="polite"></p>
 </form>
 </div>
@@ -202,18 +177,6 @@ function toggleMobileMenu() {
   function initPartyForm() {
     var form = document.querySelector('[data-brevo-form="partyInquiry"]');
     if (!form) { return; }
-    form.addEventListener('submit', function () {
-      var countrySelect = document.getElementById('party-phone-country');
-      var phoneInput = form.querySelector('[name="phone"]');
-      if (!countrySelect || !phoneInput) { return; }
-      var cc = countrySelect.value;
-      var digits = phoneInput.value.trim();
-      // Strip any leading country code the user may have typed (e.g. "+44 ...")
-      var localNumber = digits.replace(/^\+\d{1,3}\s*/, '');
-      if (localNumber) {
-        phoneInput.value = cc + localNumber;
-      }
-    }, true);
     form.addEventListener('reset', function () {
       var phoneInput = form.querySelector('[name="phone"]');
       if (phoneInput) { phoneInput.value = ''; }

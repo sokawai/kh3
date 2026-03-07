@@ -43,7 +43,7 @@ tailwind.config = {
 // Shared Navigation
 // --------------------------------------------------
 const KH_NAV = '\
-<nav class="sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-stone-200 dark:border-stone-800">\
+<nav class="sticky top-0 z-50 bg-background-light dark:bg-background-dark border-b border-stone-200 dark:border-stone-800 shadow-sm">\
   <div class="max-w-screen-xl mx-auto px-4 py-4 flex justify-between items-center">\
     <a href="index.html" class="flex-shrink-0">\
       <img src="https://raw.githubusercontent.com/sokawai/kh3/main/logo3.png" alt="Kencha House Logo" class="h-16 md:h-28 w-auto">\
@@ -53,6 +53,7 @@ const KH_NAV = '\
     </button>\
     <div class="hidden md:flex items-center gap-4 md:gap-8 mx-auto px-4">\
       <a class="text-[12px] uppercase tracking-[0.2em] text-stone-600 hover:text-primary transition-colors" href="play.html">Play</a>\
+
       <a class="text-[12px] uppercase tracking-[0.2em] text-stone-600 hover:text-primary transition-colors" href="parties.html">Parties</a>\
       <a class="text-[12px] uppercase tracking-[0.2em] text-stone-600 hover:text-primary transition-colors" href="studio.html">Studio</a>\
       <a class="text-[12px] uppercase tracking-[0.2em] text-stone-600 hover:text-primary transition-colors" href="about.html">About</a>\

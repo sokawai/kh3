@@ -14,7 +14,7 @@
   </head>
 <body class="bg-background-light dark:bg-background-dark text-stone-800 dark:text-stone-200 transition-colors duration-300">
 
-        <nav class="sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-stone-200 dark:border-stone-800">
+        <nav class="sticky top-0 z-50 bg-background-light dark:bg-background-dark border-b border-stone-200 dark:border-stone-800 shadow-sm">
   <div class="max-w-screen-xl mx-auto px-4 py-4 flex justify-between items-center">
     
     <!-- Logo -->
@@ -72,7 +72,7 @@ function toggleMobileMenu() {
         A minimalist, naturally-lit sanctuary designed for photographers, brand creators, and intimate content sessions.
     </p>
 </header>
-<section class="px-4 py-8">
+<section class="px-4 py-8 bg-white dark:bg-stone-900/30">
 <div class="max-w-2xl mx-auto grid grid-cols-2 gap-6">
 <div class="rounded-lg overflow-hidden">
 <img alt="Studio lighting" class="w-full h-64 object-cover" src="https://plus.unsplash.com/premium_photo-1661494158390-1dee08299a94?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTN8fGJhYnklMjBzb2Z0JTIwcGxheXxlbnwwfHwwfHx8MA%3D%3D"/>
@@ -112,7 +112,8 @@ function toggleMobileMenu() {
 </div>
 </div>
 </section>
-<section class="py-24 px-6 max-w-xl mx-auto" id="booking">
+<section class="py-24 px-6 bg-white dark:bg-stone-900/30" id="booking">
+<div class="max-w-xl mx-auto">
 <div class="text-center mb-12">
 <h2 class="text-4xl mb-4">Request a Booking</h2>
 <p class="text-stone-600 dark:text-stone-400 text-sm leading-relaxed">Fill out the form below and our studio manager will be in touch within 24 hours.</p>
@@ -135,6 +136,7 @@ function toggleMobileMenu() {
 <button class="w-full bg-primary text-white px-8 py-4 uppercase text-[10px] tracking-[0.2em] hover:opacity-90 transition-opacity" type="submit">Submit Request</button>
 <p class="text-xs text-stone-500 dark:text-stone-400" data-brevo-status aria-live="polite"></p>
 </form>
+</div>
 </section>
 
 <script src="https://www.google.com/recaptcha/api.js?hl=en&onload=onBrevoRecaptchaReady&render=explicit" async defer></script>
