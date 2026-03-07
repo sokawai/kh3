@@ -27,6 +27,141 @@
     return digitsOnly;
   }
 
+  function isValidEmail(value) {
+    const email = compactText(value);
+    if (!email || email.length > 254) {
+      return false;
+    }
+
+    // Basic RFC-style email shape check for client-side validation.
+    return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email);
+  }
+
+  function isValidNanpPhone(value) {
+    const digits = normalizeSms(value);
+    if (digits.length === 7) {
+      return true;
+    }
+
+    if (digits.length === 10) {
+      return true;
+    }
+
+    return digits.length === 11 && digits.startsWith("1");
+  }
+
+  function formatPhoneForDisplay(value) {
+    const digits = normalizeSms(value);
+    if (digits.length === 7) {
+      return digits.slice(0, 3) + "-" + digits.slice(3);
+    }
+
+    return value;
+  }
+
+  function clearFieldError(input) {
+    if (!input) {
+      return;
+    }
+
+    input.setCustomValidity("");
+  }
+
+  function setFieldError(input, message, shouldReport) {
+    if (!input) {
+      return;
+    }
+
+    input.setCustomValidity(message || "");
+    if (message && shouldReport) {
+      input.reportValidity();
+    }
+  }
+
+  function getMaxMessageChars(formConfig) {
+    const configMax = Number(formConfig && formConfig.maxMessageChars);
+    return configMax > 0 ? configMax : 2000;
+  }
+
+  function getFieldErrorMessage(formConfig, input) {
+    if (!input) {
+      return "";
+    }
+
+    if (input.matches("input[type='email']")) {
+      const emailValue = input.value ? input.value.trim() : "";
+      return isValidEmail(emailValue) ? "" : "Please enter a valid email address.";
+    }
+
+    if (input.name === "phone") {
+      const phoneValue = input.value ? input.value.trim() : "";
+      return isValidNanpPhone(phoneValue) ? "" : "Please enter a valid phone number.";
+    }
+
+    if (input.name === "message") {
+      const maxMessageChars = getMaxMessageChars(formConfig);
+      const messageValue = input.value || "";
+      return messageValue.length > maxMessageChars
+        ? "Your inquiry is too long. Please keep it under " + maxMessageChars + " characters."
+        : "";
+    }
+
+    return "";
+  }
+
+  function validateSingleField(form, formConfig, input, options) {
+    const opts = toObject(options);
+    const shouldReport = Boolean(opts.reportFieldErrors);
+    const shouldShowStatus = opts.showStatus !== false;
+    const errorMessage = getFieldErrorMessage(formConfig, input);
+
+    if (errorMessage) {
+      setFieldError(input, errorMessage, shouldReport);
+      if (shouldShowStatus) {
+        showStatus(form, errorMessage, true);
+      }
+      return false;
+    }
+
+    clearFieldError(input);
+    return true;
+  }
+
+  function validateFormFields(form, formConfig, options) {
+    const opts = toObject(options);
+    const shouldReport = Boolean(opts.reportFieldErrors);
+    const shouldShowStatus = opts.showStatus !== false;
+    let firstErrorMessage = "";
+
+    const emailInput = form.querySelector("input[type='email']");
+    const phoneInput = form.querySelector("[name='phone']");
+    const messageInput = form.querySelector("[name='message']");
+
+    [emailInput, phoneInput, messageInput].forEach(function (input) {
+      if (!input) {
+        return;
+      }
+
+      const isValid = validateSingleField(form, formConfig, input, {
+        reportFieldErrors: shouldReport,
+        showStatus: false
+      });
+
+      if (!isValid && !firstErrorMessage) {
+        firstErrorMessage = input.validationMessage;
+      }
+    });
+
+    if (firstErrorMessage) {
+      if (shouldShowStatus) {
+        showStatus(form, firstErrorMessage, true);
+      }
+      return false;
+    }
+
+    return true;
+  }
+
   function showStatus(form, message, isError) {
     const statusEl = form.querySelector("[data-brevo-status]");
     if (!statusEl) {
@@ -49,9 +184,21 @@
       return;
     }
 
+    if (!submitBtn.dataset.defaultHtml) {
+      submitBtn.dataset.defaultHtml = submitBtn.innerHTML;
+    }
+
+    const submittingLabel = submitBtn.getAttribute("data-submitting-label") || "Submitting...";
+
     submitBtn.disabled = isSubmitting;
     submitBtn.classList.toggle("opacity-70", isSubmitting);
     submitBtn.classList.toggle("cursor-not-allowed", isSubmitting);
+
+    if (isSubmitting) {
+      submitBtn.textContent = submittingLabel;
+    } else if (submitBtn.dataset.defaultHtml) {
+      submitBtn.innerHTML = submitBtn.dataset.defaultHtml;
+    }
   }
 
   function isCaptchaEnabled(formConfig) {
@@ -104,6 +251,14 @@
 
       if (String(brevoKey).toUpperCase() === "SMS") {
         value = normalizeSms(value);
+
+        // Brevo validates SMS as a full international number. If a separate
+        // country code input exists, prefix its digits when missing.
+        const countryInput = form.querySelector("[name='phoneCountryCode']");
+        const countryDigits = normalizeSms(countryInput ? countryInput.value : "");
+        if (countryDigits && value && !value.startsWith(countryDigits)) {
+          value = countryDigits + value;
+        }
       }
 
       payload.append(brevoKey, value);
@@ -112,11 +267,33 @@
     return payload;
   }
 
-  function submitWithNativePost(actionUrl, payload) {
+  function ensureHiddenIframe(name) {
+    if (!name) {
+      return null;
+    }
+
+    let iframe = document.querySelector("iframe[name='" + name + "']");
+    if (iframe) {
+      return iframe;
+    }
+
+    iframe = document.createElement("iframe");
+    iframe.name = name;
+    iframe.style.display = "none";
+    iframe.setAttribute("aria-hidden", "true");
+    document.body.appendChild(iframe);
+    return iframe;
+  }
+
+  function submitWithNativePost(actionUrl, payload, targetName) {
     const postForm = document.createElement("form");
     postForm.method = "POST";
     postForm.action = actionUrl;
     postForm.style.display = "none";
+
+    if (targetName) {
+      postForm.target = targetName;
+    }
 
     payload.forEach(function (value, key) {
       const input = document.createElement("input");
@@ -137,10 +314,7 @@
       return;
     }
 
-    const emailInput = form.querySelector("input[type='email']");
-    const emailValue = emailInput ? emailInput.value.trim() : "";
-    if (!emailValue) {
-      showStatus(form, "Please enter a valid email address.", true);
+    if (!validateFormFields(form, config, { reportFieldErrors: false, showStatus: true })) {
       return;
     }
 
@@ -163,7 +337,22 @@
     }
 
     if (config.forceNativeSubmit) {
-      submitWithNativePost(config.formActionUrl, payload);
+      const useIframeTarget = Boolean(config.nativeSubmitInIframe);
+      const iframeName = useIframeTarget
+        ? compactText(config.nativeIframeName) || "brevo-native-target"
+        : "";
+
+      if (useIframeTarget) {
+        ensureHiddenIframe(iframeName);
+      }
+
+      submitWithNativePost(config.formActionUrl, payload, iframeName);
+
+      if (useIframeTarget) {
+        form.reset();
+        showStatus(form, config.successMessage || "Thanks for subscribing.", false);
+      }
+
       return;
     }
 
@@ -257,6 +446,27 @@
       } else {
         pendingCaptchaRenders.push({ form: form, formConfig: formConfig });
       }
+
+      const emailInput = form.querySelector("input[type='email']");
+      const phoneInput = form.querySelector("[name='phone']");
+      const messageInput = form.querySelector("[name='message']");
+
+      [emailInput, phoneInput, messageInput].forEach(function (input) {
+        if (!input) {
+          return;
+        }
+
+        input.addEventListener("blur", function () {
+          if (input.name === "phone") {
+            input.value = formatPhoneForDisplay(input.value);
+          }
+          validateSingleField(form, formConfig, input, { reportFieldErrors: true, showStatus: true });
+        });
+
+        input.addEventListener("input", function () {
+          clearFieldError(input);
+        });
+      });
 
       form.addEventListener("submit", function (event) {
         event.preventDefault();
