@@ -32,8 +32,8 @@ window.BREVO_CONFIG = {
     },
     partyInquiry: {
       formActionUrl: "https://3a63b53b.sibforms.com/serve/MUIFAOjnhwT3klQiR3eJwiJmcQ55Cgt5kej57xMWwRQoAiUPlOQxTzYzmeUSdj9OVmWhI7qQkYc8nMKgoTYfbGIIAxMZ1HcU0BgCU_qnGrFRerRtZwKvulaRjvQW4F_SGaDbKjQ1A0GqnTPhUEk3YthbpXA6EjRronZG9faAqKGQiUjv_zDNBko3JmfcAYgUVXGb9g7EDMpt0c_nWA==",
-      forceNativeSubmit: true,
-      successMessage: "Thanks. Your party inquiry was sent.",
+      forceNativeSubmit: false,
+      successMessage: "Thanks. Your inquiry was sent successfully.",
       errorMessage: "Our party inquiry form is temporarily unavailable. Please email us at kenchahouse@gmail.com.",
       debugErrors: true,
       fields: {
