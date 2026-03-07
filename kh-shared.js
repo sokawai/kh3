@@ -53,7 +53,6 @@ const KH_NAV = '\
     </button>\
     <div class="hidden md:flex items-center gap-4 md:gap-8 mx-auto px-4">\
       <a class="text-[12px] uppercase tracking-[0.2em] text-stone-600 hover:text-primary transition-colors" href="play.html">Play</a>\
-
       <a class="text-[12px] uppercase tracking-[0.2em] text-stone-600 hover:text-primary transition-colors" href="parties.html">Parties</a>\
       <a class="text-[12px] uppercase tracking-[0.2em] text-stone-600 hover:text-primary transition-colors" href="studio.html">Studio</a>\
       <a class="text-[12px] uppercase tracking-[0.2em] text-stone-600 hover:text-primary transition-colors" href="about.html">About</a>\
@@ -94,7 +93,6 @@ const KH_FOOTER = '\
           <li><a class="hover:text-primary transition-colors" href="play.html">Our Play Space</a></li>\
           <li><a class="hover:text-primary transition-colors" href="parties.html">Private Events</a></li>\
           <li><a class="hover:text-primary transition-colors" href="studio.html">Studio Rental</a></li>\
-          <li><a class="hover:text-primary transition-colors" href="#">Shop Curated</a></li>\
         </ul>\
       </div>\
       <div>\
