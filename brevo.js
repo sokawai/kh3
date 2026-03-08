@@ -1,5 +1,6 @@
 (function () {
   const captchaWidgetMap = new WeakMap();
+  let iframeCounter = 0;
 
   function toObject(value) {
     return value && typeof value === "object" ? value : {};
@@ -279,7 +280,7 @@
     };
     if (submitInBackground) {
       const iframe = document.createElement("iframe");
-      const targetName = "brevo-submit-" + Date.now() + "-" + Math.floor(Math.random() * 100000);
+      const targetName = "brevo-submit-" + (++iframeCounter);
       iframe.name = targetName;
       iframe.style.display = "none";
       iframe.setAttribute("aria-hidden", "true");
@@ -356,6 +357,67 @@
     });
   }
 
+  function sendBackupEmail(form, formConfig) {
+    const backupConfig = toObject(formConfig && formConfig.backupEmail);
+    if (!backupConfig.to) {
+      return;
+    }
+
+    const iframe = document.createElement("iframe");
+    const targetName = "backup-" + (++iframeCounter);
+    iframe.name = targetName;
+    iframe.style.display = "none";
+    iframe.setAttribute("aria-hidden", "true");
+    document.body.appendChild(iframe);
+
+    const backupForm = document.createElement("form");
+    backupForm.method = "POST";
+    backupForm.action = "https://formsubmit.co/" + backupConfig.to;
+    backupForm.target = targetName;
+    backupForm.style.display = "none";
+
+    function addHidden(name, value) {
+      const input = document.createElement("input");
+      input.type = "hidden";
+      input.name = name;
+      input.value = value;
+      backupForm.appendChild(input);
+    }
+
+    // Copy all form field values using the Brevo field name mapping for clarity
+    const brevoPayload = buildPayload(form, toObject(formConfig.fields), formConfig);
+    brevoPayload.forEach(function (value, key) {
+      addHidden(key, value);
+    });
+
+    // Extra fields (email_address_check, locale, SMS__COUNTRY_CODE, etc.)
+    const extraFields = toObject(formConfig.extraFields);
+    Object.keys(extraFields).forEach(function (key) {
+      addHidden(key, extraFields[key]);
+    });
+
+    // formsubmit.co metadata
+    addHidden("_subject", backupConfig.subject || "Kencha House Inquiry");
+    addHidden("_template", "table");
+    addHidden("_captcha", "false");
+    if (backupConfig.sourcePage) {
+      addHidden("SOURCE_PAGE", backupConfig.sourcePage);
+    }
+    addHidden("SUBMITTED_AT", new Date().toISOString());
+
+    document.body.appendChild(backupForm);
+    backupForm.submit();
+
+    setTimeout(function () {
+      if (backupForm.parentNode) {
+        backupForm.parentNode.removeChild(backupForm);
+      }
+      if (iframe.parentNode) {
+        iframe.parentNode.removeChild(iframe);
+      }
+    }, 12000);
+  }
+
   async function submitToBrevo(form, formConfig) {
     const config = toObject(formConfig);
     if (!config.formActionUrl) {
@@ -388,18 +450,15 @@
     if (config.forceNativeSubmit) {
       setSubmittingState(form, true);
       showStatus(form, "Submitting...", false);
-      try {
-        // Prefer XHR + FormData to mirror Brevo's own embedded script flow.
-        await submitWithXhr(config.formActionUrl, payload);
-        form.reset();
-        showStatus(form, config.successMessage || "Thanks for subscribing.", false);
-      } catch (nativeSubmitError) {
-        submitWithNativePost(config.formActionUrl, payload, true);
-        form.reset();
-        showStatus(form, config.successMessage || "Thanks for subscribing.", false);
-      } finally {
-        setSubmittingState(form, false);
-      }
+
+      // Submit to Brevo via a hidden iframe to avoid CORS issues and keep the
+      // user on the page.  The backup email fires before we reset the form so
+      // that FormData can still read the field values.
+      sendBackupEmail(form, config);
+      submitWithNativePost(config.formActionUrl, payload, true);
+      form.reset();
+      showStatus(form, config.successMessage || "Thanks for your inquiry.", false);
+      setSubmittingState(form, false);
       return;
     }
 

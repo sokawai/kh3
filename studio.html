@@ -118,96 +118,36 @@ function toggleMobileMenu() {
 <h2 class="text-4xl mb-4">Request a Booking</h2>
 <p class="text-stone-600 dark:text-stone-400 text-sm leading-relaxed">Fill out the form below and our studio manager will be in touch within 24 hours.</p>
 </div>
-<form class="space-y-6" id="studio-direct-form" method="POST" action="https://3a63b53b.sibforms.com/serve/MUIFAHk5FiOTahhsv8ze2CDiOlE8pI1Wd9J29O1eWxvqc2vkKwM7Wse0nysLbPaJUG1sp3zN6V9CbvVH3FHlOIcOnAVjZPm1Byyvu_lbdR_nTQqySKxp9gVSdIcNmYj5A4p9RVZ9ajs0kzjMVrBu-rbYOO7kaazuR4ugymBnmibgvwNoARhMTFjvErVN22kN7S-bulOH-gJ7uuiWTA==" target="brevo-submit-frame-studio">
+<form class="space-y-6" data-brevo-form="studioInquiry">
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 <div class="space-y-2">
 <label class="text-[10px] uppercase tracking-widest text-stone-400">First Name</label>
-<input class="w-full bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 px-4 py-3 text-sm focus:ring-1 focus:ring-primary focus:border-primary" name="FIRSTNAME" placeholder="Jane" required type="text"/>
+<input class="w-full bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 px-4 py-3 text-sm focus:ring-1 focus:ring-primary focus:border-primary" name="firstName" placeholder="Jane" required type="text"/>
 </div>
 <div class="space-y-2">
 <label class="text-[10px] uppercase tracking-widest text-stone-400">Last Name</label>
-<input class="w-full bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 px-4 py-3 text-sm focus:ring-1 focus:ring-primary focus:border-primary" name="LASTNAME" placeholder="Doe" required type="text"/>
+<input class="w-full bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 px-4 py-3 text-sm focus:ring-1 focus:ring-primary focus:border-primary" name="lastName" placeholder="Doe" required type="text"/>
 </div>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 <div class="space-y-2">
 <label class="text-[10px] uppercase tracking-widest text-stone-400">Email Address</label>
-<input class="w-full bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 px-4 py-3 text-sm focus:ring-1 focus:ring-primary focus:border-primary" name="EMAIL" placeholder="jane@example.com" required type="email"/>
+<input class="w-full bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 px-4 py-3 text-sm focus:ring-1 focus:ring-primary focus:border-primary" name="email" placeholder="jane@example.com" required type="email"/>
 </div>
 <div class="space-y-2">
 <label class="text-[10px] uppercase tracking-widest text-stone-400">Phone</label>
-<input class="w-full bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 px-4 py-3 text-sm focus:ring-1 focus:ring-primary focus:border-primary" name="SMS" placeholder="(xxx) xxx-xxxx" required type="tel"/>
+<input class="w-full bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 px-4 py-3 text-sm focus:ring-1 focus:ring-primary focus:border-primary" name="phone" placeholder="(xxx) xxx-xxxx" required type="tel"/>
 </div>
 </div>
 <div class="space-y-2">
 <label class="text-[10px] uppercase tracking-widest text-stone-400">Your Inquiry</label>
-<textarea class="w-full bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 px-4 py-3 text-sm focus:ring-1 focus:ring-primary focus:border-primary" name="JOB_TITLE" placeholder="Tell us about your event — theme, child's age, guest count, special requests..." required rows="4"></textarea>
+<textarea class="w-full bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 px-4 py-3 text-sm focus:ring-1 focus:ring-primary focus:border-primary" name="message" placeholder="Describe your shoot — type of session, preferred dates, any specific requirements..." required rows="4"></textarea>
 </div>
-<input type="hidden" name="email_address_check" value=""/>
-<input type="hidden" name="locale" value="en"/>
-<input type="hidden" name="SMS__COUNTRY_CODE" value="+1"/>
-<button class="w-full bg-[var(--color-primary)] text-white py-4 rounded uppercase text-xs tracking-[0.2em] hover:opacity-90 transition-opacity" type="submit">Submit Inquiry</button>
-<p class="text-xs text-stone-500 dark:text-stone-400" id="studio-direct-status" aria-live="polite"></p>
+<button class="w-full bg-[var(--color-primary)] text-white py-4 rounded uppercase text-xs tracking-[0.2em] hover:opacity-90 transition-opacity" data-submitting-label="Submitting..." type="submit">Submit Inquiry</button>
+<p class="text-xs text-stone-500 dark:text-stone-400" data-brevo-status aria-live="polite"></p>
 </form>
-<iframe name="brevo-submit-frame-studio" title="Brevo submission target" style="display:none;" aria-hidden="true"></iframe>
 </div>
 </section>
-
-<script>
-(function () {
-  var form = document.getElementById('studio-direct-form');
-  var statusEl = document.getElementById('studio-direct-status');
-  if (!form || !statusEl) { return; }
-
-  function sendBackupEmail() {
-    var iframe = document.createElement('iframe');
-    var targetName = 'backup-studio-' + Date.now();
-    iframe.name = targetName;
-    iframe.style.display = 'none';
-    iframe.setAttribute('aria-hidden', 'true');
-    document.body.appendChild(iframe);
-
-    var backupForm = document.createElement('form');
-    backupForm.method = 'POST';
-    backupForm.action = 'https://formsubmit.co/kenchahouse@gmail.com';
-    backupForm.target = targetName;
-    backupForm.style.display = 'none';
-
-    var backupPayload = new FormData(form);
-    backupPayload.append('_subject', 'Kencha House studio inquiry backup');
-    backupPayload.append('_template', 'table');
-    backupPayload.append('_captcha', 'false');
-    backupPayload.append('SOURCE_PAGE', 'studio.html');
-    backupPayload.append('SUBMITTED_AT', new Date().toISOString());
-
-    backupPayload.forEach(function (value, key) {
-      var input = document.createElement('input');
-      input.type = 'hidden';
-      input.name = key;
-      input.value = value;
-      backupForm.appendChild(input);
-    });
-
-    document.body.appendChild(backupForm);
-    backupForm.submit();
-
-    setTimeout(function () {
-      if (backupForm.parentNode) { backupForm.parentNode.removeChild(backupForm); }
-      if (iframe.parentNode) { iframe.parentNode.removeChild(iframe); }
-    }, 12000);
-  }
-
-  form.addEventListener('submit', function () {
-    sendBackupEmail();
-    statusEl.textContent = 'Submitting...';
-    statusEl.classList.remove('text-red-500');
-    statusEl.classList.add('text-primary');
-    setTimeout(function () {
-      statusEl.textContent = 'Thank you for your inquiry. Our team will reach out to you within one business day.';
-    }, 500);
-  });
-})();
-</script>
 
 <script src="https://www.google.com/recaptcha/api.js?hl=en&onload=onBrevoRecaptchaReady&render=explicit" async defer></script>
 <script src="brevo-config.js"></script>
