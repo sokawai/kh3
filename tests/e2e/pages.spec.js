@@ -46,13 +46,13 @@ test.describe("Home page", () => {
     await expect(heading).toBeVisible();
   });
 
-  test("'Book a Session' CTA links to youcanbook.me", async ({ page }) => {
+  test("'Book Private Play' CTA links to youcanbook.me", async ({ page }) => {
     const cta = page.locator("a[href*='youcanbook.me']").first();
     await expect(cta).toBeVisible();
   });
 
-  test("'Our Philosophy' anchor link is present", async ({ page }) => {
-    const link = page.locator("a[href='#about']").first();
+  test("'Our Philosophy' link points to about.html", async ({ page }) => {
+    const link = page.locator("a[href='about.html']").first();
     await expect(link).toBeVisible();
   });
 
@@ -147,11 +147,14 @@ test.describe("Play page", () => {
     await expect(heading).toBeVisible();
   });
 
-  test("'Book a Session' CTA is present", async ({ page }) => {
-    const cta = page.locator("a[href*='youcanbook.me'], button").filter({
-      hasText: /book|visit/i,
-    }).first();
+  test("'Book Private Play' CTA is present", async ({ page }) => {
+    const cta = page.locator("a[href*='youcanbook.me']").first();
     await expect(cta).toBeVisible();
+  });
+
+  test("footer is present on the page", async ({ page }) => {
+    const footer = page.locator("footer");
+    await expect(footer).toBeVisible();
   });
 });
 
@@ -183,6 +186,20 @@ test.describe("Parties page", () => {
       "form[data-brevo-form='partyInquiry'] input[type='email']"
     );
     await expect(input).toBeVisible();
+  });
+
+  test("inquiry form has a phone input", async ({ page }) => {
+    const input = page.locator(
+      "form[data-brevo-form='partyInquiry'] input[name='phone']"
+    );
+    await expect(input).toBeVisible();
+  });
+
+  test("inquiry form has a message textarea", async ({ page }) => {
+    const textarea = page.locator(
+      "form[data-brevo-form='partyInquiry'] textarea[name='message']"
+    );
+    await expect(textarea).toBeVisible();
   });
 
   test("inquiry form has a submit button", async ({ page }) => {
@@ -232,6 +249,20 @@ test.describe("Studio page", () => {
       "form[data-brevo-form='studioInquiry'] input[type='email']"
     );
     await expect(input).toBeVisible();
+  });
+
+  test("studio form has a phone input", async ({ page }) => {
+    const input = page.locator(
+      "form[data-brevo-form='studioInquiry'] input[name='phone']"
+    );
+    await expect(input).toBeVisible();
+  });
+
+  test("studio form has a message textarea", async ({ page }) => {
+    const textarea = page.locator(
+      "form[data-brevo-form='studioInquiry'] textarea[name='message']"
+    );
+    await expect(textarea).toBeVisible();
   });
 
   test("studio form has a submit button", async ({ page }) => {

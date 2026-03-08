@@ -248,25 +248,39 @@ describe("buildPayload", () => {
 
   test("maps local field names to Brevo keys", () => {
     const form = makeForm({ email: "test@example.com" });
-    const payload = buildPayload(form, { email: "EMAIL" });
+    const payload = buildPayload(form, { email: "EMAIL" }, {});
     expect(payload.get("EMAIL")).toBe("test@example.com");
   });
 
-  test("normalises SMS values to digits only", () => {
+  test("normalises SMS values to digits only (no country code in config)", () => {
     const form = makeForm({ phone: "(416) 555-0123" });
-    const payload = buildPayload(form, { phone: "SMS" });
+    const payload = buildPayload(form, { phone: "SMS" }, {});
     expect(payload.get("SMS")).toBe("4165550123");
+  });
+
+  test("prefixes smsCountryCode to a 10-digit SMS number", () => {
+    const form = makeForm({ phone: "(416) 555-0123" });
+    const payload = buildPayload(form, { phone: "SMS" }, { smsCountryCode: "1" });
+    // 10-digit number gets country code prepended → 14165550123
+    expect(payload.get("SMS")).toBe("14165550123");
+  });
+
+  test("does not double-prefix smsCountryCode when already present", () => {
+    const form = makeForm({ phone: "14165550123" });
+    const payload = buildPayload(form, { phone: "SMS" }, { smsCountryCode: "1" });
+    // 11-digit number that already starts with "1" is left as-is
+    expect(payload.get("SMS")).toBe("14165550123");
   });
 
   test("ignores field map entries that have no matching input", () => {
     const form = makeForm({ email: "a@b.com" });
-    const payload = buildPayload(form, { email: "EMAIL", ghost: "GHOST" });
+    const payload = buildPayload(form, { email: "EMAIL", ghost: "GHOST" }, {});
     expect(payload.has("GHOST")).toBe(false);
   });
 
   test("returns an empty URLSearchParams when fieldMap is empty", () => {
     const form = makeForm({ email: "a@b.com" });
-    const payload = buildPayload(form, {});
+    const payload = buildPayload(form, {}, {});
     expect([...payload.entries()]).toHaveLength(0);
   });
 });

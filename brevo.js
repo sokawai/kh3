@@ -1,5 +1,6 @@
 (function (exports) {
   const captchaWidgetMap = new WeakMap();
+  let iframeCounter = 0;
 
   function toObject(value) {
     return value && typeof value === "object" ? value : {};
@@ -169,12 +170,12 @@
     }
 
     statusEl.textContent = message;
-    statusEl.classList.remove("text-red-500", "text-emerald-600", "dark:text-emerald-400");
+    statusEl.classList.remove("text-red-500", "text-emerald-600", "dark:text-emerald-400", "text-primary");
 
     if (isError) {
       statusEl.classList.add("text-red-500");
     } else {
-      statusEl.classList.add("text-emerald-600", "dark:text-emerald-400");
+      statusEl.classList.add("text-primary");
     }
   }
 
@@ -235,9 +236,10 @@
     captchaWidgetMap.set(form, widgetId);
   }
 
-  function buildPayload(form, fieldMap) {
+  function buildPayload(form, fieldMap, formConfig) {
     const payload = new URLSearchParams();
     const safeFieldMap = toObject(fieldMap);
+    const safeConfig = toObject(formConfig);
 
     Object.keys(safeFieldMap).forEach(function (localKey) {
       const brevoKey = safeFieldMap[localKey];
@@ -252,12 +254,10 @@
       if (String(brevoKey).toUpperCase() === "SMS") {
         value = normalizeSms(value);
 
-        // Brevo validates SMS as a full international number. If a separate
-        // country code input exists, prefix its digits when missing.
-        const countryInput = form.querySelector("[name='phoneCountryCode']");
-        const countryDigits = normalizeSms(countryInput ? countryInput.value : "");
-        if (countryDigits && value && !value.startsWith(countryDigits)) {
-          value = countryDigits + value;
+        // Brevo SMS expects country code + local number digits.
+        const smsCountryCode = compactText(safeConfig.smsCountryCode || "").replace(/\D+/g, "");
+        if (value && smsCountryCode && value.length === 10 && !value.startsWith(smsCountryCode)) {
+          value = smsCountryCode + value;
         }
       }
 
@@ -267,32 +267,43 @@
     return payload;
   }
 
-  function ensureHiddenIframe(name) {
-    if (!name) {
-      return null;
-    }
-
-    let iframe = document.querySelector("iframe[name='" + name + "']");
-    if (iframe) {
-      return iframe;
-    }
-
-    iframe = document.createElement("iframe");
-    iframe.name = name;
-    iframe.style.display = "none";
-    iframe.setAttribute("aria-hidden", "true");
-    document.body.appendChild(iframe);
-    return iframe;
-  }
-
-  function submitWithNativePost(actionUrl, payload, targetName) {
+  function submitWithNativePost(actionUrl, payload, submitInBackground) {
     const postForm = document.createElement("form");
     postForm.method = "POST";
     postForm.action = actionUrl;
     postForm.style.display = "none";
 
-    if (targetName) {
+    let cleanup = function () {
+      if (postForm.parentNode) {
+        postForm.parentNode.removeChild(postForm);
+      }
+    };
+    if (submitInBackground) {
+      const iframe = document.createElement("iframe");
+      const targetName = "brevo-submit-" + (++iframeCounter);
+      iframe.name = targetName;
+      iframe.style.display = "none";
+      iframe.setAttribute("aria-hidden", "true");
+      document.body.appendChild(iframe);
       postForm.target = targetName;
+
+      let cleaned = false;
+      cleanup = function () {
+        if (cleaned) {
+          return;
+        }
+        cleaned = true;
+        if (iframe.parentNode) {
+          iframe.parentNode.removeChild(iframe);
+        }
+        if (postForm.parentNode) {
+          postForm.parentNode.removeChild(postForm);
+        }
+      };
+
+      iframe.addEventListener("load", function () {
+        setTimeout(cleanup, 250);
+      }, { once: true });
     }
 
     payload.forEach(function (value, key) {
@@ -305,6 +316,106 @@
 
     document.body.appendChild(postForm);
     postForm.submit();
+
+    // Let the browser finish the request before removing iframe target.
+    setTimeout(cleanup, 10000);
+  }
+
+  function submitWithXhr(actionUrl, payload) {
+    return new Promise(function (resolve, reject) {
+      try {
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", actionUrl, true);
+
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState !== 4) {
+            return;
+          }
+
+          // Brevo commonly returns 200 on accepted submissions.
+          if (xhr.status >= 200 && xhr.status < 300) {
+            resolve();
+            return;
+          }
+
+          reject(new Error("brevo-xhr-failed-" + String(xhr.status || 0)));
+        };
+
+        xhr.onerror = function () {
+          reject(new Error("brevo-xhr-network-error"));
+        };
+
+        const formData = new FormData();
+        payload.forEach(function (value, key) {
+          formData.append(key, value);
+        });
+
+        xhr.send(formData);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+
+  function sendBackupEmail(form, formConfig) {
+    const backupConfig = toObject(formConfig && formConfig.backupEmail);
+    if (!backupConfig.to) {
+      return;
+    }
+
+    const iframe = document.createElement("iframe");
+    const targetName = "backup-" + (++iframeCounter);
+    iframe.name = targetName;
+    iframe.style.display = "none";
+    iframe.setAttribute("aria-hidden", "true");
+    document.body.appendChild(iframe);
+
+    const backupForm = document.createElement("form");
+    backupForm.method = "POST";
+    backupForm.action = "https://formsubmit.co/" + backupConfig.to;
+    backupForm.target = targetName;
+    backupForm.style.display = "none";
+
+    function addHidden(name, value) {
+      const input = document.createElement("input");
+      input.type = "hidden";
+      input.name = name;
+      input.value = value;
+      backupForm.appendChild(input);
+    }
+
+    // Copy all form field values using the Brevo field name mapping for clarity
+    const brevoPayload = buildPayload(form, toObject(formConfig.fields), formConfig);
+    brevoPayload.forEach(function (value, key) {
+      addHidden(key, value);
+    });
+
+    // Extra fields (email_address_check, locale, SMS__COUNTRY_CODE, etc.)
+    const extraFields = toObject(formConfig.extraFields);
+    Object.keys(extraFields).forEach(function (key) {
+      addHidden(key, extraFields[key]);
+    });
+
+    // formsubmit.co metadata
+    addHidden("_subject", backupConfig.subject || "Kencha House Inquiry");
+    addHidden("_template", "table");
+    addHidden("_captcha", "false");
+    if (backupConfig.sourcePage) {
+      addHidden("SOURCE_PAGE", backupConfig.sourcePage);
+    }
+    addHidden("SUBMITTED_AT", new Date().toISOString());
+
+    document.body.appendChild(backupForm);
+    backupForm.submit();
+
+    setTimeout(function () {
+      if (backupForm.parentNode) {
+        backupForm.parentNode.removeChild(backupForm);
+      }
+      if (iframe.parentNode) {
+        iframe.parentNode.removeChild(iframe);
+      }
+    }, 12000);
   }
 
   async function submitToBrevo(form, formConfig) {
@@ -318,7 +429,7 @@
       return;
     }
 
-    const payload = buildPayload(form, config.fields);
+    const payload = buildPayload(form, config.fields, config);
 
     if (isCaptchaEnabled(config)) {
       const captchaToken = getCaptchaToken(form);
@@ -337,22 +448,17 @@
     }
 
     if (config.forceNativeSubmit) {
-      const useIframeTarget = Boolean(config.nativeSubmitInIframe);
-      const iframeName = useIframeTarget
-        ? compactText(config.nativeIframeName) || "brevo-native-target"
-        : "";
+      setSubmittingState(form, true);
+      showStatus(form, "Submitting...", false);
 
-      if (useIframeTarget) {
-        ensureHiddenIframe(iframeName);
-      }
-
-      submitWithNativePost(config.formActionUrl, payload, iframeName);
-
-      if (useIframeTarget) {
-        form.reset();
-        showStatus(form, config.successMessage || "Thanks for subscribing.", false);
-      }
-
+      // Submit to Brevo via a hidden iframe to avoid CORS issues and keep the
+      // user on the page.  The backup email fires before we reset the form so
+      // that FormData can still read the field values.
+      sendBackupEmail(form, config);
+      submitWithNativePost(config.formActionUrl, payload, true);
+      form.reset();
+      showStatus(form, config.successMessage || "Thanks for your inquiry.", false);
+      setSubmittingState(form, false);
       return;
     }
 

@@ -47,7 +47,7 @@ npm run test:smart
 
 | File | What it covers |
 |---|---|
-| `brevo.test.js` | `isValidEmail`, `isValidNanpPhone`, `normalizeSms`, `compactText`, `toObject`, `formatPhoneForDisplay`, `getMaxMessageChars`, `buildPayload`, `getFieldErrorMessage` |
+| `brevo.test.js` | `isValidEmail`, `isValidNanpPhone`, `normalizeSms`, `compactText`, `toObject`, `formatPhoneForDisplay`, `getMaxMessageChars`, `buildPayload` (3-arg: form, fieldMap, formConfig), `getFieldErrorMessage` |
 | `kh-shared.test.js` | `toggleMobileMenu`, nav and footer injection (`injectSharedComponents`), duplicate injection prevention |
 
 ### How to run
