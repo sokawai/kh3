@@ -1,4 +1,4 @@
-(function () {
+(function (exports) {
   const captchaWidgetMap = new WeakMap();
   let iframeCounter = 0;
 
@@ -582,4 +582,18 @@
       });
     });
   });
-})();
+
+  // Expose pure utilities so they can be imported and tested in Node.js.
+  // In a browser the IIFE receives undefined and this block is a no-op.
+  if (exports) {
+    exports.toObject = toObject;
+    exports.compactText = compactText;
+    exports.normalizeSms = normalizeSms;
+    exports.isValidEmail = isValidEmail;
+    exports.isValidNanpPhone = isValidNanpPhone;
+    exports.formatPhoneForDisplay = formatPhoneForDisplay;
+    exports.getMaxMessageChars = getMaxMessageChars;
+    exports.buildPayload = buildPayload;
+    exports.getFieldErrorMessage = getFieldErrorMessage;
+  }
+}(typeof module !== "undefined" ? module.exports = module.exports || {} : undefined));

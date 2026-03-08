@@ -1,0 +1,9 @@
+# Node.js
+node_modules/
+
+# Playwright
+playwright-report/
+test-results/
+
+# npm lock (generated on install)
+package-lock.json

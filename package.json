@@ -1,0 +1,17 @@
+{
+  "name": "kencha-house",
+  "version": "1.0.0",
+  "description": "Kencha House – boutique play cafe website",
+  "private": true,
+  "scripts": {
+    "test": "npm run test:unit && npm run test:e2e",
+    "test:unit": "jest",
+    "test:e2e": "playwright test",
+    "test:smart": "node scripts/smart-test.js"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.50.1",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0"
+  }
+}
