@@ -83,36 +83,40 @@ function toggleMobileMenu() {
 </div>
 </section>
 <section class="py-20 px-6" id="packages">
-<div class="max-w-screen-xl mx-auto">
+<div class="max-w-6xl mx-auto">
 <div class="text-center mb-16">
-<p class="text-stone-400 uppercase tracking-[0.2em] text-[10px] mb-2">Curated Experiences</p>
-<h2 class="text-4xl md:text-5xl">Our Party Packages</h2>
+<h2 class="text-4xl md:text-5xl">Private Play Cafe Booking</h2>
+<p class="mt-5 text-stone-600 dark:text-stone-400 leading-relaxed text-sm md:text-base max-w-3xl mx-auto">
+Enjoy a cozy, private space designed just for babies and their grown-ups. Perfect for intimate playdates, small celebrations, or simply a relaxed morning with friends.
+</p>
+<p class="mt-3 text-stone-600 dark:text-stone-400 leading-relaxed text-sm md:text-base max-w-3xl mx-auto">
+Our space is thoughtfully designed for little ones to explore safely while parents unwind, connect, and enjoy a peaceful play environment.
+</p>
 </div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-<div class="border border-stone-100 dark:border-stone-800 p-8 md:p-12 flex flex-col items-center text-center bg-background-light dark:bg-stone-800/50">
-<h3 class="text-3xl mb-2">The Essential</h3>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 items-start">
+<article class="lg:col-span-2 border border-primary/20 bg-white dark:bg-stone-800 shadow-sm p-7 md:p-10 rounded-lg">
+<h3 class="text-2xl md:text-3xl mb-6">What is included</h3>
 
-<ul class="space-y-4 text-stone-600 dark:text-stone-400 text-sm mb-12 flex-grow">
-<li>2 Hours of Private Studio Access</li>
-<li>Up to 12 Children &amp; 24 Adults</li>
-<li>Dedicated Party Coordinator</li>
-<li>Basic Aesthetic Tableware</li>
-<li>Post-Party Cleaning</li>
+<ul class="space-y-3 text-stone-700 dark:text-stone-200 text-base md:text-lg mb-10 list-disc pl-5">
+<li>Exclusive use of the space for up to 10 guests total (children and adults included)</li>
+<li>Nespresso coffee and tea for parents and caregivers</li>
+<li>Space to bring your own catering (snacks, cake, or light refreshments)</li>
+<li>Full use of our A/V system for music or presentations</li>
+<li>Access to our curated baby play area and toys</li>
+</ul>
+
+</article>
+
+<aside>
+<div class="border border-primary/20 bg-white dark:bg-stone-800 shadow-sm p-7 md:p-10 rounded-lg">
+<h3 class="text-2xl md:text-3xl mb-6">Before You Arrive</h3>
+<ul class="space-y-3 text-sm text-stone-500 dark:text-stone-400 leading-relaxed">
+<li>Please arrive on time so you can enjoy your full booking window.</li>
+<li>Outside food is welcome, but we kindly ask guests to tidy up before leaving.</li>
+<li>The space is designed for infants and young toddlers.</li>
 </ul>
 </div>
-<div class="border border-primary/20 p-8 md:p-12 flex flex-col items-center text-center bg-white dark:bg-stone-800 shadow-sm relative">
-<div class="absolute -top-3 bg-primary text-white text-[8px] tracking-[0.2em] uppercase px-4 py-1">Most Loved</div>
-<h3 class="text-3xl mb-2">The Grand Celebration</h3>
-
-<ul class="space-y-4 text-stone-600 dark:text-stone-400 text-sm mb-12 flex-grow">
-<li>3 Hours of Private Studio Access</li>
-<li>Up to 18 Children &amp; 35 Adults</li>
-<li>Full Decor &amp; Balloon Installation</li>
-<li>Curated Organic Snack Platter</li>
-<li>Custom Digital Invitations</li>
-<li>Dedicated Party Host &amp; Assistant</li>
-</ul>
-</div>
+</aside>
 </div>
 </div>
 </section>
@@ -142,47 +146,97 @@ function toggleMobileMenu() {
 <h2 class="text-4xl md:text-5xl mb-4">Book Your Date</h2>
 <p class="text-stone-500 text-sm">Please fill out the form below and our events coordinator will reach out within 48 hours.</p>
 </div>
-<form class="space-y-6" data-brevo-form="partyInquiry">
+<form class="space-y-6" id="party-direct-form" method="POST" action="https://3a63b53b.sibforms.com/serve/MUIFAHk5FiOTahhsv8ze2CDiOlE8pI1Wd9J29O1eWxvqc2vkKwM7Wse0nysLbPaJUG1sp3zN6V9CbvVH3FHlOIcOnAVjZPm1Byyvu_lbdR_nTQqySKxp9gVSdIcNmYj5A4p9RVZ9ajs0kzjMVrBu-rbYOO7kaazuR4ugymBnmibgvwNoARhMTFjvErVN22kN7S-bulOH-gJ7uuiWTA==" target="brevo-submit-frame-party">
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 <div class="space-y-2">
-<label class="text-[10px] uppercase tracking-widest text-stone-400" for="firstName">First Name</label>
-<input class="w-full bg-white dark:bg-stone-900 border border-stone-300 dark:border-stone-600 rounded px-4 py-3 text-sm text-stone-700 dark:text-stone-200 placeholder:text-stone-400 focus:border-primary focus:ring-2 focus:ring-primary/20" id="firstName" name="firstName" placeholder="Jane" required type="text"/>
+<label class="text-[10px] uppercase tracking-widest text-stone-400">First Name</label>
+<input class="w-full bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 px-4 py-3 text-sm focus:ring-1 focus:ring-primary focus:border-primary" name="FIRSTNAME" placeholder="Jane" required type="text"/>
 </div>
 <div class="space-y-2">
-<label class="text-[10px] uppercase tracking-widest text-stone-400" for="lastName">Last Name</label>
-<input class="w-full bg-white dark:bg-stone-900 border border-stone-300 dark:border-stone-600 rounded px-4 py-3 text-sm text-stone-700 dark:text-stone-200 placeholder:text-stone-400 focus:border-primary focus:ring-2 focus:ring-primary/20" id="lastName" name="lastName" placeholder="Doe" required type="text"/>
+<label class="text-[10px] uppercase tracking-widest text-stone-400">Last Name</label>
+<input class="w-full bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 px-4 py-3 text-sm focus:ring-1 focus:ring-primary focus:border-primary" name="LASTNAME" placeholder="Doe" required type="text"/>
 </div>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 <div class="space-y-2">
-<label class="text-[10px] uppercase tracking-widest text-stone-400" for="partyEmail">Email Address</label>
-<input class="w-full bg-white dark:bg-stone-900 border border-stone-300 dark:border-stone-600 rounded px-4 py-3 text-sm text-stone-700 dark:text-stone-200 placeholder:text-stone-400 focus:border-primary focus:ring-2 focus:ring-primary/20" id="partyEmail" maxlength="254" name="email" placeholder="jane@example.com" required type="email"/>
+<label class="text-[10px] uppercase tracking-widest text-stone-400">Email Address</label>
+<input class="w-full bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 px-4 py-3 text-sm focus:ring-1 focus:ring-primary focus:border-primary" name="EMAIL" placeholder="jane@example.com" required type="email"/>
 </div>
 <div class="space-y-2">
-<label class="text-[10px] uppercase tracking-widest text-stone-400" for="partyPhone">Phone</label>
-<input class="w-full bg-white dark:bg-stone-900 border border-stone-300 dark:border-stone-600 rounded px-4 py-3 text-sm text-stone-700 dark:text-stone-200 placeholder:text-stone-400 focus:border-primary focus:ring-2 focus:ring-primary/20" id="partyPhone" inputmode="tel" maxlength="20" name="phone" pattern="^([0-9]{3}[\s.-]?[0-9]{4}|(\+1[\s.-]?)?\(?[2-9][0-9]{2}\)?[\s.-]?[0-9]{3}[\s.-]?[0-9]{4})$" placeholder="(xxx) xxx-xxxx" required type="tel"/>
+<label class="text-[10px] uppercase tracking-widest text-stone-400">Phone</label>
+<input class="w-full bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 px-4 py-3 text-sm focus:ring-1 focus:ring-primary focus:border-primary" name="SMS" placeholder="(xxx) xxx-xxxx" required type="tel"/>
 </div>
 </div>
 <div class="space-y-2">
-<label class="text-[10px] uppercase tracking-widest text-stone-400" for="partyMessage">Your Inquiry</label>
-<textarea class="w-full bg-white dark:bg-stone-900 border border-stone-300 dark:border-stone-600 rounded px-4 py-3 text-sm text-stone-700 dark:text-stone-200 placeholder:text-stone-400 focus:border-primary focus:ring-2 focus:ring-primary/20" id="partyMessage" maxlength="2000" name="message" placeholder="Tell us about your event — theme, child's age, guest count, special requests..." required rows="4"></textarea>
+<label class="text-[10px] uppercase tracking-widest text-stone-400">Your Inquiry</label>
+<textarea class="w-full bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 px-4 py-3 text-sm focus:ring-1 focus:ring-primary focus:border-primary" name="JOB_TITLE" placeholder="Tell us about your event — theme, child's age, guest count, special requests..." required rows="4"></textarea>
 </div>
 <input type="hidden" name="email_address_check" value=""/>
 <input type="hidden" name="locale" value="en"/>
-<input type="hidden" name="phoneCountryCode" value="+1"/>
+<input type="hidden" name="SMS__COUNTRY_CODE" value="+1"/>
 <button class="w-full bg-[var(--color-primary)] text-white py-4 rounded uppercase text-xs tracking-[0.2em] hover:opacity-90 transition-opacity" type="submit">Submit Inquiry</button>
-<p class="text-xs text-stone-500 dark:text-stone-400" data-brevo-status aria-live="polite"></p>
+<p class="text-xs text-stone-500 dark:text-stone-400" id="party-direct-status" aria-live="polite"></p>
 </form>
+<iframe name="brevo-submit-frame-party" title="Brevo submission target" style="display:none;" aria-hidden="true"></iframe>
 </div>
 </section>
 <script>
 (function () {
+  function sendBackupEmail(form) {
+    var iframe = document.createElement('iframe');
+    var targetName = 'backup-party-' + Date.now();
+    iframe.name = targetName;
+    iframe.style.display = 'none';
+    iframe.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(iframe);
+
+    var backupForm = document.createElement('form');
+    backupForm.method = 'POST';
+    backupForm.action = 'https://formsubmit.co/kenchahouse@gmail.com';
+    backupForm.target = targetName;
+    backupForm.style.display = 'none';
+
+    var backupPayload = new FormData(form);
+    backupPayload.append('_subject', 'Kencha House parties inquiry backup');
+    backupPayload.append('_template', 'table');
+    backupPayload.append('_captcha', 'false');
+    backupPayload.append('SOURCE_PAGE', 'parties.html');
+    backupPayload.append('SUBMITTED_AT', new Date().toISOString());
+
+    backupPayload.forEach(function (value, key) {
+      var input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = key;
+      input.value = value;
+      backupForm.appendChild(input);
+    });
+
+    document.body.appendChild(backupForm);
+    backupForm.submit();
+
+    setTimeout(function () {
+      if (backupForm.parentNode) { backupForm.parentNode.removeChild(backupForm); }
+      if (iframe.parentNode) { iframe.parentNode.removeChild(iframe); }
+    }, 12000);
+  }
+
   function initPartyForm() {
-    var form = document.querySelector('[data-brevo-form="partyInquiry"]');
+    var form = document.getElementById('party-direct-form');
+    var statusEl = document.getElementById('party-direct-status');
     if (!form) { return; }
     form.addEventListener('reset', function () {
-      var phoneInput = form.querySelector('[name="phone"]');
+      var phoneInput = form.querySelector('[name="SMS"]');
       if (phoneInput) { phoneInput.value = ''; }
+    });
+    form.addEventListener('submit', function () {
+      if (!statusEl) { return; }
+      sendBackupEmail(form);
+      statusEl.textContent = 'Submitting...';
+      statusEl.classList.remove('text-red-500');
+      statusEl.classList.add('text-primary');
+      setTimeout(function () {
+        statusEl.textContent = 'Thank you for your inquiry. Our team will reach out to you within one business day.';
+      }, 500);
     });
   }
   if (document.readyState === 'loading') {
