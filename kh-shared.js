@@ -115,7 +115,7 @@ const KH_FOOTER = '\
       </div>\
     </div>\
     <div class="border-t border-stone-100 dark:border-stone-800 pt-12 text-center space-y-6">\
-      <p class="text-[10px] text-stone-400 tracking-wider">&copy; 2025 Kencha House. All rights reserved.</p>\
+      <p class="text-[10px] text-stone-400 tracking-wider">&copy; 2026 Kencha House. All rights reserved.</p>\
       <div class="flex justify-center gap-8">\
         <a class="text-stone-400 hover:text-primary" href="https://www.instagram.com/kenchahouse/" target="_blank"><span class="material-symbols-outlined text-2xl">camera_alt</span></a>\
         <a class="text-stone-400 hover:text-primary" href="mailto:kenchahouse@gmail.com"><span class="material-symbols-outlined text-2xl">mail</span></a>\
