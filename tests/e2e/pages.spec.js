@@ -219,7 +219,7 @@ test.describe("Parties page", () => {
   });
 
   test("party inquiry form is present in the wizard", async ({ page }) => {
-    const form = page.locator("form[data-brevo-form='partyInquiry']");
+    const form = page.locator("#kh-party-form");
     await expect(form).toBeAttached();
   });
 
@@ -261,33 +261,25 @@ test.describe("Parties page", () => {
 
   test("step 4 shows an email input", async ({ page }) => {
     await navigateToStep4(page);
-    const input = page.locator(
-      "form[data-brevo-form='partyInquiry'] input[type='email']"
-    );
+    const input = page.locator("#kh-party-form input[type='email']");
     await expect(input).toBeVisible();
   });
 
   test("step 4 shows a phone input", async ({ page }) => {
     await navigateToStep4(page);
-    const input = page.locator(
-      "form[data-brevo-form='partyInquiry'] input[name='phone']"
-    );
+    const input = page.locator("#kh-party-form input[name='phone']");
     await expect(input).toBeVisible();
   });
 
   test("step 4 shows a message textarea", async ({ page }) => {
     await navigateToStep4(page);
-    const textarea = page.locator(
-      "form[data-brevo-form='partyInquiry'] textarea[name='message']"
-    );
+    const textarea = page.locator("#kh-party-form textarea[name='message']");
     await expect(textarea).toBeVisible();
   });
 
   test("step 4 shows the submit button", async ({ page }) => {
     await navigateToStep4(page);
-    const btn = page.locator(
-      "form[data-brevo-form='partyInquiry'] button[type='submit']"
-    );
+    const btn = page.locator("#kh-party-form button[type='submit']");
     await expect(btn).toBeVisible();
   });
 
@@ -295,9 +287,7 @@ test.describe("Parties page", () => {
     page,
   }) => {
     await navigateToStep4(page);
-    const textarea = page.locator(
-      "form[data-brevo-form='partyInquiry'] textarea[name='message']"
-    );
+    const textarea = page.locator("#kh-party-form textarea[name='message']");
     const value = await textarea.inputValue();
     // Pre-fill injects "[Booking Request]" header
     expect(value).toContain("[Booking Request]");
@@ -307,11 +297,11 @@ test.describe("Parties page", () => {
     page,
   }) => {
     await navigateToStep4(page);
-    const form = page.locator("form[data-brevo-form='partyInquiry']");
+    const form = page.locator("#kh-party-form");
     await form.locator("input[type='email']").fill("not-an-email");
     await form.locator("button[type='submit']").click();
-    // Brevo's client-side validation sets a status message via [data-brevo-status]
-    const status = form.locator("[data-brevo-status]");
+    // Client-side validation writes an error to #kh-form-status
+    const status = page.locator("#kh-form-status");
     await expect(status).not.toBeEmpty();
   });
 });

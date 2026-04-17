@@ -11,6 +11,11 @@
   'use strict';
 
   /* ──────────────────────────────────────────────────────────────────────────
+     GOOGLE APPS SCRIPT BOOKING ENDPOINT
+     ──────────────────────────────────────────────────────────────────────── */
+  var GAS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwcp26H19jQ3hlGUdwMA--BBo79uPNoB603Yg5h8lcKDYNKNq2XSiLBk3z5I_fntC8P0w/exec';
+
+  /* ──────────────────────────────────────────────────────────────────────────
      OWNER-EDITABLE CONFIGURATION
      ──────────────────────────────────────────────────────────────────────── */
   window.KH_PARTY_CONFIG = {
@@ -112,7 +117,9 @@
     renderTimeSlots();
     populateConfigText();
     updateStepIndicator(1);
-    watchForBrevoSuccess();
+
+    var form = document.getElementById('kh-party-form');
+    if (form) { form.addEventListener('submit', handleFormSubmit); }
   }
 
   function populateConfigText() {
@@ -411,7 +418,7 @@
   }
 
   function prefillMessageField() {
-    var form = document.querySelector('[data-brevo-form="partyInquiry"]');
+    var form = document.getElementById('kh-party-form');
     if (!form) { return; }
     var msgField = form.querySelector('[name="message"]');
     if (!msgField || msgField.value.trim()) { return; }
@@ -444,24 +451,141 @@
   }
 
   /* ──────────────────────────────────────────────────────────────────────────
-     BREVO SUCCESS DETECTION — Show thank-you panel on successful submission
+     GOOGLE APPS SCRIPT SUBMISSION — Replace Brevo email flow
      ──────────────────────────────────────────────────────────────────────── */
-  function watchForBrevoSuccess() {
-    var form = document.querySelector('[data-brevo-form="partyInquiry"]');
-    if (!form) { return; }
-    var statusEl = form.querySelector('[data-brevo-status]');
-    if (!statusEl) { return; }
 
-    var observer = new MutationObserver(function () {
-      var text = (statusEl.textContent || '').trim();
-      var isError = statusEl.classList.contains('text-red-500');
-      if (text && !isError) {
-        observer.disconnect();
-        showThankYou();
+  function parseTime12h(timeStr) {
+    var match = (timeStr || '').match(/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i);
+    if (!match) { return null; }
+    var hours = parseInt(match[1], 10);
+    var minutes = parseInt(match[2], 10);
+    var meridiem = match[3].toUpperCase();
+    if (meridiem === 'PM' && hours !== 12) { hours += 12; }
+    if (meridiem === 'AM' && hours === 12) { hours = 0; }
+    return { hours: hours, minutes: minutes };
+  }
+
+  function buildStartEndTimes(dateStr, timeStr, durationStr) {
+    var t = parseTime12h(timeStr);
+    if (!t || !dateStr) {
+      return { startTime: (dateStr || '') + ' ' + (timeStr || ''), endTime: '' };
+    }
+
+    var start = new Date(dateStr + 'T00:00:00');
+    start.setHours(t.hours, t.minutes, 0, 0);
+
+    var durationHours = parseFloat((durationStr || '').replace(/[^0-9.]/g, '')) || 0;
+    var end = new Date(start.getTime() + durationHours * 60 * 60 * 1000);
+
+    function fmt(d) {
+      return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()) +
+        ' ' + pad(d.getHours()) + ':' + pad(d.getMinutes());
+    }
+
+    return {
+      startTime: fmt(start),
+      endTime: durationHours > 0 ? fmt(end) : ''
+    };
+  }
+
+  function setFormStatus(msg, isError) {
+    var el = document.getElementById('kh-form-status');
+    if (!el) { return; }
+    el.textContent = msg;
+    el.style.color = isError ? '#dc2626' : '#78716c';
+  }
+
+  function handleFormSubmit(e) {
+    e.preventDefault();
+
+    var form = document.getElementById('kh-party-form');
+    if (!form) { return; }
+
+    var firstName = (form.querySelector('[name="firstName"]') || {}).value || '';
+    var lastName  = (form.querySelector('[name="lastName"]')  || {}).value || '';
+    var email     = (form.querySelector('[name="email"]')     || {}).value || '';
+    var phone     = (form.querySelector('[name="phone"]')     || {}).value || '';
+    var guests    = (form.querySelector('[name="guests"]')    || {}).value || '';
+    var childName = (form.querySelector('[name="childName"]') || {}).value || '';
+    var childAge  = (form.querySelector('[name="childAge"]')  || {}).value || '';
+    var notes     = (form.querySelector('[name="message"]')   || {}).value || '';
+
+    // Validation
+    if (!firstName.trim() || !lastName.trim()) {
+      setFormStatus('Please enter your full name.', true);
+      return;
+    }
+    if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
+      setFormStatus('Please enter a valid email address.', true);
+      return;
+    }
+    if (!phone.trim()) {
+      setFormStatus('Please enter your phone number.', true);
+      return;
+    }
+
+    var cfg = window.KH_PARTY_CONFIG || {};
+    var pkgs = cfg.packages || [];
+    var pkg = null;
+    for (var i = 0; i < pkgs.length; i++) {
+      if (pkgs[i].id === state.selectedPackage) { pkg = pkgs[i]; break; }
+    }
+
+    var times = buildStartEndTimes(
+      state.selectedDate,
+      state.selectedTime,
+      pkg ? pkg.duration : ''
+    );
+
+    var payload = {
+      name:      (firstName.trim() + ' ' + lastName.trim()).trim(),
+      email:     email.trim(),
+      phone:     phone.trim(),
+      startTime: times.startTime,
+      endTime:   times.endTime,
+      guests:    guests.trim(),
+      childName: childName.trim(),
+      childAge:  childAge.trim(),
+      notes:     notes.trim(),
+      type:      'party'
+    };
+
+    var submitBtn = form.querySelector('button[type="submit"]');
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending\u2026';
+    }
+    setFormStatus('', false);
+
+    submitBooking(payload).catch(function () {
+      setFormStatus('Something went wrong. Please try again or email kenchahouse@gmail.com.', true);
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Send Booking Request';
       }
     });
+  }
 
-    observer.observe(statusEl, { childList: true, characterData: true, subtree: true });
+  function submitBooking(formData) {
+    return fetch(GAS_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData)
+    }).then(function (response) {
+      return response.json();
+    }).then(function (result) {
+      if (result.success) {
+        showThankYou();
+      } else {
+        var msg = result.message || result.error || 'Booking failed. Please try again.';
+        setFormStatus(msg, true);
+        var submitBtn = document.querySelector('#kh-party-form button[type="submit"]');
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Send Booking Request';
+        }
+      }
+    });
   }
 
   function showThankYou() {

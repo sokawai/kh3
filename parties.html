@@ -627,9 +627,9 @@ function toggleMobileMenu() {
     <!-- Wizard wrapper -->
     <div id="kh-booking-wizard">
 
-      <!-- The Brevo inquiry form wraps all 4 wizard steps so that existing
-           Brevo validation and submission logic works without modification. -->
-      <form id="kh-party-form" data-brevo-form="partyInquiry" novalidate>
+      <!-- Form wraps all 4 wizard steps; submission handled by party-scheduler.js
+           which posts to the Google Apps Script booking endpoint. -->
+      <form id="kh-party-form" novalidate>
 
         <!-- ── Step 1: Select Package ──────────────────────────────────── -->
         <div id="kh-step-1">
@@ -729,9 +729,25 @@ function toggleMobileMenu() {
               </div>
             </div>
 
+            <div class="kh-field-row">
+              <div class="kh-field">
+                <label class="kh-field-label" for="party-childName">Child's Name</label>
+                <input id="party-childName" class="kh-field-input" name="childName" placeholder="Alex" type="text" autocomplete="off"/>
+              </div>
+              <div class="kh-field">
+                <label class="kh-field-label" for="party-childAge">Child's Age</label>
+                <input id="party-childAge" class="kh-field-input" name="childAge" placeholder="e.g. 2 years" type="text" autocomplete="off"/>
+              </div>
+            </div>
+
+            <div class="kh-field">
+              <label class="kh-field-label" for="party-guests">Number of Guests</label>
+              <input id="party-guests" class="kh-field-input" name="guests" placeholder="e.g. 8" type="number" min="1" max="30" autocomplete="off"/>
+            </div>
+
             <div class="kh-field">
               <label class="kh-field-label" for="party-message">Notes &amp; Special Requests</label>
-              <textarea id="party-message" class="kh-field-input" name="message" rows="6" placeholder="Child's name, age, theme, number of adults, number of kids, dietary needs, or any special requests..." style="resize:vertical"></textarea>
+              <textarea id="party-message" class="kh-field-input" name="message" rows="5" placeholder="Theme, dietary needs, or any special requests..." style="resize:vertical"></textarea>
             </div>
 
           </div>
@@ -747,12 +763,12 @@ function toggleMobileMenu() {
             <button type="button" class="kh-btn-ghost" onclick="khWizard.goToStep(3)">
               &#8592; Back
             </button>
-            <button class="kh-btn-primary" data-submitting-label="Sending…" type="submit">
+            <button class="kh-btn-primary" type="submit">
               Send Booking Request
             </button>
           </div>
 
-          <p style="font-size:12px;color:#78716c;margin-top:16px;text-align:center;" data-brevo-status aria-live="polite"></p>
+          <p id="kh-form-status" style="font-size:12px;margin-top:16px;text-align:center;min-height:1.25em;" aria-live="polite"></p>
 
         </div>
         <!-- /step-4 -->
@@ -886,9 +902,6 @@ function toggleMobileMenu() {
   <a href="#book" class="bg-primary text-white px-8 py-4 text-[10px] uppercase tracking-[0.2em] hover:opacity-90 transition-opacity inline-block">Book Your Party</a>
 </section>
 
-<script src="https://www.google.com/recaptcha/api.js?hl=en&onload=onBrevoRecaptchaReady&render=explicit" async defer></script>
-<script src="brevo-config.js"></script>
-<script src="brevo.js"></script>
 <script src="party-scheduler.js"></script>
 
 </body></html>
