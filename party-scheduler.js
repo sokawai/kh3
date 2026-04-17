@@ -515,7 +515,7 @@
       setFormStatus('Please enter your full name.', true);
       return;
     }
-    if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
+    if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.trim())) {
       setFormStatus('Please enter a valid email address.', true);
       return;
     }
@@ -557,7 +557,8 @@
     }
     setFormStatus('', false);
 
-    submitBooking(payload).catch(function () {
+    submitBooking(payload).catch(function (err) {
+      console.error('[KH party booking] submission error:', err);
       setFormStatus('Something went wrong. Please try again or email kenchahouse@gmail.com.', true);
       if (submitBtn) {
         submitBtn.disabled = false;
@@ -572,6 +573,9 @@
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData)
     }).then(function (response) {
+      if (!response.ok) {
+        throw new Error('Server returned ' + response.status + ' ' + response.statusText);
+      }
       return response.json();
     }).then(function (result) {
       if (result.success) {
