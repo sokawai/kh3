@@ -11,39 +11,473 @@
 <link rel="stylesheet" href="design-system.css"/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,typography,container-queries"></script>
 <script src="kh-shared.js"></script>
-  </head>
+<style>
+/* ── Booking Wizard: Step Indicator ─────────────────────────────────────── */
+#kh-step-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2.5rem;
+}
+.kh-step-dot {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #a8a29e;
+  transition: color 0.25s;
+}
+.kh-step-dot .kh-dot-num {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1.5px solid #d6d3d1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  transition: background 0.25s, border-color 0.25s, color 0.25s;
+  flex-shrink: 0;
+}
+.kh-step-dot.active { color: #8C7A6B; }
+.kh-step-dot.active .kh-dot-num {
+  background: #8C7A6B;
+  border-color: #8C7A6B;
+  color: #fff;
+}
+.kh-step-dot.done { color: #8C7A6B; }
+.kh-step-dot.done .kh-dot-num {
+  background: #E5DACE;
+  border-color: #8C7A6B;
+  color: #8C7A6B;
+}
+.kh-dot-label {
+  display: none;
+}
+@media (min-width: 640px) {
+  .kh-dot-label { display: inline; }
+}
+.kh-connector {
+  flex: 1;
+  height: 1px;
+  background: #e7e5e4;
+  margin: 0 8px;
+  max-width: 48px;
+}
+
+/* ── Package Cards ────────────────────────────────────────────────────────── */
+.kh-pkg-card {
+  border: 1.5px solid #e7e5e4;
+  border-radius: 12px;
+  padding: 20px;
+  background: #fff;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+  width: 100%;
+}
+.kh-pkg-card:hover {
+  border-color: #8C7A6B;
+  box-shadow: 0 4px 20px rgba(140,122,107,0.14);
+  transform: translateY(-2px);
+}
+.kh-pkg-card.selected {
+  border-color: #8C7A6B;
+  background: #FAF8F5;
+  box-shadow: 0 4px 20px rgba(140,122,107,0.18);
+}
+.kh-pkg-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+.kh-pkg-icon {
+  font-size: 24px;
+  line-height: 1;
+}
+.kh-pkg-check {
+  font-size: 18px;
+  color: #8C7A6B;
+  font-weight: bold;
+}
+.kh-pkg-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.25rem;
+  color: #1c1917;
+  margin-bottom: 4px;
+}
+.kh-pkg-meta {
+  font-size: 11px;
+  color: #a8a29e;
+  margin-bottom: 4px;
+  letter-spacing: 0.03em;
+}
+.kh-pkg-price {
+  font-size: 13px;
+  font-weight: 500;
+  color: #8C7A6B;
+  margin-bottom: 12px;
+}
+.kh-pkg-includes {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.kh-pkg-includes li {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  font-size: 12px;
+  color: #78716c;
+  line-height: 1.5;
+}
+.kh-pkg-includes li span {
+  color: #8C7A6B;
+  font-size: 12px;
+  font-weight: bold;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+/* Time slot icon */
+.kh-time-icon {
+  font-size: 20px;
+  line-height: 1;
+}
+
+/* ── Calendar ─────────────────────────────────────────────────────────────── */
+.kh-cal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+.kh-cal-month-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  color: #1c1917;
+  letter-spacing: 0.04em;
+}
+.kh-cal-nav-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid #e7e5e4;
+  background: #fff;
+  color: #57534e;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, border-color 0.15s;
+}
+.kh-cal-nav-btn:hover:not([disabled]) {
+  background: #F5F2ED;
+  border-color: #8C7A6B;
+  color: #8C7A6B;
+}
+.kh-cal-nav-btn[disabled] {
+  color: #d6d3d1;
+  cursor: not-allowed;
+}
+.kh-cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 3px;
+}
+.kh-cal-label {
+  text-align: center;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #a8a29e;
+  padding: 6px 0;
+}
+.kh-cal-cell {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 13px;
+  user-select: none;
+}
+.kh-cal-cell.available {
+  color: #1c1917;
+  cursor: pointer;
+  border: 1.5px solid transparent;
+  transition: background 0.15s, border-color 0.15s;
+}
+.kh-cal-cell.available:hover {
+  background: #F5F2ED;
+  border-color: #8C7A6B;
+}
+.kh-cal-cell.available.today {
+  font-weight: 600;
+  border: 1.5px solid #d6d3d1;
+}
+.kh-cal-cell.selected {
+  background: #8C7A6B !important;
+  color: #fff !important;
+  border-color: #8C7A6B !important;
+}
+.kh-cal-cell.disabled {
+  color: #d6d3d1;
+  cursor: not-allowed;
+}
+.kh-cal-cell.kh-cal-other {
+  color: #d6d3d1;
+}
+
+/* ── Time Slots ───────────────────────────────────────────────────────────── */
+.kh-time-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 16px 12px;
+  border: 1.5px solid #e7e5e4;
+  border-radius: 12px;
+  background: #fff;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  color: #57534e;
+  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+}
+.kh-time-btn .material-symbols-outlined,
+.kh-time-btn .kh-time-icon {
+  font-size: 22px;
+  line-height: 1;
+}
+.kh-time-btn:hover {
+  border-color: #8C7A6B;
+  box-shadow: 0 2px 12px rgba(140,122,107,0.12);
+}
+.kh-time-btn.selected {
+  border-color: #8C7A6B;
+  background: #FAF8F5;
+  box-shadow: 0 2px 12px rgba(140,122,107,0.16);
+  color: #8C7A6B;
+}
+
+/* ── Booking Summary Strip ────────────────────────────────────────────────── */
+.kh-summary-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #57534e;
+}
+.kh-summary-item span:first-child {
+  font-size: 15px;
+  flex-shrink: 0;
+}
+
+/* ── Wizard Buttons ───────────────────────────────────────────────────────── */
+.kh-btn-primary {
+  background: #8C7A6B;
+  color: #fff;
+  padding: 12px 24px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.kh-btn-primary:hover { opacity: 0.88; }
+.kh-btn-ghost {
+  background: transparent;
+  color: #78716c;
+  padding: 12px 0;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: color 0.2s;
+}
+.kh-btn-ghost:hover { color: #8C7A6B; }
+
+/* ── Shake animation ────────────────────────────────────────────────────────── */
+@keyframes kh-shake {
+  0%, 100% { transform: translateX(0); }
+  20%       { transform: translateX(-6px); }
+  40%       { transform: translateX(6px); }
+  60%       { transform: translateX(-4px); }
+  80%       { transform: translateX(4px); }
+}
+.kh-shake { animation: kh-shake 0.55s ease; }
+
+/* ── Wizard section layout ─────────────────────────────────────────────────── */
+#book > div {
+  max-width: 42rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+/* Package cards grid */
+#kh-packages-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+@media (min-width: 768px) {
+  #kh-packages-grid { grid-template-columns: repeat(3, 1fr); }
+}
+/* Booking summary (flex-wrap row) */
+#kh-booking-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+}
+/* Time slots grid */
+#kh-time-slots {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  max-width: 280px;
+  margin-left: auto;
+  margin-right: auto;
+}
+/* Calendar max width */
+#kh-calendar {
+  max-width: 22rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+/* Step 4 form field two-column grid */
+.kh-field-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+@media (min-width: 768px) {
+  .kh-field-row { grid-template-columns: 1fr 1fr; }
+}
+/* Wizard buttons row */
+.kh-wizard-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-top: 2rem;
+}
+/* Wizard form field base */
+.kh-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.kh-field-label {
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #a8a29e;
+}
+.kh-field-input {
+  width: 100%;
+  background: #fff;
+  border: 1px solid #e7e5e4;
+  padding: 12px 16px;
+  font-size: 14px;
+  font-family: inherit;
+  border-radius: 4px;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  box-sizing: border-box;
+}
+.kh-field-input:focus {
+  border-color: #8C7A6B;
+  box-shadow: 0 0 0 2px rgba(140,122,107,0.15);
+}
+/* Booking callout box */
+.kh-callout {
+  margin-top: 1.5rem;
+  padding: 16px;
+  border: 1px solid rgba(140,122,107,0.25);
+  background: #F5F2ED;
+  border-radius: 8px;
+}
+.kh-callout-label {
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #8C7A6B;
+  margin-bottom: 6px;
+  display: block;
+}
+.kh-callout-text {
+  font-size: 12px;
+  line-height: 1.65;
+  color: #78716c;
+  margin: 0 0 6px;
+}
+
+/* ── FAQ accordion ────────────────────────────────────────────────────────── */
+.kh-faq-item summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.kh-faq-item summary::-webkit-details-marker { display: none; }
+.kh-faq-item summary .kh-faq-icon { transition: transform 0.25s; }
+.kh-faq-item[open] summary .kh-faq-icon { transform: rotate(45deg); }
+
+@media (prefers-color-scheme: dark) {
+  .kh-pkg-card { background: #292524; border-color: #44403c; }
+  .kh-pkg-card.selected { background: #1c1917; }
+  .kh-pkg-name { color: #e7e5e4; }
+  .kh-cal-month-label { color: #e7e5e4; }
+  .kh-cal-nav-btn { background: #292524; border-color: #44403c; color: #a8a29e; }
+  .kh-cal-cell.available { color: #e7e5e4; }
+  .kh-time-btn { background: #292524; border-color: #44403c; color: #a8a29e; }
+  .kh-time-btn.selected { background: #1c1917; }
+  .kh-field-input { background: #292524; border-color: #44403c; color: #e7e5e4; }
+  .kh-callout { background: #1c1917; }
+}
+</style>
+</head>
 <body class="bg-background-light dark:bg-background-dark text-stone-800 dark:text-stone-200 transition-colors duration-300">
 
-        <nav class="sticky top-0 z-50 bg-background-light dark:bg-background-dark border-b border-stone-200 dark:border-stone-800 shadow-sm">
+<nav class="sticky top-0 z-50 bg-background-light dark:bg-background-dark border-b border-stone-200 dark:border-stone-800 shadow-sm">
   <div class="max-w-screen-xl mx-auto px-4 py-4 flex justify-between items-center">
-    
-    <!-- Logo -->
     <a href="index.html" class="flex-shrink-0">
       <img src="https://raw.githubusercontent.com/sokawai/kh3/main/logo3.png" alt="Kencha House Logo" class="h-16 md:h-28 w-auto">
     </a>
-
-    <!-- Hamburger button - mobile only -->
     <button id="mobile-menu-btn" class="md:hidden p-2 text-stone-600 hover:text-primary transition-colors" onclick="toggleMobileMenu()">
       <span class="material-symbols-outlined text-2xl">menu</span>
     </button>
-
-    <!-- Desktop Navigation -->
     <div class="hidden md:flex flex-1 items-center justify-center gap-8 lg:gap-10 px-6">
       <a class="text-sm uppercase tracking-[0.18em] text-stone-600 hover:text-primary transition-colors" href="play.html">Play</a>
       <a class="text-sm uppercase tracking-[0.18em] text-stone-600 hover:text-primary transition-colors" href="parties.html">Parties</a>
       <a class="text-sm uppercase tracking-[0.18em] text-stone-600 hover:text-primary transition-colors" href="studio.html">Studio</a>
       <a class="text-sm uppercase tracking-[0.18em] text-stone-600 hover:text-primary transition-colors" href="about.html">About</a>
     </div>
-
-    <!-- Desktop Visit Us Button -->
     <div class="hidden md:flex flex-shrink-0 items-center">
       <button class="bg-primary text-white px-7 py-3 text-sm font-medium uppercase tracking-[0.15em] hover:opacity-90 transition-opacity" onclick="window.location.href='https://kenchahouse.youcanbook.me/'">
         Visit Us
       </button>
     </div>
   </div>
-
-  <!-- Mobile Navigation Menu -->
   <div id="mobile-menu" class="hidden md:hidden bg-background-light dark:bg-background-dark border-t border-stone-200 dark:border-stone-800">
     <div class="px-4 py-4 space-y-4">
       <a class="block text-[11px] uppercase tracking-[0.15em] text-stone-600 hover:text-primary transition-colors" href="play.html">Play</a>
@@ -64,120 +498,397 @@ function toggleMobileMenu() {
 }
 </script>
 
-<section class="px-4 py-8">
-  <div class="max-w-2xl mx-auto grid grid-cols-2 gap-6">
-    <div class="rounded-lg overflow-hidden">
-      <img src="https://plus.unsplash.com/premium_photo-1677654190250-e9a946a29a5a?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8YmFieSUyMHBhcnR5fGVufDB8fDB8fHww" alt="Baby party" class="w-full h-64 object-cover" />
-    </div>
-    <div class="rounded-lg overflow-hidden">
-      <img src="https://plus.unsplash.com/premium_photo-1677655407676-6ddb0e67f2b9?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8YmFieSUyMHBhcnR5fGVufDB8fDB8fHww" alt="Baby party" class="w-full h-64 object-cover" />
+<!-- ── Hero ────────────────────────────────────────────────────────────────── -->
+<section class="relative overflow-hidden">
+  <div class="aspect-[4/3] md:aspect-[21/8] w-full relative">
+    <img src="https://plus.unsplash.com/premium_photo-1677654190250-e9a946a29a5a?w=1400&auto=format&fit=crop&q=70" alt="Joyful baby party at Kencha House" class="w-full h-full object-cover brightness-75"/>
+    <div class="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
+      <p class="text-white/80 text-[10px] uppercase tracking-[0.3em] mb-4">Private Rentals &amp; Birthday Parties</p>
+      <h1 class="text-4xl md:text-6xl text-white mb-6">Celebrate at Kencha House</h1>
+      <p class="text-white/80 text-sm md:text-base max-w-md mb-8 leading-relaxed">A cozy and memorable space for little birthdays and family gatherings.</p>
+      <a href="#book" class="bg-primary text-white px-8 py-4 text-[10px] uppercase tracking-[0.2em] hover:opacity-90 transition-opacity inline-block">Book Your Party</a>
     </div>
   </div>
 </section>
+
+<!-- ── Intro ───────────────────────────────────────────────────────────────── -->
 <section class="py-20 px-6 bg-white dark:bg-stone-900/30">
-<div class="max-w-3xl mx-auto text-center">
-<h2 class="text-4xl md:text-5xl mb-6">A Stress-Free Celebration</h2>
-<p class="text-stone-600 dark:text-stone-400 leading-relaxed text-sm md:text-base">
-            We believe parents should be part of the memories, not just the planners. Our turn-key party experiences provide an elegant backdrop, thoughtful details, and seamless coordination so you can focus on the magic of the moment.
-        </p>
-</div>
-</section>
-<section class="py-20 px-6" id="packages">
-<div class="max-w-6xl mx-auto">
-<div class="text-center mb-16">
-<h2 class="text-4xl md:text-5xl">Private Play Cafe Booking</h2>
-<p class="mt-5 text-stone-600 dark:text-stone-400 leading-relaxed text-sm md:text-base max-w-3xl mx-auto">
-Enjoy a cozy, private space designed just for babies and their grown-ups. Perfect for intimate playdates, small celebrations, or simply a relaxed morning with friends.
-</p>
-<p class="mt-3 text-stone-600 dark:text-stone-400 leading-relaxed text-sm md:text-base max-w-3xl mx-auto">
-Our space is thoughtfully designed for little ones to explore safely while parents unwind, connect, and enjoy a peaceful play environment.
-</p>
-</div>
-<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 items-start">
-<article class="lg:col-span-2 border border-primary/20 bg-white dark:bg-stone-800 shadow-sm p-7 md:p-10 rounded-lg">
-<h3 class="text-2xl md:text-3xl mb-6">What is included</h3>
-
-<ul class="space-y-3 text-stone-700 dark:text-stone-200 text-base md:text-lg mb-10 list-disc pl-5">
-<li>Exclusive use of the space for up to 10 guests total (children and adults included)</li>
-<li>Nespresso coffee and tea for parents and caregivers</li>
-<li>Space to bring your own catering (snacks, cake, or light refreshments)</li>
-<li>Full use of our A/V system for music or presentations</li>
-<li>Access to our curated baby play area and toys</li>
-</ul>
-
-</article>
-
-<aside>
-<div class="border border-primary/20 bg-white dark:bg-stone-800 shadow-sm p-7 md:p-10 rounded-lg">
-<h3 class="text-2xl md:text-3xl mb-6">Before You Arrive</h3>
-<ul class="space-y-3 text-sm text-stone-500 dark:text-stone-400 leading-relaxed">
-<li>Please arrive on time so you can enjoy your full booking window.</li>
-<li>Outside food is welcome, but we kindly ask guests to tidy up before leaving.</li>
-<li>The space is designed for infants and young toddlers.</li>
-</ul>
-</div>
-</aside>
-</div>
-</div>
-</section>
-<section class="py-24 px-6 bg-white dark:bg-stone-900/30">
-<div class="max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
-<div class="text-center">
-<span class="material-symbols-outlined text-4xl text-primary mb-4">wb_sunny</span>
-<h4 class="text-2xl mb-3">Bright, natural light</h4>
-<p class="text-stone-500 text-sm leading-relaxed">Bright, natural light — a warm, airy space designed for beautiful memories.</p>
-</div>
-<div class="text-center">
-<span class="material-symbols-outlined text-4xl text-primary mb-4">child_care</span>
-<h4 class="text-2xl mb-3">Montessori-inspired soft play</h4>
-<p class="text-stone-500 text-sm leading-relaxed">Montessori-inspired soft play — thoughtfully curated for growing bodies and curious little minds.</p>
-</div>
-<div class="text-center">
-<span class="material-symbols-outlined text-4xl text-primary mb-4">auto_awesome</span>
-<h4 class="text-2xl mb-3">An intimate, baby-first setup</h4>
-<p class="text-stone-500 text-sm leading-relaxed">An intimate, baby-first setup — calm, safe, and perfectly sized for your littlest guests.</p>
-</div>
-</div>
+  <div class="max-w-3xl mx-auto text-center">
+    <h2 class="text-4xl md:text-5xl mb-6">A Stress-Free Celebration</h2>
+    <p class="text-stone-600 dark:text-stone-400 leading-relaxed text-sm md:text-base">
+      We believe parents should be part of the memories, not just the planners. Our turn-key party experiences provide an elegant backdrop, thoughtful details, and seamless coordination — so you can focus on the magic of the moment.
+    </p>
+  </div>
 </section>
 
-<section class="py-24 px-6">
-<div class="max-w-2xl mx-auto">
-<div class="text-center mb-12">
-<h2 class="text-4xl md:text-5xl mb-4">Book Your Date</h2>
-<p class="text-stone-500 text-sm">Please fill out the form below and our events coordinator will reach out within 48 hours.</p>
-</div>
-<form class="space-y-6" data-brevo-form="partyInquiry">
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-<div class="space-y-2">
-<label class="text-[10px] uppercase tracking-widest text-stone-400">First Name</label>
-<input class="w-full bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 px-4 py-3 text-sm focus:ring-1 focus:ring-primary focus:border-primary" name="firstName" placeholder="Jane" required type="text"/>
-</div>
-<div class="space-y-2">
-<label class="text-[10px] uppercase tracking-widest text-stone-400">Last Name</label>
-<input class="w-full bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 px-4 py-3 text-sm focus:ring-1 focus:ring-primary focus:border-primary" name="lastName" placeholder="Doe" required type="text"/>
-</div>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-<div class="space-y-2">
-<label class="text-[10px] uppercase tracking-widest text-stone-400">Email Address</label>
-<input class="w-full bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 px-4 py-3 text-sm focus:ring-1 focus:ring-primary focus:border-primary" name="email" placeholder="jane@example.com" required type="email"/>
-</div>
-<div class="space-y-2">
-<label class="text-[10px] uppercase tracking-widest text-stone-400">Phone</label>
-<input class="w-full bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 px-4 py-3 text-sm focus:ring-1 focus:ring-primary focus:border-primary" name="phone" placeholder="(xxx) xxx-xxxx" required type="tel"/>
-</div>
-</div>
-<div class="space-y-2">
-<label class="text-[10px] uppercase tracking-widest text-stone-400">Your Inquiry</label>
-<textarea class="w-full bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 px-4 py-3 text-sm focus:ring-1 focus:ring-primary focus:border-primary" name="message" placeholder="Tell us about your event — theme, child's age, guest count, special requests..." required rows="4"></textarea>
-</div>
-<button class="w-full bg-[var(--color-primary)] text-white py-4 rounded uppercase text-xs tracking-[0.2em] hover:opacity-90 transition-opacity" data-submitting-label="Submitting..." type="submit">Submit Inquiry</button>
-<p class="text-xs text-stone-500 dark:text-stone-400" data-brevo-status aria-live="polite"></p>
-</form>
-</div>
+<!-- ── Features ───────────────────────────────────────────────────────────── -->
+<section class="py-16 px-6 bg-background-light dark:bg-background-dark">
+  <div class="max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
+    <div class="text-center">
+      <span class="material-symbols-outlined text-4xl text-primary mb-4">wb_sunny</span>
+      <h4 class="text-2xl mb-3">Bright, natural light</h4>
+      <p class="text-stone-500 text-sm leading-relaxed">A warm, airy space designed for beautiful memories and photos.</p>
+    </div>
+    <div class="text-center">
+      <span class="material-symbols-outlined text-4xl text-primary mb-4">child_care</span>
+      <h4 class="text-2xl mb-3">Montessori-inspired play</h4>
+      <p class="text-stone-500 text-sm leading-relaxed">Thoughtfully curated for growing bodies and curious little minds.</p>
+    </div>
+    <div class="text-center">
+      <span class="material-symbols-outlined text-4xl text-primary mb-4">auto_awesome</span>
+      <h4 class="text-2xl mb-3">Intimate, baby-first setup</h4>
+      <p class="text-stone-500 text-sm leading-relaxed">Calm, safe, and perfectly sized for your littlest guests.</p>
+    </div>
+  </div>
 </section>
+
+<!-- ── What's Included ─────────────────────────────────────────────────────── -->
+<section class="py-20 px-6 bg-white dark:bg-stone-900/30" id="packages">
+  <div class="max-w-5xl mx-auto">
+    <div class="text-center mb-12">
+      <h2 class="text-4xl md:text-5xl mb-4">Private Play Cafe Booking</h2>
+      <p class="text-stone-500 text-sm leading-relaxed max-w-2xl mx-auto">
+        Enjoy exclusive use of our cozy baby play space — perfect for intimate playdates, first birthdays, and small family celebrations.
+      </p>
+    </div>
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+      <article class="lg:col-span-2 border border-primary/20 bg-background-light dark:bg-stone-800 p-7 md:p-10 rounded-lg">
+        <h3 class="text-2xl md:text-3xl mb-6">What is included</h3>
+        <ul class="space-y-3 text-stone-700 dark:text-stone-200 text-sm md:text-base list-disc pl-5">
+          <li>Exclusive use of the space for up to 10 guests (children and adults included)</li>
+          <li>Nespresso coffee and tea for parents and caregivers</li>
+          <li>Space to bring your own catering — snacks, cake, or light refreshments</li>
+          <li>Full use of our A/V system for music or presentations</li>
+          <li>Access to our curated baby play area and toys</li>
+        </ul>
+      </article>
+      <aside class="border border-primary/20 bg-background-light dark:bg-stone-800 p-7 md:p-10 rounded-lg">
+        <h3 class="text-2xl md:text-3xl mb-6">Before You Arrive</h3>
+        <ul class="space-y-3 text-sm text-stone-500 dark:text-stone-400 leading-relaxed list-disc pl-5">
+          <li>Please arrive on time to enjoy your full booking window.</li>
+          <li>Outside food is welcome; we kindly ask guests to tidy up before leaving.</li>
+          <li>The space is designed for infants and young toddlers.</li>
+        </ul>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ── Photo Gallery ───────────────────────────────────────────────────────── -->
+<section class="px-4 py-8 bg-background-light dark:bg-background-dark">
+  <div class="max-w-3xl mx-auto grid grid-cols-2 gap-4">
+    <div class="rounded-lg overflow-hidden">
+      <img src="https://plus.unsplash.com/premium_photo-1677654190250-e9a946a29a5a?w=900&auto=format&fit=crop&q=60" alt="Baby party celebration" class="w-full h-52 md:h-64 object-cover"/>
+    </div>
+    <div class="rounded-lg overflow-hidden">
+      <img src="https://plus.unsplash.com/premium_photo-1677655407676-6ddb0e67f2b9?w=900&auto=format&fit=crop&q=60" alt="Baby party decor" class="w-full h-52 md:h-64 object-cover"/>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     BOOKING WIZARD
+     ══════════════════════════════════════════════════════════════════════════ -->
+<section class="py-20 px-6 bg-white dark:bg-stone-900/30" id="book">
+  <div class="max-w-2xl mx-auto">
+
+    <!-- Section header -->
+    <div class="text-center mb-10">
+      <p class="text-[10px] uppercase tracking-[0.25em] text-primary mb-3">Let's Celebrate</p>
+      <h2 class="text-4xl md:text-5xl mb-4">Book Your Party</h2>
+      <p class="text-stone-500 text-sm leading-relaxed max-w-md mx-auto">
+        We're so excited to host your little one's celebration at Kencha House. Complete the steps below to request your date — we'll confirm within 48 hours.
+      </p>
+    </div>
+
+    <!-- Step indicator -->
+    <div id="kh-step-indicator" aria-label="Booking steps">
+      <div id="kh-indicator-1" class="kh-step-dot active" aria-current="step">
+        <span class="kh-dot-num">1</span>
+        <span class="kh-dot-label">Package</span>
+      </div>
+      <div class="kh-connector" aria-hidden="true"></div>
+      <div id="kh-indicator-2" class="kh-step-dot">
+        <span class="kh-dot-num">2</span>
+        <span class="kh-dot-label">Date</span>
+      </div>
+      <div class="kh-connector" aria-hidden="true"></div>
+      <div id="kh-indicator-3" class="kh-step-dot">
+        <span class="kh-dot-num">3</span>
+        <span class="kh-dot-label">Time</span>
+      </div>
+      <div class="kh-connector" aria-hidden="true"></div>
+      <div id="kh-indicator-4" class="kh-step-dot">
+        <span class="kh-dot-num">4</span>
+        <span class="kh-dot-label">Details</span>
+      </div>
+    </div>
+
+    <!-- Wizard wrapper -->
+    <div id="kh-booking-wizard">
+
+      <!-- The Brevo inquiry form wraps all 4 wizard steps so that existing
+           Brevo validation and submission logic works without modification. -->
+      <form id="kh-party-form" data-brevo-form="partyInquiry" novalidate>
+
+        <!-- ── Step 1: Select Package ──────────────────────────────────── -->
+        <div id="kh-step-1">
+          <h3 class="text-2xl text-center mb-2">Select a Package</h3>
+          <p class="text-stone-500 text-sm text-center mb-6">Choose the experience that best fits your celebration.</p>
+
+          <!-- Package cards rendered by party-scheduler.js -->
+          <div id="kh-packages-grid" class="grid grid-cols-1 md:grid-cols-3 gap-4"></div>
+
+          <p class="kh-step-hint text-center text-xs text-primary mt-4" hidden>
+            Please select a package to continue.
+          </p>
+
+          <div class="kh-wizard-nav" style="justify-content:flex-end">
+            <button type="button" class="kh-btn-primary" onclick="khWizard.goToStep(2)">
+              Continue &#8594;
+            </button>
+          </div>
+        </div>
+
+        <!-- ── Step 2: Select Date ─────────────────────────────────────── -->
+        <div id="kh-step-2" hidden>
+          <h3 class="text-2xl text-center mb-2">Choose a Date</h3>
+          <p class="text-stone-500 text-sm text-center mb-6">Select an available date — greyed-out days are unavailable.</p>
+
+          <!-- Calendar rendered by party-scheduler.js -->
+          <div id="kh-calendar"></div>
+
+          <p class="kh-step-hint text-center text-xs text-primary mt-4" hidden>
+            Please select a date to continue.
+          </p>
+
+          <div class="kh-wizard-nav">
+            <button type="button" class="kh-btn-ghost" onclick="khWizard.goToStep(1)">
+              &#8592; Back
+            </button>
+            <button type="button" class="kh-btn-primary" onclick="khWizard.goToStep(3)">
+              Continue &#8594;
+            </button>
+          </div>
+        </div>
+
+        <!-- ── Step 3: Select Time ─────────────────────────────────────── -->
+        <div id="kh-step-3" hidden>
+          <h3 class="text-2xl text-center mb-2">Choose a Time</h3>
+          <p class="text-stone-500 text-sm text-center mb-6">Select a start time for your event.</p>
+
+          <!-- Time slot buttons rendered by party-scheduler.js -->
+          <div id="kh-time-slots"></div>
+
+          <p class="kh-step-hint text-center text-xs text-primary mt-4" hidden>
+            Please select a time to continue.
+          </p>
+
+          <div class="kh-wizard-nav">
+            <button type="button" class="kh-btn-ghost" onclick="khWizard.goToStep(2)">
+              &#8592; Back
+            </button>
+            <button type="button" class="kh-btn-primary" onclick="khWizard.goToStep(4)">
+              Continue &#8594;
+            </button>
+          </div>
+        </div>
+
+        <!-- ── Step 4: Guest Details ───────────────────────────────────── -->
+        <div id="kh-step-4" hidden>
+
+          <!-- Booking summary banner -->
+          <div class="kh-callout" style="margin-bottom:1.5rem">
+            <span class="kh-callout-label">Your Selection</span>
+            <div id="kh-booking-summary"></div>
+          </div>
+
+          <h3 class="text-2xl" style="margin-bottom:1.25rem">Your Details</h3>
+
+          <div style="display:flex;flex-direction:column;gap:20px;">
+
+            <div class="kh-field-row">
+              <div class="kh-field">
+                <label class="kh-field-label" for="party-firstName">First Name *</label>
+                <input id="party-firstName" class="kh-field-input" name="firstName" placeholder="Jane" required type="text" autocomplete="given-name"/>
+              </div>
+              <div class="kh-field">
+                <label class="kh-field-label" for="party-lastName">Last Name *</label>
+                <input id="party-lastName" class="kh-field-input" name="lastName" placeholder="Doe" required type="text" autocomplete="family-name"/>
+              </div>
+            </div>
+
+            <div class="kh-field-row">
+              <div class="kh-field">
+                <label class="kh-field-label" for="party-email">Email Address *</label>
+                <input id="party-email" class="kh-field-input" name="email" placeholder="jane@example.com" required type="email" autocomplete="email"/>
+              </div>
+              <div class="kh-field">
+                <label class="kh-field-label" for="party-phone">Phone *</label>
+                <input id="party-phone" class="kh-field-input" name="phone" placeholder="(416) 555-0123" required type="tel" autocomplete="tel"/>
+              </div>
+            </div>
+
+            <div class="kh-field">
+              <label class="kh-field-label" for="party-message">Notes &amp; Special Requests</label>
+              <textarea id="party-message" class="kh-field-input" name="message" rows="6" placeholder="Child's name, age, theme, number of adults, number of kids, dietary needs, or any special requests..." style="resize:vertical"></textarea>
+            </div>
+
+          </div>
+
+          <!-- Booking callout -->
+          <div class="kh-callout">
+            <span class="kh-callout-label">About Your Booking</span>
+            <p id="kh-booking-includes" class="kh-callout-text"></p>
+            <p id="kh-payment-instructions" class="kh-callout-text" style="margin:0"></p>
+          </div>
+
+          <div class="kh-wizard-nav">
+            <button type="button" class="kh-btn-ghost" onclick="khWizard.goToStep(3)">
+              &#8592; Back
+            </button>
+            <button class="kh-btn-primary" data-submitting-label="Sending…" type="submit">
+              Send Booking Request
+            </button>
+          </div>
+
+          <p style="font-size:12px;color:#78716c;margin-top:16px;text-align:center;" data-brevo-status aria-live="polite"></p>
+
+        </div>
+        <!-- /step-4 -->
+
+      </form><!-- /kh-party-form -->
+
+      <!-- ── Thank You State (shown after successful submission) ───────── -->
+      <div id="kh-thank-you" hidden>
+        <div class="text-center py-8">
+          <span class="material-symbols-outlined text-5xl text-primary mb-3 block">check_circle</span>
+          <h3 class="text-3xl mb-3">Thank You!</h3>
+          <p class="text-stone-500 text-sm leading-relaxed max-w-sm mx-auto mb-6">
+            Your booking request has been received. We'll be in touch within 48 hours to confirm your date.
+          </p>
+
+          <div id="kh-thankyou-summary" class="inline-flex flex-col items-start gap-3 bg-[#F5F2ED] dark:bg-stone-800 p-5 rounded-lg mb-6 text-sm"></div>
+
+          <div class="p-4 border border-primary/20 bg-white dark:bg-stone-800 rounded-lg text-left max-w-sm mx-auto">
+            <p class="text-[10px] uppercase tracking-widest text-primary mb-2">Next Steps</p>
+            <p id="kh-thankyou-payment" class="text-xs text-stone-500 leading-relaxed mb-3"></p>
+            <p class="text-xs text-stone-500">Questions? Email us at <a href="mailto:kenchahouse@gmail.com" class="text-primary hover:underline">kenchahouse@gmail.com</a></p>
+          </div>
+        </div>
+      </div><!-- /kh-thank-you -->
+
+    </div><!-- /kh-booking-wizard -->
+
+  </div>
+</section>
+
+<!-- ── Testimonials ────────────────────────────────────────────────────────── -->
+<section class="py-20 px-6 bg-background-light dark:bg-background-dark">
+  <div class="max-w-4xl mx-auto">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl mb-3">What Parents Are Saying</h2>
+      <p class="text-stone-500 text-sm">Real families who celebrated with us.</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="bg-white dark:bg-stone-800 p-6 rounded-lg border border-primary/10">
+        <p class="text-stone-600 dark:text-stone-300 text-sm leading-relaxed italic mb-4">"The most magical first birthday we could have asked for. Everything was perfectly set up and the space was immaculate."</p>
+        <p class="text-[10px] uppercase tracking-widest text-primary">— Priya M., 1st birthday mom</p>
+      </div>
+      <div class="bg-white dark:bg-stone-800 p-6 rounded-lg border border-primary/10">
+        <p class="text-stone-600 dark:text-stone-300 text-sm leading-relaxed italic mb-4">"So easy to book and so beautiful on the day. Our little one was in heaven and the parents loved the coffee!"</p>
+        <p class="text-[10px] uppercase tracking-widest text-primary">— Sophie &amp; Tom K., baby shower hosts</p>
+      </div>
+      <div class="bg-white dark:bg-stone-800 p-6 rounded-lg border border-primary/10">
+        <p class="text-stone-600 dark:text-stone-300 text-sm leading-relaxed italic mb-4">"Kencha House felt like a true celebration — calm, beautiful, and exactly right for tiny guests. Highly recommend."</p>
+        <p class="text-[10px] uppercase tracking-widest text-primary">— Melanie R., toddler party host</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Party FAQs ──────────────────────────────────────────────────────────── -->
+<section class="py-20 px-6 bg-white dark:bg-stone-900/30" id="faq">
+  <div class="max-w-2xl mx-auto">
+    <div class="text-center mb-10">
+      <h2 class="text-3xl md:text-4xl mb-3">Party FAQs</h2>
+      <p class="text-stone-500 text-sm">Everything you need to know before you book.</p>
+    </div>
+    <div class="space-y-4">
+
+      <details class="kh-faq-item border border-stone-200 dark:border-stone-700 rounded-lg">
+        <summary class="px-5 py-4 text-sm font-medium text-stone-700 dark:text-stone-200">
+          Can I bring my own food?
+          <span class="material-symbols-outlined kh-faq-icon text-primary ml-2">add</span>
+        </summary>
+        <p class="px-5 pb-4 text-sm text-stone-500 dark:text-stone-400 leading-relaxed">Yes — outside food is very welcome. You're free to bring your own catering, a birthday cake, snacks, or light refreshments. We kindly ask guests to tidy up before leaving.</p>
+      </details>
+
+      <details class="kh-faq-item border border-stone-200 dark:border-stone-700 rounded-lg">
+        <summary class="px-5 py-4 text-sm font-medium text-stone-700 dark:text-stone-200">
+          Is stroller parking available?
+          <span class="material-symbols-outlined kh-faq-icon text-primary ml-2">add</span>
+        </summary>
+        <p class="px-5 pb-4 text-sm text-stone-500 dark:text-stone-400 leading-relaxed">Yes, designated stroller parking is available within the building. The space is also elevator-accessible for families who need it.</p>
+      </details>
+
+      <details class="kh-faq-item border border-stone-200 dark:border-stone-700 rounded-lg">
+        <summary class="px-5 py-4 text-sm font-medium text-stone-700 dark:text-stone-200">
+          How many guests can we invite?
+          <span class="material-symbols-outlined kh-faq-icon text-primary ml-2">add</span>
+        </summary>
+        <p class="px-5 pb-4 text-sm text-stone-500 dark:text-stone-400 leading-relaxed">Our base private rental accommodates up to 10 guests total (adults and children combined). Our Birthday Celebration package fits up to 15 guests. For larger groups, reach out and we'll explore a custom arrangement.</p>
+      </details>
+
+      <details class="kh-faq-item border border-stone-200 dark:border-stone-700 rounded-lg">
+        <summary class="px-5 py-4 text-sm font-medium text-stone-700 dark:text-stone-200">
+          Can I reschedule or cancel?
+          <span class="material-symbols-outlined kh-faq-icon text-primary ml-2">add</span>
+        </summary>
+        <p class="px-5 pb-4 text-sm text-stone-500 dark:text-stone-400 leading-relaxed">We understand that plans change with little ones! Please contact us at <a href="mailto:kenchahouse@gmail.com" class="text-primary hover:underline">kenchahouse@gmail.com</a> and we'll do our best to accommodate a reschedule. Full cancellation and rescheduling terms will be shared at booking confirmation.</p>
+      </details>
+
+      <details class="kh-faq-item border border-stone-200 dark:border-stone-700 rounded-lg">
+        <summary class="px-5 py-4 text-sm font-medium text-stone-700 dark:text-stone-200">
+          What ages are parties best suited for?
+          <span class="material-symbols-outlined kh-faq-icon text-primary ml-2">add</span>
+        </summary>
+        <p class="px-5 pb-4 text-sm text-stone-500 dark:text-stone-400 leading-relaxed">Our space is designed for babies and toddlers ages 0–4. Parties are ideal for 1st–4th birthdays, baby showers, and small toddler gatherings.</p>
+      </details>
+
+      <details class="kh-faq-item border border-stone-200 dark:border-stone-700 rounded-lg">
+        <summary class="px-5 py-4 text-sm font-medium text-stone-700 dark:text-stone-200">
+          Do you provide decorations?
+          <span class="material-symbols-outlined kh-faq-icon text-primary ml-2">add</span>
+        </summary>
+        <p class="px-5 pb-4 text-sm text-stone-500 dark:text-stone-400 leading-relaxed">We offer optional styling add-ons for Birthday Celebration packages. The base rental gives you access to our beautifully designed space, which serves as a wonderful backdrop on its own.</p>
+      </details>
+
+      <details class="kh-faq-item border border-stone-200 dark:border-stone-700 rounded-lg">
+        <summary class="px-5 py-4 text-sm font-medium text-stone-700 dark:text-stone-200">
+          How does payment work?
+          <span class="material-symbols-outlined kh-faq-icon text-primary ml-2">add</span>
+        </summary>
+        <p class="px-5 pb-4 text-sm text-stone-500 dark:text-stone-400 leading-relaxed">Once your booking request is confirmed, we'll ask you to send an Interac e-Transfer to <a href="mailto:kenchahouse@gmail.com" class="text-primary hover:underline">kenchahouse@gmail.com</a> within 24 hours to secure your date. Your booking is confirmed once payment is received.</p>
+      </details>
+
+    </div>
+
+    <p class="text-center text-sm text-stone-500 mt-8">
+      More questions? <a href="faq.html" class="text-primary hover:underline">See our full FAQ</a> or <a href="mailto:kenchahouse@gmail.com" class="text-primary hover:underline">email us</a>.
+    </p>
+  </div>
+</section>
+
+<!-- ── Final CTA ───────────────────────────────────────────────────────────── -->
+<section class="py-16 px-6 bg-background-light dark:bg-background-dark text-center">
+  <p class="text-stone-500 text-sm mb-4">Ready to celebrate?</p>
+  <a href="#book" class="bg-primary text-white px-8 py-4 text-[10px] uppercase tracking-[0.2em] hover:opacity-90 transition-opacity inline-block">Book Your Party</a>
+</section>
+
 <script src="https://www.google.com/recaptcha/api.js?hl=en&onload=onBrevoRecaptchaReady&render=explicit" async defer></script>
 <script src="brevo-config.js"></script>
 <script src="brevo.js"></script>
+<script src="party-scheduler.js"></script>
 
 </body></html>
