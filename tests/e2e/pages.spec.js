@@ -161,6 +161,30 @@ test.describe("Play page", () => {
 // ---------------------------------------------------------------------------
 // Parties page (parties.html)
 // ---------------------------------------------------------------------------
+// Parties page (parties.html) — multi-step booking wizard
+// ---------------------------------------------------------------------------
+
+/**
+ * Helper: navigate through the wizard to step 4 (Guest Details).
+ * Clicks a package card, waits for the calendar, clicks an available
+ * date, waits for time slots, clicks a time slot, and waits for step 4.
+ *
+ * Assumes: at least one package card, one available calendar date, and
+ * one time slot are present (i.e. KH_PARTY_CONFIG has not blocked all dates).
+ */
+async function navigateToStep4(page) {
+  // Step 1 → pick first package card
+  await page.locator(".kh-pkg-card").first().click();
+  // Step 2 → pick first available calendar date
+  await page.waitForSelector("#kh-step-2:not([hidden])");
+  await page.locator(".kh-cal-cell.available").first().click();
+  // Step 3 → pick first time slot
+  await page.waitForSelector("#kh-step-3:not([hidden])");
+  await page.locator(".kh-time-btn").first().click();
+  // Step 4 → guest details
+  await page.waitForSelector("#kh-step-4:not([hidden])");
+}
+
 test.describe("Parties page", () => {
   test.beforeEach(async ({ page }) => {
     await page.addInitScript(tailwindStub);
@@ -176,47 +200,108 @@ test.describe("Parties page", () => {
     await expect(heading).toBeVisible();
   });
 
-  test("party inquiry form is present", async ({ page }) => {
-    const form = page.locator("form[data-brevo-form='partyInquiry']");
-    await expect(form).toBeVisible();
+  // ── Wizard structure ──────────────────────────────────────────────────────
+
+  test("booking wizard container is present on the page", async ({ page }) => {
+    const wizard = page.locator("#kh-booking-wizard");
+    await expect(wizard).toBeAttached();
   });
 
-  test("inquiry form has an email input", async ({ page }) => {
-    const input = page.locator(
-      "form[data-brevo-form='partyInquiry'] input[type='email']"
-    );
+  test("step 1 package cards are rendered on load", async ({ page }) => {
+    // At least one package card should be visible in step 1
+    const card = page.locator(".kh-pkg-card").first();
+    await expect(card).toBeVisible();
+  });
+
+  test("step indicator is visible", async ({ page }) => {
+    const indicator = page.locator("#kh-step-indicator");
+    await expect(indicator).toBeVisible();
+  });
+
+  test("party inquiry form is present in the wizard", async ({ page }) => {
+    const form = page.locator("#kh-party-form");
+    await expect(form).toBeAttached();
+  });
+
+  // ── Wizard navigation ──────────────────────────────────────────────────────
+
+  test("selecting a package advances to step 2 (date selection)", async ({
+    page,
+  }) => {
+    await page.locator(".kh-pkg-card").first().click();
+    await expect(page.locator("#kh-step-2")).not.toHaveAttribute("hidden");
+    await expect(page.locator("#kh-calendar")).toBeVisible();
+  });
+
+  test("calendar renders day-name headers", async ({ page }) => {
+    await page.locator(".kh-pkg-card").first().click();
+    await page.waitForSelector("#kh-step-2:not([hidden])");
+    const sunLabel = page.locator(".kh-cal-label").first();
+    await expect(sunLabel).toBeVisible();
+  });
+
+  test("selecting a date advances to step 3 (time selection)", async ({
+    page,
+  }) => {
+    await page.locator(".kh-pkg-card").first().click();
+    await page.waitForSelector("#kh-step-2:not([hidden])");
+    await page.locator(".kh-cal-cell.available").first().click();
+    await expect(page.locator("#kh-step-3")).not.toHaveAttribute("hidden");
+    await expect(page.locator(".kh-time-btn").first()).toBeVisible();
+  });
+
+  test("selecting a time slot advances to step 4 (guest details)", async ({
+    page,
+  }) => {
+    await navigateToStep4(page);
+    await expect(page.locator("#kh-step-4")).not.toHaveAttribute("hidden");
+  });
+
+  // ── Step 4: form fields ────────────────────────────────────────────────────
+
+  test("step 4 shows an email input", async ({ page }) => {
+    await navigateToStep4(page);
+    const input = page.locator("#kh-party-form input[type='email']");
     await expect(input).toBeVisible();
   });
 
-  test("inquiry form has a phone input", async ({ page }) => {
-    const input = page.locator(
-      "form[data-brevo-form='partyInquiry'] input[name='phone']"
-    );
+  test("step 4 shows a phone input", async ({ page }) => {
+    await navigateToStep4(page);
+    const input = page.locator("#kh-party-form input[name='phone']");
     await expect(input).toBeVisible();
   });
 
-  test("inquiry form has a message textarea", async ({ page }) => {
-    const textarea = page.locator(
-      "form[data-brevo-form='partyInquiry'] textarea[name='message']"
-    );
+  test("step 4 shows a message textarea", async ({ page }) => {
+    await navigateToStep4(page);
+    const textarea = page.locator("#kh-party-form textarea[name='message']");
     await expect(textarea).toBeVisible();
   });
 
-  test("inquiry form has a submit button", async ({ page }) => {
-    const btn = page.locator(
-      "form[data-brevo-form='partyInquiry'] button[type='submit']"
-    );
+  test("step 4 shows the submit button", async ({ page }) => {
+    await navigateToStep4(page);
+    const btn = page.locator("#kh-party-form button[type='submit']");
     await expect(btn).toBeVisible();
   });
 
-  test("submitting the form with an invalid email shows a validation error", async ({
+  test("message textarea is pre-filled with booking summary after wizard", async ({
     page,
   }) => {
-    const form = page.locator("form[data-brevo-form='partyInquiry']");
+    await navigateToStep4(page);
+    const textarea = page.locator("#kh-party-form textarea[name='message']");
+    const value = await textarea.inputValue();
+    // Pre-fill injects "[Booking Request]" header
+    expect(value).toContain("[Booking Request]");
+  });
+
+  test("submitting step 4 with an invalid email shows a validation error", async ({
+    page,
+  }) => {
+    await navigateToStep4(page);
+    const form = page.locator("#kh-party-form");
     await form.locator("input[type='email']").fill("not-an-email");
     await form.locator("button[type='submit']").click();
-    // Brevo's client-side validation sets a status message via [data-brevo-status]
-    const status = form.locator("[data-brevo-status]");
+    // Client-side validation writes an error to #kh-form-status
+    const status = page.locator("#kh-form-status");
     await expect(status).not.toBeEmpty();
   });
 });
